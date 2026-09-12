@@ -163,20 +163,20 @@ export function Hero() {
               onSubmit={handleSearchSubmit}
               className="relative flex items-center rounded-2xl border border-white/25 bg-black/75 p-1.5 shadow-2xl backdrop-blur-md transition-all focus-within:border-brand-red focus-within:ring-2 focus-within:ring-brand-red/40"
             >
-              <Search className="ml-3 size-5 text-slate-300 shrink-0" />
+              <Search className="ml-2.5 sm:ml-3 size-4 sm:size-5 text-slate-300 shrink-0" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Enter Part Name, Number, or 17-digit VIN..."
-                className="w-full bg-transparent px-3 py-2 text-sm text-white placeholder-slate-300 focus:outline-none font-medium"
+                placeholder="Part Name, Number, or VIN..."
+                className="w-full bg-transparent px-2 sm:px-3 py-2 text-xs sm:text-sm text-white placeholder-slate-400 focus:outline-none font-medium"
               />
               <button
                 type="submit"
-                className="inline-flex items-center gap-1.5 rounded-xl bg-brand-red px-4 py-2.5 text-xs sm:text-sm font-bold text-white shadow-lg transition-transform hover:bg-brand-red-dark hover:scale-[1.02] shrink-0 cursor-pointer"
+                className="inline-flex items-center gap-1 sm:gap-1.5 rounded-xl bg-brand-red px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm font-bold text-white shadow-lg transition-transform hover:bg-brand-red-dark hover:scale-[1.02] shrink-0 cursor-pointer"
               >
                 <span>Check Availability</span>
-                <ArrowRight className="size-4" />
+                <ArrowRight className="size-3.5 sm:size-4" />
               </button>
             </form>
             <p className="mt-2 text-[11px] text-white/90 font-mono drop-shadow-[0_1px_4px_rgba(0,0,0,0.95)]">
@@ -185,10 +185,10 @@ export function Hero() {
           </div>
 
           {/* Secondary CTAs & Social Proof */}
-          <div ref={ctaRef} className="mt-6 flex flex-wrap items-center gap-4">
+          <div ref={ctaRef} className="mt-6 flex flex-wrap items-center gap-3 sm:gap-4">
             <Link
               href="/products"
-              className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-black/60 px-5 py-2.5 text-xs sm:text-sm font-bold text-white shadow-lg backdrop-blur-md transition-all hover:bg-white/20 hover:border-white/50"
+              className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-black/60 px-4 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-bold text-white shadow-lg backdrop-blur-md transition-all hover:bg-white/20 hover:border-white/50"
             >
               <span>Explore Full Catalog</span>
               <ArrowUpRight className="size-4 text-brand-red" />
@@ -198,7 +198,7 @@ export function Hero() {
               href="https://wa.me/97165335866?text=Hi%20Shanghai%20Global,%20I%20need%20a%20part%20quote%20for%20my%20vehicle."
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-4 py-2.5 text-xs sm:text-sm font-bold text-white shadow-lg transition-transform hover:bg-emerald-500 hover:scale-[1.02]"
+              className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-3.5 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm font-bold text-white shadow-lg transition-transform hover:bg-emerald-500 hover:scale-[1.02]"
             >
               <MessageCircle className="size-4 fill-white text-emerald-600" />
               <span>WhatsApp Fast Quote</span>
@@ -224,23 +224,23 @@ export function Hero() {
           {/* Trust Badges Strip with Clean Frosted Backing */}
           <div
             ref={badgesRef}
-            className="mt-10 rounded-2xl border border-white/20 bg-black/55 p-4 backdrop-blur-md shadow-2xl"
+            className="mt-8 sm:mt-10 rounded-2xl border border-white/20 bg-black/55 p-3 sm:p-4 backdrop-blur-md shadow-2xl"
           >
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs text-white font-medium">
-              <div className="flex items-center gap-2">
-                <ShieldCheck className="size-4 text-brand-red shrink-0" />
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4 text-[11px] sm:text-xs text-white font-medium">
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                <ShieldCheck className="size-3.5 sm:size-4 text-brand-red shrink-0" />
                 <span>100% VIN Fitment Guarantee</span>
               </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="size-4 text-emerald-400 shrink-0" />
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                <CheckCircle2 className="size-3.5 sm:size-4 text-emerald-400 shrink-0" />
                 <span>Genuine &bull; OEM &bull; Aftermarket</span>
               </div>
-              <div className="flex items-center gap-2">
-                <Truck className="size-4 text-brand-red shrink-0" />
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                <Truck className="size-3.5 sm:size-4 text-brand-red shrink-0" />
                 <span>Express UAE &bull; Qatar Dispatch</span>
               </div>
-              <div className="flex items-center gap-2">
-                <Sparkles className="size-4 text-brand-red shrink-0" />
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                <Sparkles className="size-3.5 sm:size-4 text-brand-red shrink-0" />
                 <span>5,000+ Parts Catalogued</span>
               </div>
             </div>
