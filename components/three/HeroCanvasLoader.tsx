@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
+import type { MutableRefObject } from "react";
 import { CanvasFallback } from "./CanvasFallback";
 
 const HeroCanvas = dynamic(() => import("./HeroCanvas"), {
@@ -21,7 +22,11 @@ function supportsWebGL() {
   }
 }
 
-export function HeroCanvasLoader() {
+export function HeroCanvasLoader({
+  explodeProgress,
+}: {
+  explodeProgress: MutableRefObject<number>;
+}) {
   // Must start false on both server and first client render — reading window
   // synchronously here would diverge from the server's markup and break hydration.
   const [ready, setReady] = useState(false);
@@ -49,7 +54,11 @@ export function HeroCanvasLoader() {
 
   return (
     <div ref={wrapRef} className="h-full w-full">
-      {ready ? <HeroCanvas active={active} /> : <CanvasFallback />}
+      {ready ? (
+        <HeroCanvas active={active} explodeProgress={explodeProgress} />
+      ) : (
+        <CanvasFallback />
+      )}
     </div>
   );
 }

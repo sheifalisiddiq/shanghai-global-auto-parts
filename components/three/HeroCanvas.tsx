@@ -2,25 +2,28 @@
 
 import { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
-import { PartModel } from "./PartModel";
+import type { MutableRefObject } from "react";
+import { EngineAssemblyModel } from "./EngineAssemblyModel";
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 
-export default function HeroCanvas({ active = true }: { active?: boolean }) {
+export default function HeroCanvas({
+  active = true,
+  explodeProgress,
+}: {
+  active?: boolean;
+  explodeProgress: MutableRefObject<number>;
+}) {
   const reducedMotion = useReducedMotion();
 
   return (
     <Canvas
       dpr={[1, 1.75]}
-      camera={{ position: [0, 0, 4.6], fov: 42 }}
+      camera={{ position: [0, 0.2, 5.8], fov: 45 }}
       gl={{ antialias: true, alpha: true }}
       frameloop={active ? "always" : "never"}
     >
-      <ambientLight intensity={0.7} />
-      <directionalLight position={[3, 4, 5]} intensity={1.4} color="#ffffff" />
-      <directionalLight position={[-4, -2, 3]} intensity={0.5} color="#ffffff" />
-      <pointLight position={[-3, -2, -2]} intensity={0.8} color="#EF0606" />
       <Suspense fallback={null}>
-        <PartModel reducedMotion={reducedMotion} />
+        <EngineAssemblyModel reducedMotion={reducedMotion} explodeProgress={explodeProgress} />
       </Suspense>
     </Canvas>
   );

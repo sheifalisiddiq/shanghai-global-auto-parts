@@ -2,12 +2,12 @@
 
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
-import { gsap, registerGSAP } from "@/lib/gsap/registerGSAP";
+import { gsap, registerGSAP, ScrollTrigger } from "@/lib/gsap/registerGSAP";
 import { preloaderState } from "@/lib/preloader/state";
 import { PRELOADER_DONE_EVENT } from "@/components/preloader/Preloader";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { HeroCanvasLoader } from "@/components/three/HeroCanvasLoader";
+import { ExplodedEngineViewer } from "@/components/hero/ExplodedEngineViewer";
 import { heroHeadline } from "@/lib/data/company";
 
 const headlineLines = ["YOUR SOURCE FOR", "CHINESE AUTOMOTIVE PARTS"];
@@ -18,10 +18,21 @@ export function Hero() {
   const subRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const canvasWrapRef = useRef<HTMLDivElement>(null);
+  const explodeProgress = useRef(0);
 
   useGSAP(
     () => {
       registerGSAP();
+
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: "top top",
+        end: "bottom top",
+        scrub: true,
+        onUpdate: (self) => {
+          explodeProgress.current = self.progress;
+        },
+      });
 
       const tl = gsap.timeline({ paused: true });
       tl.fromTo(
@@ -97,8 +108,11 @@ export function Hero() {
           </div>
         </div>
 
-        <div ref={canvasWrapRef} className="relative h-[320px] sm:h-[420px] lg:h-[560px]">
-          <HeroCanvasLoader />
+        <div
+          ref={canvasWrapRef}
+          className="relative flex h-[420px] w-full items-center justify-center sm:h-[500px] lg:h-[620px]"
+        >
+          <ExplodedEngineViewer explodeProgress={explodeProgress} />
         </div>
       </Container>
 
