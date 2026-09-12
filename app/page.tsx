@@ -21,11 +21,11 @@ export default function HomePage() {
       <Hero />
       <BrandMarquee />
       <CompanyIntro />
+      <GoogleReviews />
       <WhatWeDo />
       <StatsBand />
       <Solutions />
       <ProductsCarousel />
-      <GoogleReviews />
       <CTABanner />
     </>
   );

@@ -38,7 +38,7 @@ export function CompanyIntro() {
   );
 
   return (
-    <section className="bg-paper py-16 lg:py-24">
+    <section className="bg-paper pt-12 sm:pt-16 pb-4 sm:pb-6">
       <Container>
         <p
           ref={pRef}
