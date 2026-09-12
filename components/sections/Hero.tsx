@@ -1,59 +1,84 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import { Star } from "lucide-react";
+import {
+  Star,
+  ShieldCheck,
+  Truck,
+  Sparkles,
+  MessageCircle,
+  Search,
+  CheckCircle2,
+  ArrowRight,
+  ArrowUpRight,
+} from "lucide-react";
 import { useGSAP } from "@gsap/react";
-import { gsap, registerGSAP, ScrollTrigger } from "@/lib/gsap/registerGSAP";
+import { gsap, registerGSAP } from "@/lib/gsap/registerGSAP";
 import { preloaderState } from "@/lib/preloader/state";
 import { PRELOADER_DONE_EVENT } from "@/components/preloader/Preloader";
 import { Container } from "@/components/ui/Container";
-import { Button } from "@/components/ui/Button";
-import { ExplodedEngineViewer } from "@/components/hero/ExplodedEngineViewer";
-import { heroHeadline, googleRating } from "@/lib/data/company";
+import { googleRating } from "@/lib/data/company";
 
-const headlineLines = ["YOUR SOURCE FOR", "CHINESE AUTOMOTIVE PARTS"];
+const headlineLines = ["YOUR SOURCE FOR", "CHINESE AUTO SPARE PARTS"];
+
+const quickCategories = [
+  { label: "Brakes & Rotors", href: "/products#brakes" },
+  { label: "Engine Components", href: "/products#engine" },
+  { label: "Suspension & Struts", href: "/products#suspension" },
+  { label: "Transmission", href: "/products#transmission" },
+  { label: "Cooling & AC", href: "/products#cooling" },
+  { label: "Electrical & Lighting", href: "/products#electrical" },
+];
 
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
   const lineRefs = useRef<HTMLSpanElement[]>([]);
   const subRef = useRef<HTMLParagraphElement>(null);
+  const searchRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
-  const canvasWrapRef = useRef<HTMLDivElement>(null);
-  const explodeProgress = useRef(0);
+  const badgesRef = useRef<HTMLDivElement>(null);
+
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const query = searchQuery.trim() || "spare parts availability";
+    const encoded = encodeURIComponent(
+      `Hi Shanghai Global, I am inquiring about: ${query}. Please confirm price and availability.`,
+    );
+    window.open(`https://wa.me/97165335866?text=${encoded}`, "_blank");
+  };
 
   useGSAP(
     () => {
       registerGSAP();
 
-      ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: "top top",
-        end: "bottom top",
-        scrub: true,
-        onUpdate: (self) => {
-          explodeProgress.current = self.progress;
-        },
-      });
-
       const tl = gsap.timeline({ paused: true });
       tl.fromTo(
         lineRefs.current,
         { yPercent: 120 },
-        { yPercent: 0, duration: 0.9, stagger: 0.12, ease: "power4.out" },
+        { yPercent: 0, duration: 0.8, stagger: 0.1, ease: "power4.out" },
       )
-        .fromTo(subRef.current, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, "-=0.5")
+        .fromTo(subRef.current, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5 }, "-=0.4")
         .fromTo(
-          ctaRef.current,
-          { y: 20, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.6 },
-          "-=0.4",
+          searchRef.current,
+          { y: 15, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.5 },
+          "-=0.3",
         )
         .fromTo(
-          canvasWrapRef.current,
-          { opacity: 0, scale: 0.9 },
-          { opacity: 1, scale: 1, duration: 0.9, ease: "power3.out" },
-          "-=0.7",
+          ctaRef.current,
+          { y: 15, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.5 },
+          "-=0.3",
+        )
+        .fromTo(
+          badgesRef.current,
+          { y: 10, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.4 },
+          "-=0.2",
         );
 
       const play = () => tl.play();
@@ -72,12 +97,43 @@ export function Hero() {
   );
 
   return (
-    <section ref={sectionRef} className="relative overflow-hidden bg-white">
-      <Container className="grid min-h-[88vh] items-center gap-10 py-16 lg:grid-cols-[3fr_2fr] lg:gap-4">
-        <div>
+    <section
+      ref={sectionRef}
+      className="relative overflow-hidden bg-slate-950 min-h-[620px] lg:min-h-[720px] flex items-center"
+    >
+      {/* 1. Full-Bleed Background Image (Clear, Unfiltered, High Visibility) */}
+      <div className="absolute inset-0 z-0 select-none">
+        <Image
+          src="/images/hero/hero-bg.jpg"
+          alt="Shanghai Global Chinese Auto Spare Parts Workshop Background"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center"
+        />
+
+        {/* Subtle, Minimal Vignette - Image Remains Fully Visible */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/25" />
+      </div>
+
+      {/* 2. Hero Content Foreground */}
+      <Container className="relative z-10 py-16 sm:py-20 lg:py-24">
+        <div className="max-w-3xl">
+          {/* Top Pill / Badge */}
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/25 bg-black/65 px-3.5 py-1.5 shadow-lg backdrop-blur-md">
+            <span className="relative flex size-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-red opacity-75" />
+              <span className="relative inline-flex size-2 rounded-full bg-brand-red" />
+            </span>
+            <span className="text-xs font-bold tracking-wider text-white uppercase drop-shadow-sm">
+              Direct Importer &bull; UAE &bull; Qatar &bull; Worldwide
+            </span>
+          </div>
+
+          {/* Main Headline with High-Contrast Dark Outline / Shadow */}
           <h1
-            aria-label={heroHeadline}
-            className="font-display text-ink text-[13vw] leading-[0.92] font-black uppercase sm:text-6xl lg:text-7xl xl:text-[5.5rem]"
+            aria-label="Your Source For Chinese Auto Spare Parts"
+            className="font-display text-white text-3xl font-black uppercase sm:text-5xl lg:text-6xl xl:text-[4.2rem] leading-[1.0] tracking-tight drop-shadow-[0_4px_16px_rgba(0,0,0,1)] drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]"
           >
             {headlineLines.map((line, i) => (
               <span key={line} className="block overflow-hidden" aria-hidden="true">
@@ -93,21 +149,66 @@ export function Hero() {
             ))}
           </h1>
 
-          <p ref={subRef} className="text-steel-dark mt-6 max-w-sm text-sm leading-relaxed">
-            Genuine, OEM &amp; reliable parts for Chinese vehicle brands, worldwide.
+          {/* Subheading with High-Contrast Dark Shadow */}
+          <p
+            ref={subRef}
+            className="mt-5 max-w-2xl text-sm sm:text-base lg:text-lg leading-relaxed text-white font-medium drop-shadow-[0_3px_10px_rgba(0,0,0,1)] drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]"
+          >
+            Genuine, OEM &amp; reliable aftermarket components for <strong className="font-extrabold text-white underline decoration-brand-red decoration-2 underline-offset-4">Jetour, Changan, Geely, Chery, BYD, Haval</strong> and all major Chinese vehicle brands. Stocked in Sharjah &amp; Abu Dhabi with express GCC delivery.
           </p>
 
-          <div ref={ctaRef} className="mt-8 flex flex-wrap items-center gap-4">
-            <Button href="/products">View Products</Button>
-            <Button href="/products#enquire" variant="outline">
-              Enquire Now
-            </Button>
+          {/* Fast Part / VIN Inquiry Search Bar */}
+          <div ref={searchRef} className="mt-8 max-w-xl">
+            <form
+              onSubmit={handleSearchSubmit}
+              className="relative flex items-center rounded-2xl border border-white/25 bg-black/75 p-1.5 shadow-2xl backdrop-blur-md transition-all focus-within:border-brand-red focus-within:ring-2 focus-within:ring-brand-red/40"
+            >
+              <Search className="ml-3 size-5 text-slate-300 shrink-0" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Enter Part Name, Number, or 17-digit VIN..."
+                className="w-full bg-transparent px-3 py-2 text-sm text-white placeholder-slate-300 focus:outline-none font-medium"
+              />
+              <button
+                type="submit"
+                className="inline-flex items-center gap-1.5 rounded-xl bg-brand-red px-4 py-2.5 text-xs sm:text-sm font-bold text-white shadow-lg transition-transform hover:bg-brand-red-dark hover:scale-[1.02] shrink-0 cursor-pointer"
+              >
+                <span>Check Availability</span>
+                <ArrowRight className="size-4" />
+              </button>
+            </form>
+            <p className="mt-2 text-[11px] text-white/90 font-mono drop-shadow-[0_1px_4px_rgba(0,0,0,0.95)]">
+              e.g., &ldquo;Brake pads for Jetour T2&rdquo;, &ldquo;Chery Tiggo 8 water pump&rdquo;, or paste VIN
+            </p>
+          </div>
+
+          {/* Secondary CTAs & Social Proof */}
+          <div ref={ctaRef} className="mt-6 flex flex-wrap items-center gap-4">
+            <Link
+              href="/products"
+              className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-black/60 px-5 py-2.5 text-xs sm:text-sm font-bold text-white shadow-lg backdrop-blur-md transition-all hover:bg-white/20 hover:border-white/50"
+            >
+              <span>Explore Full Catalog</span>
+              <ArrowUpRight className="size-4 text-brand-red" />
+            </Link>
+
+            <a
+              href="https://wa.me/97165335866?text=Hi%20Shanghai%20Global,%20I%20need%20a%20part%20quote%20for%20my%20vehicle."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-4 py-2.5 text-xs sm:text-sm font-bold text-white shadow-lg transition-transform hover:bg-emerald-500 hover:scale-[1.02]"
+            >
+              <MessageCircle className="size-4 fill-white text-emerald-600" />
+              <span>WhatsApp Fast Quote</span>
+            </a>
 
             <Link
               href={googleRating.profileUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-ui text-steel-dark ml-1 flex items-center gap-2 text-xs tracking-[0.2em] uppercase"
+              className="font-ui text-white flex items-center gap-1.5 text-xs tracking-[0.15em] uppercase hover:text-slate-200 transition-colors drop-shadow-[0_2px_6px_rgba(0,0,0,1)] ml-1"
             >
               <span className="flex gap-0.5" aria-hidden="true">
                 {Array.from({ length: 5 }).map((_, i) => (
@@ -115,24 +216,53 @@ export function Hero() {
                 ))}
               </span>
               <span>
-                <span className="text-ink font-bold">{googleRating.score}</span> on Google
+                <strong className="text-white">{googleRating.score}</strong> on Google
               </span>
             </Link>
           </div>
-        </div>
 
-        <div
-          ref={canvasWrapRef}
-          className="relative flex h-[420px] w-full items-center justify-center sm:h-[500px] lg:h-[620px]"
-        >
-          <ExplodedEngineViewer explodeProgress={explodeProgress} />
+          {/* Trust Badges Strip with Clean Frosted Backing */}
+          <div
+            ref={badgesRef}
+            className="mt-10 rounded-2xl border border-white/20 bg-black/55 p-4 backdrop-blur-md shadow-2xl"
+          >
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs text-white font-medium">
+              <div className="flex items-center gap-2">
+                <ShieldCheck className="size-4 text-brand-red shrink-0" />
+                <span>100% VIN Fitment Guarantee</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="size-4 text-emerald-400 shrink-0" />
+                <span>Genuine &bull; OEM &bull; Aftermarket</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Truck className="size-4 text-brand-red shrink-0" />
+                <span>Express UAE &bull; Qatar Dispatch</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Sparkles className="size-4 text-brand-red shrink-0" />
+                <span>5,000+ Parts Catalogued</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Quick Category Chips */}
+          <div className="mt-6 flex flex-wrap items-center gap-2">
+            <span className="text-[11px] font-mono uppercase tracking-wider text-white drop-shadow-[0_1px_4px_rgba(0,0,0,1)] mr-1">
+              Quick Browse:
+            </span>
+            {quickCategories.map((cat) => (
+              <Link
+                key={cat.label}
+                href={cat.href}
+                className="rounded-full border border-white/20 bg-black/60 px-3 py-1 text-[11px] font-medium text-white shadow-md hover:border-brand-red hover:bg-black/80 transition-colors backdrop-blur-xs"
+              >
+                {cat.label}
+              </Link>
+            ))}
+          </div>
         </div>
       </Container>
-
-      <div className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-[10px] tracking-[0.3em] text-steel-dark uppercase sm:flex">
-        <span className="bg-steel-dark h-10 w-px animate-pulse" />
-        Scroll
-      </div>
     </section>
   );
 }
