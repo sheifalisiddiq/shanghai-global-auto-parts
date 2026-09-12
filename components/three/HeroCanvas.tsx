@@ -6,7 +6,7 @@ import { Environment } from "@react-three/drei";
 import { PartModel } from "./PartModel";
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 
-export default function HeroCanvas() {
+export default function HeroCanvas({ active = true }: { active?: boolean }) {
   const reducedMotion = useReducedMotion();
 
   return (
@@ -14,6 +14,7 @@ export default function HeroCanvas() {
       dpr={[1, 1.75]}
       camera={{ position: [0, 0, 4.6], fov: 42 }}
       gl={{ antialias: true, alpha: true }}
+      frameloop={active ? "always" : "never"}
     >
       <ambientLight intensity={0.55} />
       <directionalLight position={[3, 4, 5]} intensity={1.2} color="#ffffff" />

@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CanvasFallback } from "./CanvasFallback";
 
 const HeroCanvas = dynamic(() => import("./HeroCanvas"), {
@@ -25,6 +25,8 @@ export function HeroCanvasLoader() {
   // Must start false on both server and first client render — reading window
   // synchronously here would diverge from the server's markup and break hydration.
   const [ready, setReady] = useState(false);
+  const [active, setActive] = useState(true);
+  const wrapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const mql = window.matchMedia("(min-width: 768px)");
@@ -34,7 +36,20 @@ export function HeroCanvasLoader() {
     return () => mql.removeEventListener("change", handler);
   }, []);
 
-  if (!ready) return <CanvasFallback />;
+  useEffect(() => {
+    const node = wrapRef.current;
+    if (!node) return;
 
-  return <HeroCanvas />;
+    const observer = new IntersectionObserver(([entry]) => setActive(entry.isIntersecting), {
+      threshold: 0,
+    });
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={wrapRef} className="h-full w-full">
+      {ready ? <HeroCanvas active={active} /> : <CanvasFallback />}
+    </div>
+  );
 }
