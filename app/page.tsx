@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/sections/Hero";
-import { PartFinderBar } from "@/components/sections/PartFinderBar";
+import { TrustFeaturesBar } from "@/components/sections/TrustFeaturesBar";
 import { BrandMarquee } from "@/components/sections/BrandMarquee";
 import { CompanyIntro } from "@/components/sections/CompanyIntro";
 import { GoogleReviews } from "@/components/sections/GoogleReviews";
 import { WhatWeDo } from "@/components/sections/WhatWeDo";
 import { StatsBand } from "@/components/sections/StatsBand";
 import { Solutions } from "@/components/sections/Solutions";
+import { PartFinderBar } from "@/components/sections/PartFinderBar";
 import { ProductsCarousel } from "@/components/sections/ProductsCarousel";
 import { CTABanner } from "@/components/sections/CTABanner";
 
@@ -20,13 +21,14 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <PartFinderBar />
+      <TrustFeaturesBar />
       <BrandMarquee />
       <CompanyIntro />
       <GoogleReviews />
       <WhatWeDo />
       <StatsBand />
       <Solutions />
+      <PartFinderBar />
       <ProductsCarousel />
       <CTABanner />
     </>

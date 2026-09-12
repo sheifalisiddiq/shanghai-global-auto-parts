@@ -21,21 +21,11 @@ import { googleRating } from "@/lib/data/company";
 
 const headlineLines = ["YOUR SOURCE FOR", "CHINESE AUTO SPARE PARTS"];
 
-const quickCategories = [
-  { label: "Brakes & Rotors", href: "/products#brakes" },
-  { label: "Engine Components", href: "/products#engine" },
-  { label: "Suspension & Struts", href: "/products#suspension" },
-  { label: "Transmission", href: "/products#transmission" },
-  { label: "Cooling & AC", href: "/products#cooling" },
-  { label: "Electrical & Lighting", href: "/products#electrical" },
-];
-
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
   const lineRefs = useRef<HTMLSpanElement[]>([]);
   const subRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
-  const badgesRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
@@ -53,12 +43,6 @@ export function Hero() {
           { y: 15, opacity: 0 },
           { y: 0, opacity: 1, duration: 0.5 },
           "-=0.3",
-        )
-        .fromTo(
-          badgesRef.current,
-          { y: 10, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.4 },
-          "-=0.2",
         );
 
       const play = () => tl.play();
@@ -172,47 +156,6 @@ export function Hero() {
                 <strong className="text-white">{googleRating.score}</strong> on Google
               </span>
             </Link>
-          </div>
-
-          {/* Trust Badges Strip with Clean Frosted Backing */}
-          <div
-            ref={badgesRef}
-            className="mt-8 sm:mt-10 rounded-2xl border border-white/20 bg-black/55 p-3.5 sm:p-4 backdrop-blur-md shadow-2xl"
-          >
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4 text-[11px] sm:text-xs text-white font-medium">
-              <div className="flex items-center gap-1.5 sm:gap-2">
-                <ShieldCheck className="size-3.5 sm:size-4 text-brand-red shrink-0" />
-                <span>100% VIN Fitment Guarantee</span>
-              </div>
-              <div className="flex items-center gap-1.5 sm:gap-2">
-                <CheckCircle2 className="size-3.5 sm:size-4 text-emerald-400 shrink-0" />
-                <span>Genuine &bull; OEM &bull; Aftermarket</span>
-              </div>
-              <div className="flex items-center gap-1.5 sm:gap-2">
-                <Truck className="size-3.5 sm:size-4 text-brand-red shrink-0" />
-                <span>Express UAE &bull; Qatar Dispatch</span>
-              </div>
-              <div className="flex items-center gap-1.5 sm:gap-2">
-                <Sparkles className="size-3.5 sm:size-4 text-brand-red shrink-0" />
-                <span>5,000+ Parts Catalogued</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Quick Category Chips */}
-          <div className="mt-5 sm:mt-6 flex flex-wrap items-center gap-2">
-            <span className="text-[11px] font-mono uppercase tracking-wider text-white drop-shadow-[0_1px_4px_rgba(0,0,0,1)] mr-1">
-              Quick Browse:
-            </span>
-            {quickCategories.map((cat) => (
-              <Link
-                key={cat.label}
-                href={cat.href}
-                className="rounded-full border border-white/20 bg-black/60 px-3 py-1 text-[11px] font-medium text-white shadow-md hover:border-brand-red hover:bg-black/80 transition-colors backdrop-blur-xs"
-              >
-                {cat.label}
-              </Link>
-            ))}
           </div>
         </div>
       </Container>

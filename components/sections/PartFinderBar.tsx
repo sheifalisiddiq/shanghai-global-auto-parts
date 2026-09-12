@@ -33,7 +33,7 @@ export function PartFinderBar() {
   };
 
   return (
-    <section className="relative z-20 border-y border-white/10 bg-slate-950 py-8 sm:py-10 text-white shadow-2xl">
+    <section className="relative z-20 border-y border-white/10 bg-slate-950 py-10 sm:py-14 text-white shadow-2xl">
       <Container>
         <div className="mx-auto max-w-4xl">
           {/* Header */}
