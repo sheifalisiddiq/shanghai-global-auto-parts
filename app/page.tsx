@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/sections/Hero";
+import { PartFinderBar } from "@/components/sections/PartFinderBar";
 import { BrandMarquee } from "@/components/sections/BrandMarquee";
 import { CompanyIntro } from "@/components/sections/CompanyIntro";
+import { GoogleReviews } from "@/components/sections/GoogleReviews";
 import { WhatWeDo } from "@/components/sections/WhatWeDo";
 import { StatsBand } from "@/components/sections/StatsBand";
 import { Solutions } from "@/components/sections/Solutions";
 import { ProductsCarousel } from "@/components/sections/ProductsCarousel";
-import { GoogleReviews } from "@/components/sections/GoogleReviews";
 import { CTABanner } from "@/components/sections/CTABanner";
 
 export const metadata: Metadata = {
@@ -19,6 +20,7 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <PartFinderBar />
       <BrandMarquee />
       <CompanyIntro />
       <GoogleReviews />

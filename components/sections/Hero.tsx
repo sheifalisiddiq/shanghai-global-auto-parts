@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -9,9 +9,7 @@ import {
   Truck,
   Sparkles,
   MessageCircle,
-  Search,
   CheckCircle2,
-  ArrowRight,
   ArrowUpRight,
 } from "lucide-react";
 import { useGSAP } from "@gsap/react";
@@ -36,20 +34,8 @@ export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
   const lineRefs = useRef<HTMLSpanElement[]>([]);
   const subRef = useRef<HTMLParagraphElement>(null);
-  const searchRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const badgesRef = useRef<HTMLDivElement>(null);
-
-  const [searchQuery, setSearchQuery] = useState("");
-
-  const handleSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const query = searchQuery.trim() || "spare parts availability";
-    const encoded = encodeURIComponent(
-      `Hi Shanghai Global, I am inquiring about: ${query}. Please confirm price and availability.`,
-    );
-    window.open(`https://wa.me/97165335866?text=${encoded}`, "_blank");
-  };
 
   useGSAP(
     () => {
@@ -62,12 +48,6 @@ export function Hero() {
         { yPercent: 0, duration: 0.8, stagger: 0.1, ease: "power4.out" },
       )
         .fromTo(subRef.current, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5 }, "-=0.4")
-        .fromTo(
-          searchRef.current,
-          { y: 15, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.5 },
-          "-=0.3",
-        )
         .fromTo(
           ctaRef.current,
           { y: 15, opacity: 0 },
@@ -99,9 +79,9 @@ export function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden bg-slate-950 min-h-[620px] lg:min-h-[720px] flex items-center"
+      className="relative overflow-hidden bg-slate-950 min-h-[520px] sm:min-h-[580px] lg:min-h-[660px] flex items-center"
     >
-      {/* 1. Full-Bleed Background Image (Clear, Unfiltered, High Visibility) */}
+      {/* 1. Full-Bleed Background Image (Clear, Unobstructed, Centered) */}
       <div className="absolute inset-0 z-0 select-none">
         <Image
           src="/images/hero/hero-bg.jpg"
@@ -109,23 +89,23 @@ export function Hero() {
           fill
           priority
           sizes="100vw"
-          className="object-cover object-center"
+          className="object-cover object-[center_65%] sm:object-center"
         />
 
-        {/* Subtle, Minimal Vignette - Image Remains Fully Visible */}
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/25" />
+        {/* Subtle, Minimal Vignette - Background Image Remains Sharp & Clear */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/30" />
       </div>
 
-      {/* 2. Hero Content Foreground */}
-      <Container className="relative z-10 py-16 sm:py-20 lg:py-24">
+      {/* 2. Hero Content Foreground (Uncluttered, Spacious) */}
+      <Container className="relative z-10 py-12 sm:py-16 lg:py-20">
         <div className="max-w-3xl">
           {/* Top Pill / Badge */}
-          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/25 bg-black/65 px-3.5 py-1.5 shadow-lg backdrop-blur-md">
+          <div className="mb-3.5 inline-flex items-center gap-2 rounded-full border border-white/25 bg-black/65 px-3.5 py-1.5 shadow-lg backdrop-blur-md">
             <span className="relative flex size-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-red opacity-75" />
               <span className="relative inline-flex size-2 rounded-full bg-brand-red" />
             </span>
-            <span className="text-xs font-bold tracking-wider text-white uppercase drop-shadow-sm">
+            <span className="text-[11px] sm:text-xs font-bold tracking-wider text-white uppercase drop-shadow-sm">
               Direct Importer &bull; UAE &bull; Qatar &bull; Worldwide
             </span>
           </div>
@@ -152,57 +132,30 @@ export function Hero() {
           {/* Subheading with High-Contrast Dark Shadow */}
           <p
             ref={subRef}
-            className="mt-5 max-w-2xl text-sm sm:text-base lg:text-lg leading-relaxed text-white font-medium drop-shadow-[0_3px_10px_rgba(0,0,0,1)] drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]"
+            className="mt-4 sm:mt-5 max-w-2xl text-sm sm:text-base lg:text-lg leading-relaxed text-white font-medium drop-shadow-[0_3px_10px_rgba(0,0,0,1)] drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]"
           >
             Genuine, OEM &amp; reliable aftermarket components for <strong className="font-extrabold text-white underline decoration-brand-red decoration-2 underline-offset-4">Jetour, Changan, Geely, Chery, BYD, Haval</strong> and all major Chinese vehicle brands. Stocked in Sharjah &amp; Abu Dhabi with express GCC delivery.
           </p>
 
-          {/* Fast Part / VIN Inquiry Search Bar */}
-          <div ref={searchRef} className="mt-8 max-w-xl">
-            <form
-              onSubmit={handleSearchSubmit}
-              className="relative flex items-center rounded-2xl border border-white/25 bg-black/75 p-1.5 shadow-2xl backdrop-blur-md transition-all focus-within:border-brand-red focus-within:ring-2 focus-within:ring-brand-red/40"
-            >
-              <Search className="ml-2.5 sm:ml-3 size-4 sm:size-5 text-slate-300 shrink-0" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Part Name, Number, or VIN..."
-                className="w-full bg-transparent px-2 sm:px-3 py-2 text-xs sm:text-sm text-white placeholder-slate-400 focus:outline-none font-medium"
-              />
-              <button
-                type="submit"
-                className="inline-flex items-center gap-1 sm:gap-1.5 rounded-xl bg-brand-red px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm font-bold text-white shadow-lg transition-transform hover:bg-brand-red-dark hover:scale-[1.02] shrink-0 cursor-pointer"
-              >
-                <span>Check Availability</span>
-                <ArrowRight className="size-3.5 sm:size-4" />
-              </button>
-            </form>
-            <p className="mt-2 text-[11px] text-white/90 font-mono drop-shadow-[0_1px_4px_rgba(0,0,0,0.95)]">
-              e.g., &ldquo;Brake pads for Jetour T2&rdquo;, &ldquo;Chery Tiggo 8 water pump&rdquo;, or paste VIN
-            </p>
-          </div>
-
-          {/* Secondary CTAs & Social Proof */}
-          <div ref={ctaRef} className="mt-6 flex flex-wrap items-center gap-3 sm:gap-4">
-            <Link
-              href="/products"
-              className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-black/60 px-4 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-bold text-white shadow-lg backdrop-blur-md transition-all hover:bg-white/20 hover:border-white/50"
-            >
-              <span>Explore Full Catalog</span>
-              <ArrowUpRight className="size-4 text-brand-red" />
-            </Link>
-
+          {/* Direct Conversion Actions */}
+          <div ref={ctaRef} className="mt-6 sm:mt-7 flex flex-wrap items-center gap-3 sm:gap-4">
             <a
-              href="https://wa.me/97165335866?text=Hi%20Shanghai%20Global,%20I%20need%20a%20part%20quote%20for%20my%20vehicle."
+              href="https://wa.me/97165335866?text=Hi%20Shanghai%20Global,%20I%20need%20a%20spare%20part%20quote%20for%20my%20vehicle."
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-3.5 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm font-bold text-white shadow-lg transition-transform hover:bg-emerald-500 hover:scale-[1.02]"
+              className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-5 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-bold text-white shadow-xl shadow-emerald-950/40 transition-transform hover:bg-emerald-500 hover:scale-[1.02]"
             >
               <MessageCircle className="size-4 fill-white text-emerald-600" />
               <span>WhatsApp Fast Quote</span>
             </a>
+
+            <Link
+              href="/products"
+              className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-black/60 px-5 py-2.5 sm:py-3 text-xs sm:text-sm font-bold text-white shadow-lg backdrop-blur-md transition-all hover:bg-white/20 hover:border-white/50"
+            >
+              <span>Explore Full Catalog</span>
+              <ArrowUpRight className="size-4 text-brand-red" />
+            </Link>
 
             <Link
               href={googleRating.profileUrl}
@@ -224,7 +177,7 @@ export function Hero() {
           {/* Trust Badges Strip with Clean Frosted Backing */}
           <div
             ref={badgesRef}
-            className="mt-8 sm:mt-10 rounded-2xl border border-white/20 bg-black/55 p-3 sm:p-4 backdrop-blur-md shadow-2xl"
+            className="mt-8 sm:mt-10 rounded-2xl border border-white/20 bg-black/55 p-3.5 sm:p-4 backdrop-blur-md shadow-2xl"
           >
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4 text-[11px] sm:text-xs text-white font-medium">
               <div className="flex items-center gap-1.5 sm:gap-2">
@@ -247,7 +200,7 @@ export function Hero() {
           </div>
 
           {/* Quick Category Chips */}
-          <div className="mt-6 flex flex-wrap items-center gap-2">
+          <div className="mt-5 sm:mt-6 flex flex-wrap items-center gap-2">
             <span className="text-[11px] font-mono uppercase tracking-wider text-white drop-shadow-[0_1px_4px_rgba(0,0,0,1)] mr-1">
               Quick Browse:
             </span>
