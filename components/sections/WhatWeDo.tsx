@@ -30,12 +30,30 @@ function WhatWeDoItem({ item }: { item: (typeof whatWeDo)[number] }) {
 export function WhatWeDo() {
   const sectionRef = useRef<HTMLElement>(null);
   const stackRef = useRef<HTMLDivElement>(null);
+  const eyebrowRef = useRef<HTMLSpanElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
   const reducedMotion = useReducedMotion();
 
   useGSAP(
     () => {
       registerGSAP();
       if (reducedMotion || !stackRef.current || !sectionRef.current) return;
+
+      if (eyebrowRef.current && titleRef.current) {
+        gsap.set(eyebrowRef.current, { xPercent: -130 });
+        gsap.set(titleRef.current, { xPercent: -60 });
+
+        ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start: "top 90%",
+          end: "top 40%",
+          scrub: true,
+          onUpdate: (self) => {
+            gsap.set(eyebrowRef.current, { xPercent: -130 * (1 - self.progress) });
+            gsap.set(titleRef.current, { xPercent: -60 * (1 - self.progress) });
+          },
+        });
+      }
 
       const mm = gsap.matchMedia();
 
@@ -100,7 +118,24 @@ export function WhatWeDo() {
   return (
     <section ref={sectionRef} className="bg-white py-24 lg:py-0">
       <Container className="lg:flex lg:h-screen lg:flex-col lg:justify-center">
-        <SectionHeading eyebrow="What We Do" title="Built Around Your Supply Chain" />
+        <div>
+          <div className="overflow-hidden">
+            <span
+              ref={eyebrowRef}
+              className="font-ui text-brand-red mb-3 block text-xs tracking-[0.25em] uppercase"
+            >
+              What We Do
+            </span>
+          </div>
+          <div className="overflow-hidden">
+            <h2
+              ref={titleRef}
+              className="font-display text-ink text-4xl leading-[0.95] font-black uppercase sm:text-5xl lg:text-6xl"
+            >
+              Built Around Your Supply Chain
+            </h2>
+          </div>
+        </div>
 
         <div ref={stackRef} className="border-steel-light relative mt-14 min-h-[420px] border-t lg:min-h-[320px]">
           {whatWeDo.map((item) => (

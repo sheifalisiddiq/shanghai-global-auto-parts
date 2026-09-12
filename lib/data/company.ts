@@ -119,5 +119,60 @@ export const contact = {
     "© 2026 Shanghai Global Auto Parts. All Rights Reserved. Powered By Shanghai Global Auto",
 };
 
+export const googleRating = {
+  score: 4.8,
+  profileUrl: "https://share.google/Co7YIpXMTcKnRk9CT",
+};
+
+export interface Review {
+  id: string;
+  author: string;
+  quote: string;
+  meta?: string;
+}
+
+export const reviews: Review[] = [
+  {
+    id: "aiteqa",
+    author: "Marketing Aiteqa",
+    quote:
+      "Their customer service is top-notch — they truly care about treating customers right and finding real solutions. The part I needed for my MG was unavailable everywhere else, but they tracked down the exact right one for me.",
+    meta: "Mr. Vivek",
+  },
+  {
+    id: "roshan",
+    author: "Roshan Mashood",
+    quote:
+      "Reliable supplier with a great range of high quality and durable auto parts. Their team is professional and helpful, ensuring you get the right products at good prices. Shipping is fast and efficient.",
+  },
+  {
+    id: "basaweshwar",
+    author: "Basaweshwar Chitwadgi",
+    quote:
+      "Amazing experience! Great collection and most parts are easily available. The staff is very helpful and their hospitality is excellent, good guidance, and overall a smooth experience.",
+    meta: "Local Guide",
+  },
+  {
+    id: "salwa",
+    author: "Salwa Samreen",
+    quote:
+      "Always get high-quality, dependable Chinese car parts here. The service is consistently professional — his expert recommendations are spot on, saving me both time and money. The best auto parts shop in UAE for Chinese vehicle spare parts!",
+    meta: "Mr. Shylesh",
+  },
+  {
+    id: "basil",
+    author: "Basil Varghese",
+    quote:
+      "Outstanding service! Finally, a dependable source for Chinese car parts. They've got it all, from common to rare parts, and they source them quickly. Knowledgeable and friendly staff, fair prices, and top-notch quality.",
+    meta: "Local Guide",
+  },
+  {
+    id: "chris",
+    author: "Chris Philip",
+    quote:
+      "Exceptional auto parts shop with a truly global reach! Their seamless delivery service to various parts of the world is unmatched. Top-notch products, reliable shipping, and a customer-friendly approach.",
+  },
+];
+
 export const brandLogoDisclaimer =
   "Logos shown for parts-compatibility reference only. All trademarks are the property of their respective owners.";

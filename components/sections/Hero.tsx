@@ -1,6 +1,8 @@
 "use client";
 
 import { useRef } from "react";
+import Link from "next/link";
+import { Star } from "lucide-react";
 import { useGSAP } from "@gsap/react";
 import { gsap, registerGSAP, ScrollTrigger } from "@/lib/gsap/registerGSAP";
 import { preloaderState } from "@/lib/preloader/state";
@@ -8,7 +10,7 @@ import { PRELOADER_DONE_EVENT } from "@/components/preloader/Preloader";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { ExplodedEngineViewer } from "@/components/hero/ExplodedEngineViewer";
-import { heroHeadline } from "@/lib/data/company";
+import { heroHeadline, googleRating } from "@/lib/data/company";
 
 const headlineLines = ["YOUR SOURCE FOR", "CHINESE AUTOMOTIVE PARTS"];
 
@@ -106,6 +108,22 @@ export function Hero() {
               Enquire Now
             </Button>
           </div>
+
+          <Link
+            href={googleRating.profileUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-ui text-steel-dark mt-6 flex items-center gap-2 text-xs tracking-[0.2em] uppercase"
+          >
+            <span className="flex gap-0.5" aria-hidden="true">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star key={i} className="fill-brand-red text-brand-red size-3.5" />
+              ))}
+            </span>
+            <span>
+              <span className="text-ink font-bold">{googleRating.score}</span> on Google
+            </span>
+          </Link>
         </div>
 
         <div

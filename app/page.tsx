@@ -6,6 +6,7 @@ import { WhatWeDo } from "@/components/sections/WhatWeDo";
 import { StatsBand } from "@/components/sections/StatsBand";
 import { Solutions } from "@/components/sections/Solutions";
 import { ProductsCarousel } from "@/components/sections/ProductsCarousel";
+import { GoogleReviews } from "@/components/sections/GoogleReviews";
 import { CTABanner } from "@/components/sections/CTABanner";
 
 export const metadata: Metadata = {
@@ -24,6 +25,7 @@ export default function HomePage() {
       <StatsBand />
       <Solutions />
       <ProductsCarousel />
+      <GoogleReviews />
       <CTABanner />
     </>
   );
