@@ -35,7 +35,7 @@ export function CTABanner() {
   );
 
   return (
-    <section ref={sectionRef} className="relative overflow-hidden bg-white py-24 lg:py-32">
+    <section ref={sectionRef} className="relative overflow-hidden bg-white py-16 lg:py-24">
       <div ref={blockRef} className="bg-brand-red absolute inset-0" />
       <Container className="relative">
         <Reveal>

@@ -62,7 +62,7 @@ export function GoogleReviews() {
   }, [reducedMotion]);
 
   return (
-    <section className="bg-paper py-24 lg:py-32">
+    <section className="bg-paper py-16 lg:py-24">
       <Container>
         <Reveal className="flex flex-col items-start gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>

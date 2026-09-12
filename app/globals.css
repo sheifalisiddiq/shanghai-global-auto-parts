@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+.custom-cursor-active,
+.custom-cursor-active * {
+  cursor: none !important;
+}
+
 :root {
   --color-brand-red: #ef0606;
   --color-brand-red-dark: #c00505;
@@ -20,7 +25,7 @@
   --color-steel-dark: var(--color-steel-dark);
   --color-steel-light: var(--color-steel-light);
 
-  --font-display: var(--font-big-shoulders);
+  --font-display: var(--font-jakarta);
   --font-ui: var(--font-archivo-black);
   --font-body: var(--font-manrope);
 
@@ -54,6 +59,7 @@ body {
 
 .font-display {
   font-family: var(--font-display), sans-serif;
+  letter-spacing: -0.04em;
 }
 
 .font-ui {

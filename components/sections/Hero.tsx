@@ -75,10 +75,6 @@ export function Hero() {
     <section ref={sectionRef} className="relative overflow-hidden bg-white">
       <Container className="grid min-h-[88vh] items-center gap-10 py-16 lg:grid-cols-[3fr_2fr] lg:gap-4">
         <div>
-          <span className="font-ui text-brand-red mb-6 block text-xs tracking-[0.3em] uppercase">
-            Shanghai Global Auto Parts LLC
-          </span>
-
           <h1
             aria-label={heroHeadline}
             className="font-display text-ink text-[13vw] leading-[0.92] font-black uppercase sm:text-6xl lg:text-7xl xl:text-[5.5rem]"
@@ -97,33 +93,32 @@ export function Hero() {
             ))}
           </h1>
 
-          <p ref={subRef} className="text-steel-dark mt-8 max-w-md text-base leading-relaxed">
-            Genuine, OEM &amp; reliable components for Chinese vehicle brands — sourced, quality-checked
-            and shipped worldwide.
+          <p ref={subRef} className="text-steel-dark mt-6 max-w-sm text-sm leading-relaxed">
+            Genuine, OEM &amp; reliable parts for Chinese vehicle brands, worldwide.
           </p>
 
-          <div ref={ctaRef} className="mt-10 flex flex-wrap gap-4">
+          <div ref={ctaRef} className="mt-8 flex flex-wrap items-center gap-4">
             <Button href="/products">View Products</Button>
             <Button href="/products#enquire" variant="outline">
               Enquire Now
             </Button>
-          </div>
 
-          <Link
-            href={googleRating.profileUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-ui text-steel-dark mt-6 flex items-center gap-2 text-xs tracking-[0.2em] uppercase"
-          >
-            <span className="flex gap-0.5" aria-hidden="true">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Star key={i} className="fill-brand-red text-brand-red size-3.5" />
-              ))}
-            </span>
-            <span>
-              <span className="text-ink font-bold">{googleRating.score}</span> on Google
-            </span>
-          </Link>
+            <Link
+              href={googleRating.profileUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-ui text-steel-dark ml-1 flex items-center gap-2 text-xs tracking-[0.2em] uppercase"
+            >
+              <span className="flex gap-0.5" aria-hidden="true">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star key={i} className="fill-brand-red text-brand-red size-3.5" />
+                ))}
+              </span>
+              <span>
+                <span className="text-ink font-bold">{googleRating.score}</span> on Google
+              </span>
+            </Link>
+          </div>
         </div>
 
         <div

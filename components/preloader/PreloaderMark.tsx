@@ -1,7 +1,5 @@
 import type { RefObject } from "react";
-
-const MARK_PATH =
-  "M78 22 C 78 10, 55 6, 40 14 C 20 24, 20 40, 38 46 C 56 52, 80 54, 80 70 C 80 88, 55 92, 30 82";
+import { LOGO_MARK_PATH } from "@/lib/brand/logoMark";
 
 export function PreloaderMark({
   pathRef,
@@ -17,13 +15,7 @@ export function PreloaderMark({
   return (
     <div className="flex flex-col items-center gap-8">
       <svg viewBox="0 0 100 100" className="h-20 w-20" fill="none" aria-hidden>
-        <path
-          ref={pathRef}
-          d={MARK_PATH}
-          stroke="#EF0606"
-          strokeWidth={14}
-          strokeLinecap="round"
-        />
+        <path ref={pathRef} d={LOGO_MARK_PATH} fill="#EF0606" />
       </svg>
 
       <span ref={wordRef} className="font-ui text-sm tracking-[0.4em] text-white uppercase opacity-0">

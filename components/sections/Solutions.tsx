@@ -32,7 +32,7 @@ export function Solutions() {
   }, []);
 
   return (
-    <section className="bg-paper py-24 lg:py-32">
+    <section className="bg-paper py-16 lg:py-24">
       <Container className="grid gap-12 lg:grid-cols-2 lg:gap-20">
         <div
           ref={imgWrapRef}

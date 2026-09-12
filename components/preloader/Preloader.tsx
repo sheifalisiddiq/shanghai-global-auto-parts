@@ -44,13 +44,12 @@ export function Preloader() {
 
       const path = pathRef.current;
       if (path) {
-        const length = path.getTotalLength();
-        gsap.set(path, { strokeDasharray: length, strokeDashoffset: length });
+        gsap.set(path, { transformOrigin: "50% 50%", scale: 0.6, opacity: 0 });
       }
 
       const tl = gsap.timeline();
       if (path) {
-        tl.to(path, { strokeDashoffset: 0, duration: 1, ease: "power2.inOut" });
+        tl.to(path, { scale: 1, opacity: 1, duration: 1, ease: "back.out(1.7)" });
       }
       if (wordRef.current) {
         tl.to(wordRef.current, { opacity: 1, duration: 0.4 }, "-=0.35");

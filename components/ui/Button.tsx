@@ -1,7 +1,10 @@
+"use client";
+
 import Link from "next/link";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
+import { useMagnetic } from "@/lib/hooks/useMagnetic";
 
 type Variant = "primary" | "outline" | "ghost";
 
@@ -30,8 +33,14 @@ export function Button({
   ...rest
 }: CommonProps &
   ({ href: string } & Omit<React.ComponentProps<typeof Link>, "href" | "className">)) {
+  const magneticRef = useMagnetic<HTMLAnchorElement>();
   return (
-    <Link href={href} className={cn(base, variants[variant], className)} {...rest}>
+    <Link
+      ref={magneticRef}
+      href={href}
+      className={cn(base, variants[variant], "will-change-transform", className)}
+      {...rest}
+    >
       <span>{children}</span>
       {icon && (
         <ArrowUpRight
@@ -50,8 +59,13 @@ export function ButtonAction({
   icon = true,
   ...rest
 }: CommonProps & ButtonHTMLAttributes<HTMLButtonElement>) {
+  const magneticRef = useMagnetic<HTMLButtonElement>();
   return (
-    <button className={cn(base, variants[variant], className)} {...rest}>
+    <button
+      ref={magneticRef}
+      className={cn(base, variants[variant], "will-change-transform", className)}
+      {...rest}
+    >
       <span>{children}</span>
       {icon && (
         <ArrowUpRight

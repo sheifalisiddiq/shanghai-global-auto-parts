@@ -61,7 +61,7 @@ export function StatsBand() {
   );
 
   return (
-    <section ref={sectionRef} className="bg-ink relative py-20 lg:py-28">
+    <section ref={sectionRef} className="bg-ink relative py-14 lg:py-20">
       <Container className="grid grid-cols-2 gap-x-6 gap-y-12 lg:grid-cols-4 lg:gap-8">
         {animatable.map((stat) => (
           <div key={stat.id} className="border-l-2 border-brand-red pl-4 sm:pl-6">

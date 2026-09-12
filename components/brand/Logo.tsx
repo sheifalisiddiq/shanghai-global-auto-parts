@@ -1,7 +1,5 @@
 import { cn } from "@/lib/utils/cn";
-
-const MARK_PATH =
-  "M78 22 C 78 10, 55 6, 40 14 C 20 24, 20 40, 38 46 C 56 52, 80 54, 80 70 C 80 88, 55 92, 30 82";
+import { LOGO_MARK_PATH } from "@/lib/brand/logoMark";
 
 export function LogoMark({
   className,
@@ -18,13 +16,7 @@ export function LogoMark({
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden
     >
-      <path
-        d={MARK_PATH}
-        stroke={color}
-        strokeWidth={14}
-        strokeLinecap="round"
-        vectorEffect="non-scaling-stroke"
-      />
+      <path d={LOGO_MARK_PATH} fill={color} />
     </svg>
   );
 }
