@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
-import { ScrollTrigger, registerGSAP } from "@/lib/gsap/registerGSAP";
+import { gsap, ScrollTrigger, registerGSAP } from "@/lib/gsap/registerGSAP";
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 import { Container } from "@/components/ui/Container";
 import { stats } from "@/lib/data/company";
@@ -34,16 +34,21 @@ export function StatsBand() {
 
       const st = ScrollTrigger.create({
         trigger: sectionRef.current,
-        start: "top top",
-        end: "+=120%",
-        pin: true,
-        scrub: 0.5,
-        onUpdate: (self) => {
+        start: "top 85%",
+        once: true,
+        onEnter: () => {
           animatable.forEach((stat) => {
             const el = counterRefs.current[stat.id];
             if (!el) return;
-            const value = Math.round(stat.value * self.progress);
-            el.textContent = `${value.toLocaleString()}${stat.suffix}`;
+            const counter = { value: 0 };
+            gsap.to(counter, {
+              value: stat.value,
+              duration: 1.4,
+              ease: "power4.out",
+              onUpdate: () => {
+                el.textContent = `${Math.round(counter.value).toLocaleString()}${stat.suffix}`;
+              },
+            });
           });
         },
       });
@@ -56,8 +61,8 @@ export function StatsBand() {
   );
 
   return (
-    <section ref={sectionRef} className="bg-ink relative py-20 lg:py-0">
-      <Container className="grid grid-cols-2 gap-x-6 gap-y-12 lg:h-screen lg:grid-cols-4 lg:content-center lg:gap-8">
+    <section ref={sectionRef} className="bg-ink relative py-20 lg:py-28">
+      <Container className="grid grid-cols-2 gap-x-6 gap-y-12 lg:grid-cols-4 lg:gap-8">
         {animatable.map((stat) => (
           <div key={stat.id} className="border-l-2 border-brand-red pl-4 sm:pl-6">
             <span

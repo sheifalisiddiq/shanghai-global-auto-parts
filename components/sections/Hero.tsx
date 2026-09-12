@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
-import { gsap, ScrollTrigger, registerGSAP } from "@/lib/gsap/registerGSAP";
+import { gsap, registerGSAP } from "@/lib/gsap/registerGSAP";
 import { preloaderState } from "@/lib/preloader/state";
 import { PRELOADER_DONE_EVENT } from "@/components/preloader/Preloader";
 import { Container } from "@/components/ui/Container";
@@ -49,16 +49,6 @@ export function Hero() {
         play();
       } else {
         window.addEventListener(PRELOADER_DONE_EVENT, play, { once: true });
-      }
-
-      if (sectionRef.current && canvasWrapRef.current) {
-        ScrollTrigger.create({
-          trigger: sectionRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
-          animation: gsap.timeline().to(canvasWrapRef.current, { scale: 1.08, y: 40 }),
-        });
       }
 
       return () => {
