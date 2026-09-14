@@ -13,6 +13,8 @@ import { useLockBodyScroll } from "@/lib/hooks/useLockBodyScroll";
 const mobileLinks = [
   { label: "Home", href: "/" },
   { label: "Spare Parts Catalog", href: "/products" },
+  { label: "Vehicle Makes & Models", href: "/makes" },
+  { label: "Frequently Asked Questions", href: "/#faq" },
   { label: "About Shanghai Global", href: "/about" },
   { label: "Branches & Locations", href: "/contact#locations" },
   { label: "Make a Part Enquiry", href: "/products#enquire" },

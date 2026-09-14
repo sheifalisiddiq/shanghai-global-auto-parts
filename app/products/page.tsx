@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -50,7 +51,9 @@ export default function ProductsPage() {
 
       <section className="bg-white pb-24">
         <Container>
-          <ProductsExplorer />
+          <Suspense fallback={<div className="py-12 text-center text-sm text-slate-400">Loading parts catalog...</div>}>
+            <ProductsExplorer />
+          </Suspense>
         </Container>
       </section>
 

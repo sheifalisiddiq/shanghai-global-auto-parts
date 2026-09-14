@@ -9,17 +9,28 @@ import { carBrands } from "@/lib/data/brands";
 import { brandLogoDisclaimer } from "@/lib/data/company";
 import { Container } from "@/components/ui/Container";
 
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+
 function BrandChip({ brand }: { brand: (typeof carBrands)[number] }) {
   if (!brand.logo) {
     return (
-      <span className="font-ui text-steel-dark border-steel-light flex h-16 shrink-0 items-center rounded-full border px-6 text-xs tracking-wide uppercase">
+      <Link
+        href={`/products?brand=${brand.id}`}
+        title={`Explore spare parts for ${brand.name}`}
+        className="font-ui text-steel-dark border-steel-light flex h-16 shrink-0 items-center rounded-full border px-6 text-xs tracking-wide uppercase hover:border-brand-red hover:text-brand-red transition-colors"
+      >
         {brand.name}
-      </span>
+      </Link>
     );
   }
 
   return (
-    <span className="flex h-16 shrink-0 items-center px-8 grayscale transition-all duration-300 hover:grayscale-0">
+    <Link
+      href={`/products?brand=${brand.id}`}
+      title={`Explore spare parts for ${brand.name}`}
+      className="flex h-16 shrink-0 items-center px-8 grayscale transition-all duration-300 hover:grayscale-0 hover:scale-105"
+    >
       <Image
         src={brand.logo.src}
         alt={brand.logo.alt}
@@ -27,7 +38,7 @@ function BrandChip({ brand }: { brand: (typeof carBrands)[number] }) {
         height={48}
         className="h-8 w-auto object-contain opacity-70 hover:opacity-100"
       />
-    </span>
+    </Link>
   );
 }
 
@@ -59,7 +70,22 @@ export function BrandMarquee() {
   }, [reducedMotion]);
 
   return (
-    <section className="border-steel-light border-y bg-white py-10">
+    <section id="vehicle-makes" className="border-steel-light border-y bg-white py-12">
+      <Container className="mb-8 text-center">
+        <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-1 shadow-2xs mb-2">
+          <span className="size-1.5 rounded-full bg-brand-red animate-pulse" />
+          <span className="font-mono text-[10px] sm:text-xs font-bold tracking-wider text-slate-700 uppercase">
+            Compatible Vehicle Makes
+          </span>
+        </div>
+        <h2 className="font-display text-ink text-xl sm:text-2xl lg:text-3xl font-bold uppercase tracking-tight">
+          Supported Chinese Automobile Brands
+        </h2>
+        <p className="text-xs sm:text-sm text-slate-500 max-w-lg mx-auto mt-1">
+          Select any brand to filter compatible parts, or explore our full make directory.
+        </p>
+      </Container>
+
       <div className="overflow-hidden">
         <div
           ref={trackRef}
@@ -70,10 +96,20 @@ export function BrandMarquee() {
           ))}
         </div>
       </div>
+
       <Container>
-        <p className="text-steel-dark mt-6 text-center text-[11px] tracking-wide">
-          {brandLogoDisclaimer}
-        </p>
+        <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-100 pt-5">
+          <p className="text-steel-dark text-center sm:text-left text-[11px] tracking-wide">
+            {brandLogoDisclaimer}
+          </p>
+          <Link
+            href="/makes"
+            className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-slate-50 px-4 py-1.5 text-xs font-bold text-slate-800 transition-colors hover:bg-brand-red hover:text-white hover:border-brand-red shrink-0"
+          >
+            <span>View All Supported Makes &amp; Models</span>
+            <ArrowRight className="size-3.5" />
+          </Link>
+        </div>
       </Container>
     </section>
   );

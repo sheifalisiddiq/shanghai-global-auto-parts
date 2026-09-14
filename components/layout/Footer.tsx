@@ -19,12 +19,12 @@ import { locations, contact, companyIntro, brandLogoDisclaimer } from "@/lib/dat
 import { categories } from "@/lib/data/categories";
 
 const popularBrands = [
-  { name: "Jetour", models: "T2, Dashing, X70+, X90+" },
-  { name: "Changan", models: "CS95, CS85, UNI-K, UNI-T" },
-  { name: "Geely", models: "Monjaro, Tugella, Coolray" },
-  { name: "Chery", models: "Tiggo 8 Pro, Tiggo 7, Arrizo" },
-  { name: "Haval & GWM", models: "H6, Jolion, Tank 300 / 500" },
-  { name: "BYD, MG & GAC", models: "EV, Hybrid & Petrol series" },
+  { id: "jetour", name: "Jetour", models: "T2, Dashing, X70+, X90+" },
+  { id: "changan", name: "Changan", models: "CS95, CS85, UNI-K, UNI-T" },
+  { id: "geely", name: "Geely", models: "Monjaro, Tugella, Coolray" },
+  { id: "chery", name: "Chery", models: "Tiggo 8 Pro, Tiggo 7, Arrizo" },
+  { id: "haval", name: "Haval & GWM", models: "H6, Jolion, Tank 300 / 500" },
+  { id: "byd", name: "BYD & MG", models: "EV, Hybrid & Petrol series" },
 ];
 
 export function Footer() {
@@ -148,16 +148,25 @@ export function Footer() {
             <ul className="space-y-3 text-xs">
               {popularBrands.map((brand) => (
                 <li key={brand.name}>
-                  <div className="font-semibold text-slate-200">{brand.name}</div>
-                  <div className="text-[11px] text-slate-500 leading-tight">{brand.models}</div>
+                  <Link
+                    href={`/products?brand=${brand.id}`}
+                    className="group block transition-colors"
+                  >
+                    <div className="font-semibold text-slate-200 group-hover:text-brand-red transition-colors">
+                      {brand.name}
+                    </div>
+                    <div className="text-[11px] text-slate-500 leading-tight">
+                      {brand.models}
+                    </div>
+                  </Link>
                 </li>
               ))}
               <li className="pt-1">
                 <Link
-                  href="/products"
-                  className="text-xs font-semibold text-brand-red hover:underline"
+                  href="/makes"
+                  className="text-xs font-semibold text-brand-red hover:underline inline-flex items-center gap-1"
                 >
-                  View All Models &rarr;
+                  <span>View All 14+ Makes &rarr;</span>
                 </Link>
               </li>
             </ul>
@@ -209,8 +218,14 @@ export function Footer() {
 
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-4 text-xs">
+              <Link href="/makes" className="hover:text-white transition-colors">
+                Vehicle Makes
+              </Link>
               <Link href="/about" className="hover:text-white transition-colors">
                 About Us
+              </Link>
+              <Link href="/#faq" className="hover:text-white transition-colors">
+                FAQ
               </Link>
               <Link href="/products#enquire" className="hover:text-white transition-colors">
                 Enquiry

@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { CategoryGrid } from "@/components/products/CategoryGrid";
 import { CategoryFilter } from "@/components/products/CategoryFilter";
 import { BrandFilter } from "@/components/products/BrandFilter";
@@ -9,8 +10,26 @@ import { RevealGroup } from "@/components/ui/Reveal";
 import { products } from "@/lib/data/products";
 
 export function ProductsExplorer() {
-  const [category, setCategory] = useState("all");
-  const [brandIds, setBrandIds] = useState<string[]>([]);
+  const searchParams = useSearchParams();
+  const urlCategory = searchParams.get("category") || "all";
+  const urlBrand = searchParams.get("brand") || searchParams.get("make");
+
+  const [category, setCategory] = useState(urlCategory);
+  const [brandIds, setBrandIds] = useState<string[]>(() =>
+    urlBrand ? [urlBrand.toLowerCase()] : [],
+  );
+
+  // Sync state if URL query params change
+  useEffect(() => {
+    const brand = searchParams.get("brand") || searchParams.get("make");
+    if (brand) {
+      setBrandIds([brand.toLowerCase()]);
+    }
+    const cat = searchParams.get("category");
+    if (cat) {
+      setCategory(cat);
+    }
+  }, [searchParams]);
 
   const filtered = useMemo(() => {
     return products.filter((p) => {

@@ -9,6 +9,7 @@ import {
   ChevronDown,
   MessageCircle,
   ArrowUpRight,
+  ArrowRight,
   Disc3,
   Cog,
   Waypoints,
@@ -36,12 +37,13 @@ const categoryIcons: Record<string, typeof Disc3> = {
 };
 
 const popularBrands = [
-  { name: "Jetour", subtitle: "T2, Dashing, X70, X90", href: "/products" },
-  { name: "Changan", subtitle: "CS95, CS85, UNI Series", href: "/products" },
-  { name: "Geely", subtitle: "Monjaro, Tugella, Coolray", href: "/products" },
-  { name: "Chery", subtitle: "Tiggo 8 Pro, Arrizo", href: "/products" },
-  { name: "Haval & GWM", subtitle: "H6, Jolion, Tank 300/500", href: "/products" },
-  { name: "BYD, MG & GAC", subtitle: "EV, Hybrid & Petrol", href: "/products" },
+  { name: "Jetour", subtitle: "T2, Dashing, X70, X90", href: "/products?brand=jetour" },
+  { name: "Changan", subtitle: "CS95, CS85, UNI Series", href: "/products?brand=changan" },
+  { name: "Geely", subtitle: "Monjaro, Tugella, Coolray", href: "/products?brand=geely" },
+  { name: "Chery", subtitle: "Tiggo 8 Pro, Arrizo", href: "/products?brand=chery" },
+  { name: "Haval & GWM", subtitle: "H6, Jolion, Tank 300/500", href: "/products?brand=haval" },
+  { name: "BYD", subtitle: "Atto 3, Han, Tang, Seal", href: "/products?brand=byd" },
+  { name: "MG (Morris Garages)", subtitle: "RX8, HS, GT, ZS, Whale", href: "/products?brand=mg" },
 ];
 
 export function Header() {
@@ -186,7 +188,7 @@ export function Header() {
                 type="button"
                 className={cn(
                   "flex items-center gap-1 rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer",
-                  brandsOpen
+                  brandsOpen || pathname === "/makes"
                     ? "text-brand-red bg-white/5"
                     : "text-slate-300 hover:text-white hover:bg-white/5",
                 )}
@@ -203,6 +205,13 @@ export function Header() {
                     <span className="font-mono text-[10px] font-bold tracking-wider text-brand-red uppercase">
                       Supported Chinese Brands
                     </span>
+                    <Link
+                      href="/makes"
+                      className="flex items-center gap-1 text-[11px] font-semibold text-slate-300 hover:text-white"
+                    >
+                      <span>Directory</span>
+                      <ArrowUpRight className="size-3 text-brand-red" />
+                    </Link>
                   </div>
 
                   <div className="space-y-1.5">
@@ -221,6 +230,16 @@ export function Header() {
                         <ArrowUpRight className="size-3.5 text-slate-500 group-hover:text-brand-red transition-colors" />
                       </Link>
                     ))}
+                  </div>
+
+                  <div className="mt-2.5 border-t border-white/10 pt-2">
+                    <Link
+                      href="/makes"
+                      className="flex items-center justify-between rounded-lg bg-white/5 px-3 py-2 text-xs font-bold text-white hover:bg-brand-red transition-colors"
+                    >
+                      <span>View All 14+ Supported Makes</span>
+                      <ArrowRight className="size-3.5" />
+                    </Link>
                   </div>
                 </div>
               )}
