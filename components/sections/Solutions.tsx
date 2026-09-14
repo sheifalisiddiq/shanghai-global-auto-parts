@@ -48,15 +48,18 @@ export function Solutions() {
         </div>
 
         <div className="order-1 lg:order-2">
-          <p className="text-ink text-xl leading-relaxed font-medium sm:text-2xl">
-            {solutions.paragraph}
-          </p>
+          <span className="font-mono text-xs font-bold tracking-wider text-brand-red uppercase mb-2.5 block">
+            Global Sourcing &bull; Quality Assured
+          </span>
+          <h2 className="font-display text-ink text-2xl sm:text-3xl lg:text-4xl font-bold uppercase tracking-tight">
+            Comprehensive Sourcing Solutions
+          </h2>
 
-          <RevealGroup className="mt-10 space-y-4" itemSelector=":scope > div">
+          <RevealGroup className="mt-8 space-y-4" itemSelector=":scope > div">
             {solutions.bullets.map((bullet) => (
               <div key={bullet} className="border-steel-light flex items-start gap-3 border-t pt-4">
                 <span className="bg-brand-red mt-2 size-1.5 shrink-0 rounded-full" />
-                <span className="text-ink text-sm sm:text-base">{bullet}</span>
+                <span className="text-ink text-sm sm:text-base font-medium">{bullet}</span>
               </div>
             ))}
           </RevealGroup>

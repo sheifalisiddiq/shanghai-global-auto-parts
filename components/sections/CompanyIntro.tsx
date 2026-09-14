@@ -2,51 +2,47 @@
 
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
-import { gsap, SplitText, registerGSAP } from "@/lib/gsap/registerGSAP";
+import { ScrollTrigger, registerGSAP } from "@/lib/gsap/registerGSAP";
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 import { Container } from "@/components/ui/Container";
-import { companyIntro } from "@/lib/data/company";
+import { ExplodedEngineViewer } from "@/components/hero/ExplodedEngineViewer";
 
 export function CompanyIntro() {
-  const pRef = useRef<HTMLParagraphElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const explodeProgress = useRef(0);
   const reducedMotion = useReducedMotion();
 
   useGSAP(
     () => {
       registerGSAP();
-      if (reducedMotion || !pRef.current) return;
 
-      const split = SplitText.create(pRef.current, {
-        type: "lines",
-        mask: "lines",
-        autoSplit: true,
-        linesClass: "line",
-      });
-
-      gsap.from(split.lines, {
-        yPercent: 110,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.12,
-        ease: "power3.out",
-        scrollTrigger: { trigger: pRef.current, start: "top 85%" },
-      });
-
-      return () => split.revert();
+      // ScrollTrigger drives the exploded engine separation on scroll
+      if (!reducedMotion && sectionRef.current) {
+        ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start: "top 80%",
+          end: "bottom 20%",
+          scrub: 1,
+          onUpdate: (self) => {
+            explodeProgress.current = self.progress;
+          },
+        });
+      }
     },
-    { scope: pRef, dependencies: [reducedMotion] },
+    { scope: sectionRef, dependencies: [reducedMotion] },
   );
 
   return (
-    <section className="bg-paper pt-12 sm:pt-16 pb-4 sm:pb-6">
+    <section
+      ref={sectionRef}
+      className="relative overflow-hidden bg-gradient-to-b from-white via-slate-50/50 to-white py-8 sm:py-12 lg:py-14 border-b border-slate-200/80"
+    >
       <Container>
-        <p
-          ref={pRef}
-          className="font-display text-ink max-w-5xl text-3xl leading-[1.15] font-bold uppercase sm:text-4xl lg:text-5xl"
-        >
-          {companyIntro}
-        </p>
+        <div className="mx-auto max-w-4xl lg:max-w-5xl relative w-full h-[480px] sm:h-[540px] lg:h-[600px]">
+          <ExplodedEngineViewer explodeProgress={explodeProgress} />
+        </div>
       </Container>
     </section>
   );
 }
+

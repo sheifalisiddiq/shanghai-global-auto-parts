@@ -1,6 +1,6 @@
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
-import { companyIntro, solutions } from "@/lib/data/company";
+import { companyIntro } from "@/lib/data/company";
 
 export function StoryIntro() {
   return (
@@ -14,9 +14,9 @@ export function StoryIntro() {
             {companyIntro}
           </p>
         </Reveal>
-        <Reveal delay={0.1} className="mt-8 max-w-2xl">
+        <Reveal delay={0.1} className="mt-6 max-w-2xl">
           <p className="text-steel-dark text-base leading-relaxed sm:text-lg">
-            {solutions.paragraph}
+            Delivering genuine, OEM, and precision aftermarket automotive components across the UAE, GCC, and worldwide.
           </p>
         </Reveal>
       </Container>

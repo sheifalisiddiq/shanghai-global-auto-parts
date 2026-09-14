@@ -22,8 +22,8 @@ export default function HomePage() {
     <>
       <Hero />
       <TrustFeaturesBar />
-      <BrandMarquee />
       <CompanyIntro />
+      <BrandMarquee />
       <GoogleReviews />
       <WhatWeDo />
       <StatsBand />

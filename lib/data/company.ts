@@ -3,7 +3,7 @@ export const siteName = "Shanghai Global Auto Parts";
 export const heroHeadline = "YOUR SOURCE FOR CHINESE AUTOMOTIVE PARTS";
 
 export const companyIntro =
-  "Shanghai Global is a leading supplier and distributor of high-quality auto spare parts — sourcing and trading genuine, OEM and reliable components for automotive businesses worldwide.";
+  "Leading supplier of genuine, OEM and reliable auto spare parts worldwide.";
 
 export interface Stat {
   id: string;
@@ -68,8 +68,6 @@ export const whatWeDo: WhatWeDoItem[] = [
 ];
 
 export const solutions = {
-  paragraph:
-    "We specialise in delivering top-notch parts and comprehensive sourcing solutions worldwide. Explore a vast selection of genuine, OEM and reliable spare parts — from brakes and filters to engine components and accessories — every one meeting the standard your automotive business runs on.",
   bullets: [
     "Genuine, OEM & aftermarket options",
     "Global sourcing network across 40+ countries",

@@ -7,20 +7,23 @@ import { Play, Pause } from "lucide-react";
 
 interface ExplodedEngineViewerProps {
   explodeProgress?: MutableRefObject<number>;
+  className?: string;
 }
 
-export function ExplodedEngineViewer({ explodeProgress }: ExplodedEngineViewerProps) {
+export function ExplodedEngineViewer({ explodeProgress, className = "" }: ExplodedEngineViewerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [progress, setProgress] = useState(0.85); // 0 = assembled, 1 = exploded
-  const [isAutoCycle, setIsAutoCycle] = useState(true);
+  const isScrollDriven = !!explodeProgress;
+  const [progress, setProgress] = useState(() => (isScrollDriven ? 0 : 0.85)); // 0 = assembled, 1 = exploded
+  const [isAutoCycle, setIsAutoCycle] = useState(() => !isScrollDriven);
   const [tilt, setTilt] = useState({ x: 12, y: -14 });
   const [hoveredPart, setHoveredPart] = useState<string | null>(null);
 
   const animRef = useRef<number | null>(null);
   const timeRef = useRef(0);
   const manualScrub = useRef(false);
+  const currentProgressRef = useRef(isScrollDriven ? 0 : 0.85);
 
-  // Smooth animation loop for auto-breathing expand & assemble cycle
+  // Smooth animation loop for auto-breathing expand & assemble cycle or scroll scrub
   useEffect(() => {
     let lastTime = performance.now();
 
@@ -28,16 +31,28 @@ export function ExplodedEngineViewer({ explodeProgress }: ExplodedEngineViewerPr
       const delta = (now - lastTime) / 1000;
       lastTime = now;
 
-      // If user is scrolling, allow scroll to drive progress
-      if (explodeProgress && explodeProgress.current > 0.05) {
-        setProgress(Math.min(1, explodeProgress.current * 1.6));
-      } else if (isAutoCycle && !manualScrub.current) {
-        timeRef.current += delta * 0.75; // ~8.4s full cycle
-        // Sinusoidal wave between 0 (assembled) and 1 (exploded)
+      if (manualScrub.current) {
+        // Controlled by slider onChange
+      } else if (explodeProgress) {
+        if (isAutoCycle) {
+          timeRef.current += delta * 0.75;
+          const wave = Math.sin(timeRef.current);
+          const norm = (wave + 1) / 2;
+          const eased = norm * norm * (3 - 2 * norm);
+          currentProgressRef.current = eased;
+          setProgress(eased);
+        } else {
+          // Smoothly lerp towards scroll target
+          const target = Math.max(0, Math.min(1, explodeProgress.current));
+          currentProgressRef.current += (target - currentProgressRef.current) * 0.16;
+          setProgress(currentProgressRef.current);
+        }
+      } else if (isAutoCycle) {
+        timeRef.current += delta * 0.75;
         const wave = Math.sin(timeRef.current);
         const norm = (wave + 1) / 2;
-        // Smoothstep curve for mechanical hold at peak assembled and peak exploded
         const eased = norm * norm * (3 - 2 * norm);
+        currentProgressRef.current = eased;
         setProgress(eased);
       }
 
@@ -95,7 +110,7 @@ export function ExplodedEngineViewer({ explodeProgress }: ExplodedEngineViewerPr
       ref={containerRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative flex h-full w-full select-none flex-col items-center justify-center overflow-hidden rounded-2xl border border-slate-200/80 bg-gradient-to-b from-slate-50/90 to-white shadow-xl shadow-slate-200/50 backdrop-blur-xs"
+      className={`relative flex h-full w-full select-none flex-col items-center justify-center overflow-hidden rounded-2xl border border-slate-200/80 bg-gradient-to-b from-slate-50/90 to-white shadow-xl shadow-slate-200/50 backdrop-blur-xs ${className}`}
     >
       {/* Blueprint Grid Background */}
       <div
