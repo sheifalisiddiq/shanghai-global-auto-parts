@@ -1,11 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import {
-  BriefcaseBusiness,
-  PackageCheck,
-  Truck,
-  Building2,
   CheckCircle2,
   ArrowRight,
   Send,
@@ -184,18 +181,30 @@ export function CareersContent() {
   return (
     <>
       {/* 1. Hero Section */}
-      <section className="relative overflow-hidden bg-slate-950 py-16 text-white sm:py-24 lg:py-28">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,var(--tw-gradient-stops))] from-brand-red/20 via-transparent to-transparent opacity-60 pointer-events-none" />
-        <Container className="relative z-10">
+      <section className="relative flex min-h-[620px] items-center overflow-hidden bg-slate-950 py-16 text-white sm:py-24 lg:min-h-[680px] lg:py-28">
+        <Image
+          src="/images/careers/automotive-engineer-hero.png"
+          alt="Automotive engineer measuring an engine component at a quality-control workstation"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-[62%_center]"
+        />
+        <div className="pointer-events-none absolute inset-0 bg-slate-950/35" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-slate-950/10" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/65 via-transparent to-slate-950/25" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,var(--tw-gradient-stops))] from-brand-red/20 via-transparent to-transparent opacity-70" />
+
+        <Container className="relative z-10 w-full">
           <div className="max-w-3xl">
-            <span className="font-ui mb-4 inline-flex items-center gap-2 rounded-full border border-brand-red/30 bg-brand-red/10 px-3.5 py-1 text-xs tracking-widest text-brand-red uppercase">
+            <span className="font-ui mb-4 inline-flex items-center gap-2 rounded-full border border-brand-red/30 bg-brand-red/10 px-3.5 py-1 text-xs tracking-widest text-brand-red uppercase backdrop-blur-sm">
               <Sparkles className="size-3.5 text-brand-red" />
               <span>We Are Hiring</span>
             </span>
-            <h1 className="font-display text-4xl leading-[0.95] font-black uppercase sm:text-6xl lg:text-7xl">
+            <h1 className="font-display text-4xl leading-[0.95] font-black uppercase drop-shadow-lg sm:text-6xl lg:text-7xl">
               {t("careers.title")}
             </h1>
-            <p className="mt-6 max-w-2xl text-base leading-relaxed text-slate-300 sm:text-lg">
+            <p className="mt-6 max-w-2xl text-base leading-relaxed text-slate-200 drop-shadow-md sm:text-lg">
               {t("careers.subtitle")}
             </p>
 
@@ -210,7 +219,7 @@ export function CareersContent() {
 
               <a
                 href="#apply-form"
-                className="font-ui inline-flex items-center gap-2 rounded-lg border border-white/20 bg-white/5 px-6 py-3.5 text-xs font-bold tracking-wider text-white uppercase transition-colors hover:bg-white hover:text-ink"
+                className="font-ui inline-flex items-center gap-2 rounded-lg border border-white/25 bg-slate-950/30 px-6 py-3.5 text-xs font-bold tracking-wider text-white uppercase backdrop-blur-sm transition-colors hover:bg-white hover:text-ink"
               >
                 <span>{t("careers.submitCv")}</span>
               </a>
