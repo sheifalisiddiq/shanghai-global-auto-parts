@@ -189,6 +189,13 @@ export const translations = {
 
     // About Us Page
     "about.eyebrow": "About Shanghai Global",
+    "about.hero.title": "Built On Trust. Driven By Parts.",
+    "about.hero.imageAlt": "OEM factory production line manufacturing automotive components",
+    "about.intro.eyebrow": "Who We Are",
+    "about.certs.eyebrow": "Quality Assurance",
+    "about.certs.title": "Certified & Checked",
+    "about.office.title": "Our Offices & Warehouses",
+    "about.office.photo1Alt": "OEM factory production line",
     "about.headline": "Leading supplier of original, OEM and reliable auto spare parts worldwide.",
     "about.subtitle":
       "Delivering original, OEM, and precision aftermarket automotive components across the UAE, GCC, and worldwide.",
@@ -528,6 +535,13 @@ export const translations = {
 
     // About Us Page
     "about.eyebrow": "عن شانغهاي جلوبال",
+    "about.hero.title": "مبنية على الثقة. مدفوعة بالقطع.",
+    "about.hero.imageAlt": "خط إنتاج مصنع لتصنيع قطع غيار السيارات",
+    "about.intro.eyebrow": "من نحن",
+    "about.certs.eyebrow": "ضمان الجودة",
+    "about.certs.title": "معتمدة ومفحوصة",
+    "about.office.title": "مكاتبنا ومستودعاتنا",
+    "about.office.photo1Alt": "خط إنتاج المصنع",
     "about.headline": "المورد الرائد لقطع غيار السيارات الأصلية ومصنّعي المعدات الأصلية والبدائل المعتمدة عالمياً.",
     "about.subtitle":
       "نقدم حلول توريد متكاملة لقطع غيار السيارات الصينية بجودة هندسية دقيقة عبر الإمارات ودول الخليج وحول العالم.",

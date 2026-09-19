@@ -78,6 +78,36 @@ export const solutions = {
   ],
 };
 
+export interface Certification {
+  id: string;
+  name: string;
+  description: string;
+}
+
+// TODO: placeholder entries — replace with the company's real certificates.
+export const certifications: Certification[] = [
+  {
+    id: "iso",
+    name: "ISO 9001",
+    description: "Quality management standards across sourcing and supply.",
+  },
+  {
+    id: "origin",
+    name: "Certificate of Origin",
+    description: "Export documentation provided with every shipment.",
+  },
+  {
+    id: "hs",
+    name: "HS Code Compliance",
+    description: "Accurate customs classification for smooth clearance.",
+  },
+  {
+    id: "warranty",
+    name: "Product Warranty",
+    description: "Every part quality-checked before dispatch and backed by warranty.",
+  },
+];
+
 export interface LocationInfo {
   id: string;
   label: string;

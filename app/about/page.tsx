@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
+import { AboutHero } from "@/components/about/AboutHero";
 import { StoryIntro } from "@/components/about/StoryIntro";
-import { StatsBand } from "@/components/sections/StatsBand";
 import { JourneyTimeline } from "@/components/about/JourneyTimeline";
 import { MissionVisionValues } from "@/components/about/MissionVisionValues";
-import { CapabilityList } from "@/components/about/CapabilityList";
-import { AboutNetwork } from "@/components/about/AboutNetwork";
-import { QualityAssurance } from "@/components/about/QualityAssurance";
+import { StatsBand } from "@/components/sections/StatsBand";
+import { Certifications } from "@/components/about/Certifications";
 import { BrandMarquee } from "@/components/sections/BrandMarquee";
-import { LocationsPreview } from "@/components/about/LocationsPreview";
+import { OfficeWarehouse } from "@/components/about/OfficeWarehouse";
 import { CTABanner } from "@/components/sections/CTABanner";
 
 export const metadata: Metadata = {
@@ -19,15 +18,14 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
+      <AboutHero />
       <StoryIntro />
-      <StatsBand />
       <JourneyTimeline />
       <MissionVisionValues />
-      <CapabilityList />
-      <AboutNetwork />
-      <QualityAssurance />
+      <StatsBand />
+      <Certifications />
       <BrandMarquee />
-      <LocationsPreview />
+      <OfficeWarehouse />
       <CTABanner />
     </>
   );
