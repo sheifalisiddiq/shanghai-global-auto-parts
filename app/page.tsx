@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/sections/Hero";
 import { TrustFeaturesBar } from "@/components/sections/TrustFeaturesBar";
-import { BrandMarquee } from "@/components/sections/BrandMarquee";
 import { CompanyIntro } from "@/components/sections/CompanyIntro";
-import { GoogleReviews } from "@/components/sections/GoogleReviews";
-import { WhatWeDo } from "@/components/sections/WhatWeDo";
-import { StatsBand } from "@/components/sections/StatsBand";
-import { Solutions } from "@/components/sections/Solutions";
-import { PartFinderBar } from "@/components/sections/PartFinderBar";
+import { BrandMarquee } from "@/components/sections/BrandMarquee";
 import { ProductsCarousel } from "@/components/sections/ProductsCarousel";
+import { CompanyIntroText } from "@/components/sections/CompanyIntroText";
+import { WhatWeDo } from "@/components/sections/WhatWeDo";
+import { FeaturedCountries } from "@/components/sections/FeaturedCountries";
+import { BlogHighlights } from "@/components/sections/BlogHighlights";
+import { GoogleReviews } from "@/components/sections/GoogleReviews";
 import { FAQ } from "@/components/sections/FAQ";
 import { CTABanner } from "@/components/sections/CTABanner";
 
@@ -25,12 +25,12 @@ export default function HomePage() {
       <TrustFeaturesBar />
       <CompanyIntro />
       <BrandMarquee />
-      <GoogleReviews />
-      <WhatWeDo />
-      <StatsBand />
-      <Solutions />
-      <PartFinderBar />
       <ProductsCarousel />
+      <CompanyIntroText />
+      <WhatWeDo />
+      <FeaturedCountries />
+      <BlogHighlights />
+      <GoogleReviews />
       <FAQ />
       <CTABanner />
     </>
