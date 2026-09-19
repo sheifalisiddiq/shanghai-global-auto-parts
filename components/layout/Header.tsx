@@ -22,6 +22,7 @@ import { Logo } from "@/components/brand/Logo";
 import { Container } from "@/components/ui/Container";
 import { MobileNav } from "@/components/layout/MobileNav";
 import { categories } from "@/lib/data/categories";
+import { categoryKey } from "@/lib/data/catalog";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher";
 import { cn } from "@/lib/utils/cn";
@@ -116,20 +117,25 @@ export function Header() {
               className="relative"
               onMouseEnter={handlePartsEnter}
               onMouseLeave={handlePartsLeave}
+              onFocus={handlePartsEnter}
+              onKeyDown={(e) => {
+                if (e.key === "Escape") setPartsOpen(false);
+              }}
             >
-              <button
-                type="button"
+              <Link
+                href="/products"
+                aria-haspopup="true"
+                aria-expanded={partsOpen}
                 className={cn(
                   "flex items-center gap-1 rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer",
                   partsOpen || pathname.startsWith("/products")
                     ? "text-brand-red bg-white/10"
                     : "text-zinc-200 hover:text-white hover:bg-white/10",
                 )}
-                onClick={() => setPartsOpen((prev) => !prev)}
               >
                 <span>{t("nav.spareParts", "Spare Parts")}</span>
                 <ChevronDown className={cn("size-3.5 transition-transform duration-200", partsOpen && "rotate-180")} />
-              </button>
+              </Link>
 
               {/* Parts Dropdown Menu */}
               {partsOpen && (
@@ -150,11 +156,11 @@ export function Header() {
                   <div className="grid grid-cols-2 gap-2">
                     {categories.map((cat) => {
                       const Icon = categoryIcons[cat.id] || Disc3;
-                      const catLabelKey = `cat.${cat.id}` as any;
+                      const catLabelKey = categoryKey(cat.id);
                       return (
                         <Link
                           key={cat.id}
-                          href={`/products#${cat.id}`}
+                          href={`/products?category=${cat.id}`}
                           className="group flex items-start gap-2.5 rounded-xl p-2.5 transition-colors hover:bg-white/10"
                         >
                           <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-white/5 border border-white/10 group-hover:border-brand-red/50 group-hover:bg-brand-red/10 transition-colors">

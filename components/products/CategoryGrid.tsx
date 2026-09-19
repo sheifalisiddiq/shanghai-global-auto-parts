@@ -17,6 +17,8 @@ import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsap/registerGSAP";
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 import { categories } from "@/lib/data/categories";
+import { categoryKey } from "@/lib/data/catalog";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { cn } from "@/lib/utils/cn";
 
 const iconMap: Record<string, LucideIcon> = {
@@ -40,13 +42,14 @@ function CategoryTile({
   onSelect: (id: string) => void;
 }) {
   const Icon = iconMap[category.icon];
+  const { t } = useLanguage();
   return (
     <button
       type="button"
       onClick={() => onSelect(active ? "all" : category.id)}
       aria-pressed={active}
       className={cn(
-        "group relative aspect-square shrink-0 overflow-hidden text-left",
+        "group relative aspect-square shrink-0 overflow-hidden text-start",
         "w-[45vw] sm:w-[22vw] lg:w-[180px]",
         active ? "ring-brand-red ring-2" : "ring-1 ring-transparent",
       )}
@@ -59,9 +62,9 @@ function CategoryTile({
         className="object-cover transition-transform duration-500 group-hover:scale-105"
       />
       <div className="from-ink/90 absolute inset-0 bg-gradient-to-t via-transparent to-transparent" />
-      {Icon && <Icon className="text-brand-red absolute top-3 left-3 size-5" aria-hidden />}
-      <span className="font-ui absolute bottom-3 left-3 text-xs tracking-wide text-white uppercase">
-        {category.label}
+      {Icon && <Icon className="text-brand-red absolute top-3 start-3 size-5" aria-hidden />}
+      <span className="font-ui absolute bottom-3 start-3 text-xs tracking-wide text-white uppercase">
+        {t(categoryKey(category.id), category.label)}
       </span>
     </button>
   );
@@ -76,10 +79,13 @@ export function CategoryGrid({
 }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const reducedMotion = useReducedMotion();
+  const { isRTL } = useLanguage();
+  // The scrolling marquee assumes left-to-right flow, so RTL uses the static grid.
+  const staticGrid = reducedMotion || isRTL;
 
   useGSAP(
     () => {
-      if (reducedMotion || !trackRef.current) return;
+      if (staticGrid || !trackRef.current) return;
 
       const tween = gsap.to(trackRef.current, {
         xPercent: -50,
@@ -100,10 +106,10 @@ export function CategoryGrid({
         tween.kill();
       };
     },
-    { dependencies: [reducedMotion] },
+    { dependencies: [staticGrid] },
   );
 
-  if (reducedMotion) {
+  if (staticGrid) {
     return (
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         {categories.map((category) => (

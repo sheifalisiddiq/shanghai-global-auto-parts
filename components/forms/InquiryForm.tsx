@@ -155,7 +155,7 @@ export function InquiryForm({
             <input
               name="name"
               required
-              placeholder="e.g. Ahmed Al Mansoori"
+              placeholder={t("form.namePlaceholder", "e.g. Ahmed Al Mansoori")}
               className={inputClass}
             />
           </div>
@@ -168,7 +168,7 @@ export function InquiryForm({
               name="email"
               type="email"
               required
-              placeholder="e.g. ahmed@example.com"
+              placeholder={t("form.emailPlaceholder", "e.g. ahmed@example.com")}
               className={inputClass}
             />
           </div>
@@ -184,7 +184,7 @@ export function InquiryForm({
               name="phone"
               type="tel"
               required
-              placeholder="e.g. +971 50 123 4567"
+              placeholder={t("form.phonePlaceholder", "e.g. +971 50 123 4567")}
               className={inputClass}
             />
           </div>
@@ -196,7 +196,7 @@ export function InquiryForm({
             {interestOptions ? (
               <select name="interest" defaultValue="" className={inputClass}>
                 <option value="" disabled>
-                  Select category...
+                  {t("form.selectCategory", "Select category...")}
                 </option>
                 {interestOptions.map((opt) => (
                   <option key={opt} value={opt}>
@@ -207,7 +207,7 @@ export function InquiryForm({
             ) : (
               <input
                 name="interest"
-                placeholder="e.g. Brake pads or VIN quote"
+                placeholder={t("form.subjectPlaceholder", "e.g. Brake pads or VIN quote")}
                 className={inputClass}
               />
             )}

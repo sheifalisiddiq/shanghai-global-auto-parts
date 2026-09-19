@@ -1,29 +1,37 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import type { Product } from "@/lib/data/products";
 import { categories } from "@/lib/data/categories";
 import { carBrands } from "@/lib/data/brands";
+import { brandName, categoryKey } from "@/lib/data/catalog";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 
-export function ProductCard({ product }: { product: Product }) {
+export function ProductCard({ product, href }: { product: Product; href?: string | null }) {
   const { t, isRTL } = useLanguage();
   const category = categories.find((c) => c.id === product.category);
   const brands = product.compatibleBrandIds
-    .map((id) => carBrands.find((b) => b.id === id)?.name)
+    .map((id) => {
+      const brand = carBrands.find((b) => b.id === id);
+      return brand ? brandName(brand, isRTL) : null;
+    })
     .filter(Boolean);
 
   const name = isRTL && product.nameAr ? product.nameAr : product.name;
   const shortSpec = isRTL && product.shortSpecAr ? product.shortSpecAr : product.shortSpec;
-  const categoryLabel = category
-    ? t(`cat.${category.id}` as any, t(`cat.${category.id === "body-accessories" ? "body" : category.id}` as any, category.label))
-    : "";
+  const categoryLabel = category ? t(categoryKey(category.id), category.label) : "";
 
   return (
     <article
       dir={isRTL ? "rtl" : "ltr"}
       className="group border-steel-light relative flex h-full flex-col overflow-hidden border bg-white"
     >
+      {href && (
+        <Link href={href} aria-label={name} className="absolute inset-0 z-20">
+          <span className="sr-only">{name}</span>
+        </Link>
+      )}
       <div className="bg-paper relative aspect-square overflow-hidden">
         <Image
           src={product.image.src}
@@ -46,7 +54,7 @@ export function ProductCard({ product }: { product: Product }) {
           <p className="text-xs text-white/80">{shortSpec}</p>
           {brands.length > 0 && (
             <p className="font-ui mt-2 text-[10px] tracking-wide text-white/50 uppercase">
-              {t("catalog.fits", "Fits:")} {brands.join(", ")}
+              {t("catalog.fits", "Fits:")} {brands.join(isRTL ? "، " : ", ")}
             </p>
           )}
         </div>
