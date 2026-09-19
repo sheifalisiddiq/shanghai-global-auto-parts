@@ -1,5 +1,6 @@
 "use client";
 
+import { ChevronDown } from "lucide-react";
 import { carBrands } from "@/lib/data/brands";
 import { brandName, getConfirmedModels } from "@/lib/data/catalog";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
@@ -23,33 +24,35 @@ export function ModelFilter({
     }))
     .filter((g) => g.brand && g.models.length > 0);
 
+  const hint =
+    brandIds.length > 0 && groups.length === 0 ? t("products.noModelsForBrand") : t("products.modelHint");
+
   return (
-    <div>
-      <label className="font-ui text-steel-dark flex flex-wrap items-center gap-3 text-xs tracking-wide uppercase">
-        <span>{t("products.filterModel")}</span>
-        <select
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          disabled={groups.length === 0}
-          className="border-steel-light text-ink min-w-56 border bg-white px-3 py-2 text-xs tracking-wide uppercase outline-none disabled:opacity-50"
-        >
-          <option value="">{t("products.allModels")}</option>
-          {groups.map((g) => (
-            <optgroup key={g.brand!.id} label={brandName(g.brand!, isRTL)}>
-              {g.models.map((m) => (
-                <option key={`${m.brandId}/${m.slug}`} value={`${m.brandId}/${m.slug}`}>
-                  {m.name}
-                </option>
-              ))}
-            </optgroup>
-          ))}
-        </select>
-      </label>
-      <p className="text-steel-dark mt-2 text-xs normal-case">
-        {brandIds.length > 0 && groups.length === 0
-          ? t("products.noModelsForBrand")
-          : t("products.modelHint")}
-      </p>
-    </div>
+    <label className="relative block" title={hint}>
+      <span className="sr-only">{t("products.filterModel")}</span>
+      <select
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        disabled={groups.length === 0}
+        className="border-steel-light text-ink hover:border-ink font-ui w-full min-w-48 cursor-pointer appearance-none border bg-white py-3.5 pe-10 ps-4 text-xs tracking-wide uppercase outline-none transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+      >
+        <option value="">
+          {t("products.filterModel")}: {t("products.allModels")}
+        </option>
+        {groups.map((g) => (
+          <optgroup key={g.brand!.id} label={brandName(g.brand!, isRTL)}>
+            {g.models.map((m) => (
+              <option key={`${m.brandId}/${m.slug}`} value={`${m.brandId}/${m.slug}`}>
+                {m.name}
+              </option>
+            ))}
+          </optgroup>
+        ))}
+      </select>
+      <ChevronDown
+        className="text-steel-dark pointer-events-none absolute end-3 top-1/2 size-4 -translate-y-1/2"
+        aria-hidden
+      />
+    </label>
   );
 }

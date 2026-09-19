@@ -1,5 +1,6 @@
 "use client";
 
+import { scrollToTarget } from "@/lib/scroll/lenisInstance";
 import Link from "next/link";
 import {
   MapPin,
@@ -31,7 +32,7 @@ export function Footer() {
   const { t } = useLanguage();
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    scrollToTarget(0);
   };
 
   return (

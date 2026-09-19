@@ -63,6 +63,7 @@ export function MobileNav({ open, onClose }: { open: boolean; onClose: () => voi
   return (
     <div
       ref={panelRef}
+      data-lenis-prevent
       className="fixed inset-0 z-50 hidden flex-col bg-slate-950/98 text-white backdrop-blur-2xl p-6 lg:hidden overflow-y-auto"
       style={{ display: "none" }}
     >

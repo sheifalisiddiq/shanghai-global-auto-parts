@@ -1,5 +1,6 @@
 "use client";
 
+import { scrollToTarget } from "@/lib/scroll/lenisInstance";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { CategoryGrid } from "@/components/products/CategoryGrid";
@@ -11,6 +12,8 @@ import { SortSelect, type SortValue } from "@/components/products/SortSelect";
 import { Pagination } from "@/components/products/Pagination";
 import { ProductCard } from "@/components/products/ProductCard";
 import { RevealGroup } from "@/components/ui/Reveal";
+import { Badge } from "@/components/ui/Badge";
+import { X } from "lucide-react";
 import { carBrands } from "@/lib/data/brands";
 import { categories } from "@/lib/data/categories";
 import {
@@ -144,7 +147,7 @@ export function ProductsExplorer() {
 
   function goToPage(next: number) {
     setParams({ page: String(next) });
-    resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    scrollToTarget(resultsRef.current, -96);
   }
 
   function cardHref(p: Product): string | null {
@@ -162,33 +165,43 @@ export function ProductsExplorer() {
     <div>
       <CategoryGrid activeId={category} onSelect={(id) => setParams({ category: id })} />
 
-      <div ref={resultsRef} className="mt-10 scroll-mt-24 space-y-6">
-        <ProductSearch value={q} onChange={setQ} />
+      <div ref={resultsRef} className="mt-10 scroll-mt-24 space-y-5">
+        <div className="flex flex-col gap-3 lg:flex-row lg:items-stretch">
+          <div className="lg:flex-1">
+            <ProductSearch value={q} onChange={setQ} />
+          </div>
+          <BrandFilter activeIds={brandIds} onToggle={toggleBrand} />
+          <ModelFilter
+            brandIds={brandIds}
+            value={model}
+            onChange={(value) => setParams({ model: value || null })}
+          />
+          <SortSelect value={sort} onChange={(value) => setParams({ sort: value })} />
+        </div>
         <CategoryFilter activeId={category} onChange={(id) => setParams({ category: id })} />
-        <BrandFilter activeIds={brandIds} onToggle={toggleBrand} />
-        <ModelFilter
-          brandIds={brandIds}
-          value={model}
-          onChange={(value) => setParams({ model: value || null })}
-        />
       </div>
 
-      <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
+      <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2">
         <p className="text-steel-dark font-ui text-xs tracking-wide uppercase">
           {results.length} {results.length === 1 ? t("products.part") : t("products.parts")}
         </p>
-        <div className="flex flex-wrap items-center gap-4">
-          {filtersActive && (
-            <button
-              type="button"
-              onClick={clearFilters}
-              className="font-ui text-brand-red text-xs tracking-wide uppercase underline-offset-4 hover:underline"
-            >
-              {t("products.clearFilters")}
-            </button>
-          )}
-          <SortSelect value={sort} onChange={(value) => setParams({ sort: value })} />
-        </div>
+        {brandIds.map((id) => {
+          const b = carBrands.find((x) => x.id === id);
+          return b ? (
+            <Badge key={id} active onClick={() => toggleBrand(id)}>
+              {brandName(b, isRTL)} <X className="ms-1.5 size-3" aria-hidden />
+            </Badge>
+          ) : null;
+        })}
+        {filtersActive && (
+          <button
+            type="button"
+            onClick={clearFilters}
+            className="font-ui text-brand-red ms-auto text-xs tracking-wide uppercase underline-offset-4 hover:underline"
+          >
+            {t("products.clearFilters")}
+          </button>
+        )}
       </div>
 
       {results.length === 0 ? (

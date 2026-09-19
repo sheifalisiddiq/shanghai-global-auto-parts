@@ -1,5 +1,6 @@
 "use client";
 
+import { scrollToTarget } from "@/lib/scroll/lenisInstance";
 import { useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -66,7 +67,7 @@ export function BlogsContent() {
 
   const goToPage = (next: number) => {
     setPage(next);
-    gridRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    scrollToTarget(gridRef.current, -96);
   };
 
   const handleSubscribe = (e: React.FormEvent) => {

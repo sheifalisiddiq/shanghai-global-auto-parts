@@ -4,6 +4,7 @@ import { useEffect, type ReactNode } from "react";
 import Lenis from "lenis";
 import { gsap, ScrollTrigger, registerGSAP } from "@/lib/gsap/registerGSAP";
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
+import { setLenis } from "./lenisInstance";
 
 export function SmoothScrollProvider({ children }: { children: ReactNode }) {
   const reducedMotion = useReducedMotion();
@@ -17,6 +18,10 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
       smoothWheel: true,
     });
 
+    setLenis(lenis);
+    // A lock taken before Lenis existed (preloader) must also pause it.
+    if (document.body.style.overflow === "hidden") lenis.stop();
+
     lenis.on("scroll", ScrollTrigger.update);
 
     const tickerCallback = (time: number) => {
@@ -27,6 +32,7 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
 
     return () => {
       gsap.ticker.remove(tickerCallback);
+      setLenis(null);
       lenis.destroy();
     };
   }, [reducedMotion]);

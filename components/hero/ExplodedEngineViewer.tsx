@@ -23,6 +23,21 @@ export function ExplodedEngineViewer({ explodeProgress, className = "" }: Explod
   const manualScrub = useRef(false);
   const currentProgressRef = useRef(isScrollDriven ? 0 : 0.85);
 
+  // Only animate while the viewer is on screen, so it doesn't re-render every frame off-screen
+  const inViewRef = useRef(true);
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        inViewRef.current = entry.isIntersecting;
+      },
+      { rootMargin: "100px" },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [containerRef]);
+
   // Smooth animation loop for auto-breathing expand & assemble cycle or scroll scrub
   useEffect(() => {
     let lastTime = performance.now();
@@ -31,7 +46,9 @@ export function ExplodedEngineViewer({ explodeProgress, className = "" }: Explod
       const delta = (now - lastTime) / 1000;
       lastTime = now;
 
-      if (manualScrub.current) {
+      if (!inViewRef.current) {
+        // off-screen: skip work
+      } else if (manualScrub.current) {
         // Controlled by slider onChange
       } else if (explodeProgress) {
         if (isAutoCycle) {
@@ -44,8 +61,10 @@ export function ExplodedEngineViewer({ explodeProgress, className = "" }: Explod
         } else {
           // Smoothly lerp towards scroll target
           const target = Math.max(0, Math.min(1, explodeProgress.current));
-          currentProgressRef.current += (target - currentProgressRef.current) * 0.16;
-          setProgress(currentProgressRef.current);
+          if (Math.abs(target - currentProgressRef.current) > 0.0005) {
+            currentProgressRef.current += (target - currentProgressRef.current) * 0.16;
+            setProgress(currentProgressRef.current);
+          }
         }
       } else if (isAutoCycle) {
         timeRef.current += delta * 0.75;
