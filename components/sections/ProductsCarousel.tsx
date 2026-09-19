@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/Button";
 import { ProductCard } from "@/components/products/ProductCard";
 import { categories } from "@/lib/data/categories";
 import { featuredProducts } from "@/lib/data/products";
+import { getPrimaryPartUrl } from "@/lib/data/catalog";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 export function ProductsCarousel() {
@@ -64,43 +65,45 @@ export function ProductsCarousel() {
       <Container>
         <div className="flex flex-wrap items-end justify-between gap-6">
           <SectionHeading eyebrow={t("catalog.eyebrow", "Catalog")} title={t("catalog.title", "Featured Parts")} />
-          <Button href="/products" variant="ghost" className="px-0">
-            {t("catalog.viewAll", "View full catalog")}
-          </Button>
-        </div>
-
-        <div className="mt-10 flex flex-wrap items-center justify-between gap-4">
-          <Tabs items={tabItems} activeId={activeId} onChange={setActiveId} />
-          <div className="flex gap-2">
-            <button
-              type="button"
-              aria-label="Previous products"
-              disabled={!canPrev}
-              onClick={() => emblaApi?.scrollPrev()}
-              className="border-steel-light hover:border-ink disabled:opacity-30 flex size-10 items-center justify-center border transition-colors cursor-pointer"
-            >
-              <ChevronLeft className="size-4 rtl:rotate-180" />
-            </button>
-            <button
-              type="button"
-              aria-label="Next products"
-              disabled={!canNext}
-              onClick={() => emblaApi?.scrollNext()}
-              className="border-steel-light hover:border-ink disabled:opacity-30 flex size-10 items-center justify-center border transition-colors cursor-pointer"
-            >
-              <ChevronRight className="size-4 rtl:rotate-180" />
-            </button>
+          <div className="flex items-center gap-4 sm:gap-6">
+            <Button href="/products" variant="ghost" className="px-0">
+              {t("catalog.viewAll", "View full catalog")}
+            </Button>
+            <div className="flex gap-2">
+              <button
+                type="button"
+                aria-label="Previous products"
+                disabled={!canPrev}
+                onClick={() => emblaApi?.scrollPrev()}
+                className="flex size-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 shadow-sm transition-all hover:border-slate-900 hover:bg-slate-900 hover:text-white disabled:opacity-30 disabled:hover:border-slate-200 disabled:hover:bg-white disabled:hover:text-slate-700 cursor-pointer"
+              >
+                <ChevronLeft className="size-4 rtl:rotate-180" />
+              </button>
+              <button
+                type="button"
+                aria-label="Next products"
+                disabled={!canNext}
+                onClick={() => emblaApi?.scrollNext()}
+                className="flex size-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 shadow-sm transition-all hover:border-slate-900 hover:bg-slate-900 hover:text-white disabled:opacity-30 disabled:hover:border-slate-200 disabled:hover:bg-white disabled:hover:text-slate-700 cursor-pointer"
+              >
+                <ChevronRight className="size-4 rtl:rotate-180" />
+              </button>
+            </div>
           </div>
         </div>
 
-        <div className="mt-6 overflow-hidden" ref={emblaRef} dir={isRTL ? "rtl" : "ltr"}>
+        <div className="mt-10">
+          <Tabs items={tabItems} activeId={activeId} onChange={setActiveId} />
+        </div>
+
+        <div className="mt-6 overflow-hidden px-1 -mx-1 py-4 -my-4" ref={emblaRef} dir={isRTL ? "rtl" : "ltr"}>
           <div className="flex -mx-2 sm:-mx-3">
             {filtered.map((product) => (
               <div
                 key={product.id}
-                className="min-w-0 shrink-0 grow-0 basis-[80%] px-2 sm:basis-[45%] sm:px-3 lg:basis-[27%]"
+                className="min-w-0 shrink-0 grow-0 basis-[75%] px-2 sm:basis-[45%] md:basis-[32%] lg:basis-1/4 sm:px-3"
               >
-                <ProductCard product={product} />
+                <ProductCard product={product} href={getPrimaryPartUrl(product)} />
               </div>
             ))}
           </div>
