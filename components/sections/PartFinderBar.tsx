@@ -12,7 +12,10 @@ const popularSearches = [
   "Haval H6 Oil Filter",
 ];
 
+import { useLanguage } from "@/lib/i18n/LanguageContext";
+
 export function PartFinderBar() {
+  const { t } = useLanguage();
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleSearchSubmit = (e: React.FormEvent) => {
@@ -41,13 +44,13 @@ export function PartFinderBar() {
             <div className="flex items-center gap-2">
               <span className="flex size-2 rounded-full bg-brand-red animate-pulse" />
               <h2 className="font-display text-base sm:text-lg font-black uppercase tracking-wide text-white">
-                Instant Part &amp; VIN Lookup
+                {t("finder.title", "Instant Part & VIN Lookup")}
               </h2>
             </div>
 
             <div className="flex items-center gap-2 text-xs text-slate-400 font-medium">
               <ShieldCheck className="size-4 text-emerald-400" />
-              <span>100% Fitment Guarantee via 17-Digit VIN</span>
+              <span>{t("finder.guarantee", "100% Fitment Guarantee via 17-Digit VIN")}</span>
             </div>
           </div>
 
@@ -57,12 +60,12 @@ export function PartFinderBar() {
             className="relative flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-0 rounded-2xl border border-white/20 bg-white/5 p-2 shadow-2xl backdrop-blur-md transition-all focus-within:border-brand-red focus-within:ring-2 focus-within:ring-brand-red/30"
           >
             <div className="flex items-center flex-1 px-3 py-2">
-              <Search className="size-5 text-slate-400 shrink-0 mr-3" />
+              <Search className="size-5 text-slate-400 shrink-0 mr-3 rtl:mr-0 rtl:ml-3" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Enter Part Name, OEM Number, or 17-digit VIN..."
+                placeholder={t("finder.placeholder", "Enter Part Name, OEM Number, or 17-digit VIN...")}
                 className="w-full bg-transparent text-sm text-white placeholder-slate-400 focus:outline-none font-medium"
               />
             </div>
@@ -71,15 +74,15 @@ export function PartFinderBar() {
               type="submit"
               className="inline-flex items-center justify-center gap-2 rounded-xl bg-brand-red px-6 py-3 text-xs sm:text-sm font-bold text-white shadow-lg transition-all hover:bg-brand-red-dark hover:scale-[1.01] shrink-0 cursor-pointer"
             >
-              <span>Check Price &amp; Availability</span>
-              <ArrowRight className="size-4" />
+              <span>{t("finder.submit", "Check Price & Availability")}</span>
+              <ArrowRight className="size-4 rtl:rotate-180" />
             </button>
           </form>
 
           {/* Popular Search Chips */}
           <div className="mt-3 flex flex-wrap items-center gap-2">
             <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400">
-              Frequent Searches:
+              {t("finder.popular", "Frequent Searches:")}
             </span>
             {popularSearches.map((chip) => (
               <button

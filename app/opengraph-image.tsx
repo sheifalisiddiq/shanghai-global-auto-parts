@@ -34,7 +34,7 @@ export default async function OpengraphImage() {
           YOUR SOURCE FOR CHINESE AUTOMOTIVE PARTS
         </div>
         <div style={{ display: "flex", marginTop: 40, fontSize: 24, color: "#ABABAB" }}>
-          Genuine · OEM · Reliable — shipped worldwide from the UAE
+          Original · OEM · Reliable — shipped worldwide from the UAE
         </div>
       </div>
     ),

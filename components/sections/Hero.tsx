@@ -4,7 +4,6 @@ import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
-  Star,
   ShieldCheck,
   Truck,
   Sparkles,
@@ -17,11 +16,11 @@ import { gsap, registerGSAP } from "@/lib/gsap/registerGSAP";
 import { preloaderState } from "@/lib/preloader/state";
 import { PRELOADER_DONE_EVENT } from "@/components/preloader/Preloader";
 import { Container } from "@/components/ui/Container";
-import { googleRating } from "@/lib/data/company";
-
-const headlineLines = ["YOUR SOURCE FOR", "CHINESE AUTO SPARE PARTS"];
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 export function Hero() {
+  const { t } = useLanguage();
+  const headlineLines = [t("hero.headline1", "YOUR SOURCE FOR"), t("hero.headline2", "CHINESE AUTO SPARE PARTS")];
   const sectionRef = useRef<HTMLElement>(null);
   const lineRefs = useRef<HTMLSpanElement[]>([]);
   const subRef = useRef<HTMLParagraphElement>(null);
@@ -90,17 +89,17 @@ export function Hero() {
               <span className="relative inline-flex size-2 rounded-full bg-brand-red" />
             </span>
             <span className="text-[11px] sm:text-xs font-bold tracking-wider text-white uppercase drop-shadow-sm">
-              Direct Importer &bull; UAE &bull; Qatar &bull; Worldwide
+              {t("hero.eyebrow", "Direct Importer • UAE • Qatar • Worldwide")}
             </span>
           </div>
 
           {/* Main Headline with High-Contrast Dark Outline / Shadow */}
           <h1
-            aria-label="Your Source For Chinese Auto Spare Parts"
-            className="font-display text-white text-3xl font-black uppercase sm:text-5xl lg:text-6xl xl:text-[4.2rem] leading-[1.0] tracking-tight drop-shadow-[0_4px_16px_rgba(0,0,0,1)] drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]"
+            aria-label={headlineLines.join(" ")}
+            className="font-display text-white text-3xl font-black uppercase sm:text-5xl lg:text-6xl xl:text-[4.2rem] leading-[1.05] tracking-tight drop-shadow-[0_4px_16px_rgba(0,0,0,1)] drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]"
           >
             {headlineLines.map((line, i) => (
-              <span key={line} className="block overflow-hidden" aria-hidden="true">
+              <span key={`${line}-${i}`} className="block overflow-hidden" aria-hidden="true">
                 <span
                   ref={(el) => {
                     if (el) lineRefs.current[i] = el;
@@ -118,7 +117,10 @@ export function Hero() {
             ref={subRef}
             className="mt-4 sm:mt-5 max-w-2xl text-sm sm:text-base lg:text-lg leading-relaxed text-white font-medium drop-shadow-[0_3px_10px_rgba(0,0,0,1)] drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]"
           >
-            Genuine, OEM &amp; reliable aftermarket components for <strong className="font-extrabold text-white underline decoration-brand-red decoration-2 underline-offset-4">Jetour, Changan, Geely, Chery, BYD, Haval</strong> and all major Chinese vehicle brands. Stocked in Sharjah &amp; Abu Dhabi with express GCC delivery.
+            {t(
+              "hero.subtitle",
+              "Original, OEM & reliable aftermarket components for Jetour, Changan, Geely, Chery, BYD, Haval and all major Chinese vehicle brands. Stocked in Sharjah & Abu Dhabi with express GCC delivery.",
+            )}
           </p>
 
           {/* Direct Conversion Actions */}
@@ -130,31 +132,15 @@ export function Hero() {
               className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-5 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-bold text-white shadow-xl shadow-emerald-950/40 transition-transform hover:bg-emerald-500 hover:scale-[1.02]"
             >
               <MessageCircle className="size-4 fill-white text-emerald-600" />
-              <span>WhatsApp Fast Quote</span>
+              <span>{t("hero.fastQuote", "WhatsApp Fast Quote")}</span>
             </a>
 
             <Link
               href="/products"
               className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-black/60 px-5 py-2.5 sm:py-3 text-xs sm:text-sm font-bold text-white shadow-lg backdrop-blur-md transition-all hover:bg-white/20 hover:border-white/50"
             >
-              <span>Explore Full Catalog</span>
-              <ArrowUpRight className="size-4 text-brand-red" />
-            </Link>
-
-            <Link
-              href={googleRating.profileUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-ui text-white flex items-center gap-1.5 text-xs tracking-[0.15em] uppercase hover:text-slate-200 transition-colors drop-shadow-[0_2px_6px_rgba(0,0,0,1)] ml-1"
-            >
-              <span className="flex gap-0.5" aria-hidden="true">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} className="fill-brand-red text-brand-red size-3.5" />
-                ))}
-              </span>
-              <span>
-                <strong className="text-white">{googleRating.score}</strong> on Google
-              </span>
+              <span>{t("hero.exploreCatalog", "Explore Full Catalog")}</span>
+              <ArrowUpRight className="size-4 text-brand-red rtl:rotate-180" />
             </Link>
           </div>
         </div>

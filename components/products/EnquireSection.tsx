@@ -11,7 +11,7 @@ export function EnquireSection() {
           <SectionHeading eyebrow="Product Enquiry" title="Get a Quote" tone="white" />
           <p className="mt-6 max-w-sm text-sm leading-relaxed text-white/60">
             Tell us the part, quantity and vehicle make or model — our team responds within
-            24–48 hours with pricing and availability.
+            0–2 hours with pricing and availability.
           </p>
         </div>
         <InquiryForm interestOptions={categories.map((c) => c.label)} tone="dark" />

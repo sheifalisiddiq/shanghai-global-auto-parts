@@ -1,7 +1,4 @@
 import type { Metadata } from "next";
-import { Container } from "@/components/ui/Container";
-import { SectionHeading } from "@/components/ui/SectionHeading";
-import { ReachUsBlock } from "@/components/contact/ReachUsBlock";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { MapPanel } from "@/components/contact/MapPanel";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -9,9 +6,9 @@ import { locations, contact } from "@/lib/data/company";
 import { siteConfig } from "@/lib/seo/site";
 
 export const metadata: Metadata = {
-  title: "Contact & Locations — Sharjah, Abu Dhabi, Qatar",
+  title: "Contact Us | Shanghai Global Auto Parts",
   description:
-    "Contact Shanghai Global Auto Parts LLC — offices in Sharjah, Abu Dhabi and Qatar, serving Dubai and the wider UAE region.",
+    "Contact Shanghai Global Auto Parts LLC — offices and warehouse distribution hubs in Sharjah, Abu Dhabi, and Qatar.",
 };
 
 export default function ContactPage() {
@@ -43,15 +40,8 @@ export default function ContactPage() {
         />
       ))}
 
-      <section className="bg-white pt-16 pb-4 lg:pt-24">
-        <Container>
-          <SectionHeading eyebrow="Contact" title="Contact & Locations" />
-        </Container>
-      </section>
-
-      <ReachUsBlock />
-      <MapPanel />
       <ContactForm />
+      <MapPanel />
     </>
   );
 }

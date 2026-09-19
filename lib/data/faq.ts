@@ -14,11 +14,11 @@ export const faqs: FAQItem[] = [
       "We verify every order against your vehicle's 17-digit VIN (Chassis Number) using official OEM Electronic Parts Catalogues (EPC). This cross-referencing process eliminates guesswork and ensures the exact part specification, revision, and connector match your vehicle before dispatch.",
   },
   {
-    id: "genuine-vs-oem",
+    id: "original-vs-oem",
     category: "Fitment & Quality",
-    question: "What is the difference between your Genuine, OEM, and Aftermarket parts?",
+    question: "What is the difference between your Original, OEM, and Aftermarket parts?",
     answer:
-      "Genuine parts come in original manufacturer-branded packaging (e.g., Jetour, Geely, Changan). OEM parts are produced by the exact tier-1 factories that supply car manufacturers, offering identical build quality without the automaker markup. Aftermarket options are high-grade certified alternatives that meet or exceed OE safety and performance standards.",
+      "Original parts come in original manufacturer-branded packaging (e.g., Jetour, Geely, Changan). OEM parts are produced by the exact tier-1 factories that supply car manufacturers, offering identical build quality without the automaker markup. Aftermarket options are high-grade certified alternatives that meet or exceed OE safety and performance standards.",
   },
   {
     id: "brands-covered",
@@ -46,7 +46,7 @@ export const faqs: FAQItem[] = [
     category: "Warranty & Support",
     question: "Do your spare parts come with a warranty?",
     answer:
-      "Yes. All Genuine and OEM components are backed by manufacturer product warranties against manufacturing defects. If a component is confirmed defective or incompatible despite VIN verification, our exchange and return process is quick and hassle-free.",
+      "Yes. All Original and OEM components are backed by manufacturer product warranties against manufacturing defects. If a component is confirmed defective or incompatible despite VIN verification, our exchange and return process is quick and hassle-free.",
   },
   {
     id: "rare-parts-sourcing",

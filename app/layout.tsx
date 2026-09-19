@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Big_Shoulders, Archivo_Black, Manrope } from "next/font/google";
+import { Manrope } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { siteConfig } from "@/lib/seo/site";
 import { SmoothScrollProvider } from "@/lib/scroll/SmoothScrollProvider";
@@ -10,29 +11,31 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { JsonLd } from "@/components/seo/JsonLd";
 
-const jakarta = Plus_Jakarta_Sans({
+const jakarta = localFont({
+  src: "./fonts/plus-jakarta-sans-latin.woff2",
   variable: "--font-jakarta",
-  subsets: ["latin"],
-  weight: ["500", "700", "800"],
+  weight: "500 800",
+  style: "normal",
+  display: "swap",
+  fallback: ["Arial", "sans-serif"],
+  adjustFontFallback: false,
 });
 
-const bigShoulders = Big_Shoulders({
-  variable: "--font-big-shoulders",
-  subsets: ["latin"],
-  weight: "variable",
-  axes: ["opsz"],
-});
-
-const archivoBlack = Archivo_Black({
+const archivoBlack = localFont({
+  src: "./fonts/archivo-black-latin.woff2",
   variable: "--font-archivo-black",
-  subsets: ["latin"],
   weight: "400",
+  style: "normal",
+  display: "swap",
+  fallback: ["Arial Black", "Arial", "sans-serif"],
+  adjustFontFallback: false,
 });
 
 const manrope = Manrope({
   variable: "--font-manrope",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -62,11 +65,13 @@ export const viewport = {
   themeColor: "#161616",
 };
 
+import { LanguageProvider } from "@/lib/i18n/LanguageContext";
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${jakarta.variable} ${bigShoulders.variable} ${archivoBlack.variable} ${manrope.variable} h-full antialiased`}
+      className={`${jakarta.variable} ${archivoBlack.variable} ${manrope.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <JsonLd
@@ -86,14 +91,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             },
           }}
         />
-        <Preloader />
-        <CustomCursor />
-        <SmoothScrollProvider>
-          <TopBar />
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </SmoothScrollProvider>
+        <LanguageProvider>
+          <Preloader />
+          <CustomCursor />
+          <SmoothScrollProvider>
+            <TopBar />
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </SmoothScrollProvider>
+        </LanguageProvider>
       </body>
     </html>
   );

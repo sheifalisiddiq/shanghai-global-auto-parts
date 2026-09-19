@@ -8,8 +8,18 @@ import { Container } from "@/components/ui/Container";
 import { RevealGroup } from "@/components/ui/Reveal";
 import { solutions } from "@/lib/data/company";
 
+import { useLanguage } from "@/lib/i18n/LanguageContext";
+
 export function Solutions() {
+  const { t } = useLanguage();
   const imgWrapRef = useRef<HTMLDivElement>(null);
+
+  const bullets = [
+    t("solutions.b1", solutions.bullets[0]),
+    t("solutions.b2", solutions.bullets[1]),
+    t("solutions.b3", solutions.bullets[2]),
+    t("solutions.b4", solutions.bullets[3]),
+  ];
 
   useGSAP(() => {
     registerGSAP();
@@ -49,14 +59,14 @@ export function Solutions() {
 
         <div className="order-1 lg:order-2">
           <span className="font-mono text-xs font-bold tracking-wider text-brand-red uppercase mb-2.5 block">
-            Global Sourcing &bull; Quality Assured
+            {t("solutions.eyebrow", "Global Sourcing • Quality Assured")}
           </span>
           <h2 className="font-display text-ink text-2xl sm:text-3xl lg:text-4xl font-bold uppercase tracking-tight">
-            Comprehensive Sourcing Solutions
+            {t("solutions.title", "Comprehensive Sourcing Solutions")}
           </h2>
 
           <RevealGroup className="mt-8 space-y-4" itemSelector=":scope > div">
-            {solutions.bullets.map((bullet) => (
+            {bullets.map((bullet) => (
               <div key={bullet} className="border-steel-light flex items-start gap-3 border-t pt-4">
                 <span className="bg-brand-red mt-2 size-1.5 shrink-0 rounded-full" />
                 <span className="text-ink text-sm sm:text-base font-medium">{bullet}</span>

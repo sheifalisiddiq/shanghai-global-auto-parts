@@ -3,12 +3,14 @@ import { cn } from "@/lib/utils/cn";
 export function SectionHeading({
   eyebrow,
   title,
+  description,
   align = "left",
   tone = "ink",
   className,
 }: {
   eyebrow?: string;
   title: string;
+  description?: string;
   align?: "left" | "center";
   tone?: "ink" | "white";
   className?: string;
@@ -33,6 +35,17 @@ export function SectionHeading({
       >
         {title}
       </h2>
+      {description && (
+        <p
+          className={cn(
+            "mt-3 text-sm leading-relaxed max-w-2xl",
+            tone === "white" ? "text-slate-300" : "text-steel-dark",
+            align === "center" && "mx-auto",
+          )}
+        >
+          {description}
+        </p>
+      )}
     </div>
   );
 }

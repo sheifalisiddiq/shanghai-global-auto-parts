@@ -15,7 +15,7 @@ import { CTABanner } from "@/components/sections/CTABanner";
 export const metadata: Metadata = {
   title: "Chinese Automotive Parts Supplier — UAE",
   description:
-    "Shanghai Global Auto Parts LLC supplies genuine, OEM and reliable spare parts for Chinese vehicle brands, sourced across 40+ countries and shipped worldwide from the UAE.",
+    "Shanghai Global Auto Parts LLC supplies original, OEM and reliable spare parts for Chinese vehicle brands, sourced across 40+ countries and shipped worldwide from the UAE.",
 };
 
 export default function HomePage() {

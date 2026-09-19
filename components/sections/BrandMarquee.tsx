@@ -11,6 +11,7 @@ import { Container } from "@/components/ui/Container";
 
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 function BrandChip({ brand }: { brand: (typeof carBrands)[number] }) {
   if (!brand.logo) {
@@ -43,11 +44,14 @@ function BrandChip({ brand }: { brand: (typeof carBrands)[number] }) {
 }
 
 export function BrandMarquee() {
+  const { t, language } = useLanguage();
   const trackRef = useRef<HTMLDivElement>(null);
   const reducedMotion = useReducedMotion();
 
   useGSAP(() => {
     if (reducedMotion || !trackRef.current) return;
+
+    gsap.set(trackRef.current, { xPercent: 0 });
 
     const tween = gsap.to(trackRef.current, {
       xPercent: -50,
@@ -67,7 +71,7 @@ export function BrandMarquee() {
       node.removeEventListener("mouseleave", resume);
       tween.kill();
     };
-  }, [reducedMotion]);
+  }, [reducedMotion, language]);
 
   return (
     <section id="vehicle-makes" className="border-steel-light border-y bg-white py-12">
@@ -75,18 +79,19 @@ export function BrandMarquee() {
         <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-1 shadow-2xs mb-2">
           <span className="size-1.5 rounded-full bg-brand-red animate-pulse" />
           <span className="font-mono text-[10px] sm:text-xs font-bold tracking-wider text-slate-700 uppercase">
-            Compatible Vehicle Makes
+            {t("brands.eyebrow", "Compatible Vehicle Makes")}
           </span>
         </div>
         <h2 className="font-display text-ink text-xl sm:text-2xl lg:text-3xl font-bold uppercase tracking-tight">
-          Supported Chinese Automobile Brands
+          {t("brands.title", "Supported Chinese Automobile Brands")}
         </h2>
         <p className="text-xs sm:text-sm text-slate-500 max-w-lg mx-auto mt-1">
-          Select any brand to filter compatible parts, or explore our full make directory.
+          {t("brands.subtitle", "Select any brand to filter compatible parts, or explore our full make directory.")}
         </p>
       </Container>
 
-      <div className="overflow-hidden">
+      {/* Marquee Track Container (dir="ltr" ensures seamless continuous flow with no right-side voids in RTL) */}
+      <div className="overflow-hidden" dir="ltr">
         <div
           ref={trackRef}
           className={reducedMotion ? "flex flex-wrap justify-center gap-2" : "flex w-max gap-2"}
@@ -99,15 +104,15 @@ export function BrandMarquee() {
 
       <Container>
         <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-100 pt-5">
-          <p className="text-steel-dark text-center sm:text-left text-[11px] tracking-wide">
-            {brandLogoDisclaimer}
+          <p className="text-steel-dark text-center sm:text-left rtl:sm:text-right text-[11px] tracking-wide">
+            {t("brands.disclaimer", brandLogoDisclaimer)}
           </p>
           <Link
             href="/makes"
             className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-slate-50 px-4 py-1.5 text-xs font-bold text-slate-800 transition-colors hover:bg-brand-red hover:text-white hover:border-brand-red shrink-0"
           >
-            <span>View All Supported Makes &amp; Models</span>
-            <ArrowRight className="size-3.5" />
+            <span>{t("brands.viewAll", "View All Supported Makes & Models")}</span>
+            <ArrowRight className="size-3.5 rtl:rotate-180" />
           </Link>
         </div>
       </Container>

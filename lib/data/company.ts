@@ -3,7 +3,7 @@ export const siteName = "Shanghai Global Auto Parts";
 export const heroHeadline = "YOUR SOURCE FOR CHINESE AUTOMOTIVE PARTS";
 
 export const companyIntro =
-  "Leading supplier of genuine, OEM and reliable auto spare parts worldwide.";
+  "Leading supplier of original, OEM and reliable auto spare parts worldwide.";
 
 export interface Stat {
   id: string;
@@ -11,6 +11,7 @@ export interface Stat {
   prefix?: string;
   suffix: string;
   label: string;
+  displayValue?: string;
 }
 
 export const stats: Stat[] = [
@@ -19,9 +20,10 @@ export const stats: Stat[] = [
   { id: "accuracy", value: 98, suffix: "%", label: "Order accuracy" },
   {
     id: "response",
-    value: 24,
-    suffix: "–48h",
+    value: 0,
+    suffix: "–2h",
     label: "Avg. response time",
+    displayValue: "0–2h",
   },
 ];
 
@@ -69,7 +71,7 @@ export const whatWeDo: WhatWeDoItem[] = [
 
 export const solutions = {
   bullets: [
-    "Genuine, OEM & aftermarket options",
+    "Original, OEM & aftermarket options",
     "Global sourcing network across 40+ countries",
     "Every part quality-checked before dispatch",
     "Dedicated account support, start to delivery",
@@ -126,7 +128,9 @@ export interface Review {
   id: string;
   author: string;
   quote: string;
+  quoteAr?: string;
   meta?: string;
+  metaAr?: string;
 }
 
 export const reviews: Review[] = [
@@ -135,40 +139,56 @@ export const reviews: Review[] = [
     author: "Marketing Aiteqa",
     quote:
       "Their customer service is top-notch — they truly care about treating customers right and finding real solutions. The part I needed for my MG was unavailable everywhere else, but they tracked down the exact right one for me.",
+    quoteAr:
+      "خدمة العملاء ممتازة للغاية — يهتمون حقاً بإيجاد الحلول المناسبة للعميل. القطعة التي كنت أبحث عنها لسيارتي إم جي لم تكن متوفرة في أي مكان آخر، ولكنهم وفروها لي بدقة وسرعة.",
     meta: "Mr. Vivek",
+    metaAr: "السيد فيفيك",
   },
   {
     id: "roshan",
     author: "Roshan Mashood",
     quote:
       "Reliable supplier with a great range of high quality and durable auto parts. Their team is professional and helpful, ensuring you get the right products at good prices. Shipping is fast and efficient.",
+    quoteAr:
+      "مورد موثوق يقدم تشكيلة متميزة من قطع الغيار الأصلية وعالية الجودة. فريقهم محترف ومتعاون لضمان اختيار القطعة الصحيحة بأفضل الأسعار. التوصيل والشحن سريع وفعال جداً.",
   },
   {
     id: "basaweshwar",
     author: "Basaweshwar Chitwadgi",
     quote:
       "Amazing experience! Great collection and most parts are easily available. The staff is very helpful and their hospitality is excellent, good guidance, and overall a smooth experience.",
+    quoteAr:
+      "تجربة ممتازة! تشكيلة واسعة وأغلب قطع الغيار متوفرة للتسليم الفوري. طاقم العمل متعاون ويوفر إرشادات فنية دقيقة وتعاملاً راقياً وسلساً.",
     meta: "Local Guide",
+    metaAr: "مرشد محلي",
   },
   {
     id: "salwa",
     author: "Salwa Samreen",
     quote:
       "Always get high-quality, dependable Chinese car parts here. The service is consistently professional — his expert recommendations are spot on, saving me both time and money. The best auto parts shop in UAE for Chinese vehicle spare parts!",
+    quoteAr:
+      "أحصل دائماً على قطع غيار موثوقة ومطابقة لأعلى المواصفات للسيارات الصينية. الخدمة احترافية وتوصياتهم الفنية توفر الكثير من الوقت والمال. أفضل متجر لقطع غيار السيارات الصينية في الإمارات!",
     meta: "Mr. Shylesh",
+    metaAr: "السيد شايليش",
   },
   {
     id: "basil",
     author: "Basil Varghese",
     quote:
       "Outstanding service! Finally, a dependable source for Chinese car parts. They've got it all, from common to rare parts, and they source them quickly. Knowledgeable and friendly staff, fair prices, and top-notch quality.",
+    quoteAr:
+      "خدمة استثنائية! أخيراً وجدنا مصدراً موثوقاً لقطع غيار السيارات الصينية، من القطع الاستهلاكية إلى القطع النادرة وسرعة توفيرها. أسعار عادلة وجودة لا تضاهى.",
     meta: "Local Guide",
+    metaAr: "مرشد محلي",
   },
   {
     id: "chris",
     author: "Chris Philip",
     quote:
       "Exceptional auto parts shop with a truly global reach! Their seamless delivery service to various parts of the world is unmatched. Top-notch products, reliable shipping, and a customer-friendly approach.",
+    quoteAr:
+      "متجر قطع غيار متميز يتمتع بشبكة توريد وتوصيل دولية. خدمة شحن سريعة لجميع دول الخليج والعالم مع جودة قطع عالية وتواصل ممتاز.",
   },
 ];
 

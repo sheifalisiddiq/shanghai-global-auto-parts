@@ -11,7 +11,7 @@ import { siteConfig } from "@/lib/seo/site";
 export const metadata: Metadata = {
   title: "Auto Parts Catalog — Brakes, Filters, Engine Parts",
   description:
-    "Browse Shanghai Global's catalog of genuine and OEM auto parts for Chinese vehicle brands, organised by category and compatible make.",
+    "Browse Shanghai Global's catalog of original and OEM auto parts for Chinese vehicle brands, organised by category and compatible make.",
 };
 
 export default function ProductsPage() {
@@ -44,7 +44,7 @@ export default function ProductsPage() {
           />
           <p className="text-steel-dark mt-6 max-w-2xl text-sm sm:text-base">
             Chinese-vehicle auto parts organised by category and compatible make — every part
-            genuine, OEM or a reliable aftermarket equivalent, quality-checked before dispatch.
+            original, OEM or a reliable aftermarket equivalent, quality-checked before dispatch.
           </p>
         </Container>
       </section>

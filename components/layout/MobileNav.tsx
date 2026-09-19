@@ -9,20 +9,13 @@ import { Logo } from "@/components/brand/Logo";
 import { contact } from "@/lib/data/company";
 import { categories } from "@/lib/data/categories";
 import { useLockBodyScroll } from "@/lib/hooks/useLockBodyScroll";
-
-const mobileLinks = [
-  { label: "Home", href: "/" },
-  { label: "Spare Parts Catalog", href: "/products" },
-  { label: "Vehicle Makes & Models", href: "/makes" },
-  { label: "Frequently Asked Questions", href: "/#faq" },
-  { label: "About Shanghai Global", href: "/about" },
-  { label: "Branches & Locations", href: "/contact#locations" },
-  { label: "Make a Part Enquiry", href: "/products#enquire" },
-];
+import { useLanguage } from "@/lib/i18n/LanguageContext";
+import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher";
 
 export function MobileNav({ open, onClose }: { open: boolean; onClose: () => void }) {
   const panelRef = useRef<HTMLDivElement>(null);
   const linksRef = useRef<HTMLAnchorElement[]>([]);
+  const { t } = useLanguage();
 
   useLockBodyScroll(open);
 
@@ -55,28 +48,43 @@ export function MobileNav({ open, onClose }: { open: boolean; onClose: () => voi
     { dependencies: [open] },
   );
 
+  const navItems = [
+    { label: t("nav.home", "Home"), href: "/" },
+    { label: t("nav.about", "About Shanghai Global"), href: "/about" },
+    { label: t("nav.spareParts", "Spare Parts Catalog"), href: "/products" },
+    { label: t("nav.makes", "Vehicle Makes & Models"), href: "/makes" },
+    { label: t("nav.blogs", "Blogs"), href: "/blogs" },
+    { label: t("nav.careers", "Careers"), href: "/careers" },
+    { label: t("nav.faq", "Frequently Asked Questions"), href: "/#faq" },
+    { label: t("nav.contact", "Contact & Locations"), href: "/contact" },
+    { label: t("nav.enquiry", "Make a Part Enquiry"), href: "/products#enquire" },
+  ];
+
   return (
     <div
       ref={panelRef}
       className="fixed inset-0 z-50 hidden flex-col bg-slate-950/98 text-white backdrop-blur-2xl p-6 lg:hidden overflow-y-auto"
       style={{ display: "none" }}
     >
-      {/* Top Header Bar */}
+      {/* Top Header Bar with Language Switcher */}
       <div className="flex items-center justify-between border-b border-white/10 pb-4">
         <Logo tone="white" />
-        <button
-          type="button"
-          onClick={onClose}
-          aria-label="Close menu"
-          className="flex size-9 items-center justify-center rounded-lg border border-white/20 bg-white/5 text-slate-300 hover:text-white cursor-pointer"
-        >
-          <X className="size-5" />
-        </button>
+        <div className="flex items-center gap-3">
+          <LanguageSwitcher />
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close menu"
+            className="flex size-9 items-center justify-center rounded-lg border border-white/20 bg-white/5 text-slate-300 hover:text-white cursor-pointer"
+          >
+            <X className="size-5" />
+          </button>
+        </div>
       </div>
 
       {/* Main Links */}
       <nav className="mt-6 flex flex-col gap-2" aria-label="Mobile">
-        {mobileLinks.map((link, i) => (
+        {navItems.map((link, i) => (
           <Link
             key={link.href}
             href={link.href}
@@ -87,7 +95,7 @@ export function MobileNav({ open, onClose }: { open: boolean; onClose: () => voi
             className="flex items-center justify-between rounded-xl px-4 py-3 text-base font-bold text-white hover:bg-white/10 hover:text-brand-red transition-colors"
           >
             <span>{link.label}</span>
-            <ChevronRight className="size-4 text-slate-500" />
+            <ChevronRight className="size-4 text-slate-500 rtl:rotate-180" />
           </Link>
         ))}
       </nav>
@@ -95,19 +103,22 @@ export function MobileNav({ open, onClose }: { open: boolean; onClose: () => voi
       {/* Quick Category Chips */}
       <div className="mt-6 border-t border-white/10 pt-5">
         <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-brand-red mb-2 block">
-          Browse by Component
+          {t("nav.componentCategories", "Browse by Component")}
         </span>
         <div className="flex flex-wrap gap-1.5">
-          {categories.map((cat) => (
-            <Link
-              key={cat.id}
-              href={`/products#${cat.id}`}
-              onClick={onClose}
-              className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-slate-300 hover:border-brand-red hover:text-white transition-colors"
-            >
-              {cat.label}
-            </Link>
-          ))}
+          {categories.map((cat) => {
+            const catLabelKey = `cat.${cat.id}` as any;
+            return (
+              <Link
+                key={cat.id}
+                href={`/products#${cat.id}`}
+                onClick={onClose}
+                className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-slate-300 hover:border-brand-red hover:text-white transition-colors"
+              >
+                {t(catLabelKey, cat.label)}
+              </Link>
+            );
+          })}
         </div>
       </div>
 
@@ -120,7 +131,7 @@ export function MobileNav({ open, onClose }: { open: boolean; onClose: () => voi
           className="flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-600 py-3 text-sm font-bold text-white shadow-lg transition-transform hover:bg-emerald-500"
         >
           <MessageCircle className="size-4 fill-white text-emerald-600" />
-          <span>WhatsApp Fast Quote</span>
+          <span>{t("nav.whatsappQuote", "WhatsApp Fast Quote")}</span>
         </a>
 
         <div className="grid grid-cols-2 gap-2">
@@ -141,11 +152,11 @@ export function MobileNav({ open, onClose }: { open: boolean; onClose: () => voi
         </div>
       </div>
 
-      {/* Footer Info */}
+      {/* Footer Info with Original Replacement */}
       <div className="mt-auto pt-6 border-t border-white/10 text-xs text-slate-400 space-y-1">
         <div className="flex items-center gap-1.5 text-slate-300">
           <ShieldCheck className="size-3.5 text-brand-red shrink-0" />
-          <span>Genuine &bull; OEM &bull; Aftermarket Chinese Parts</span>
+          <span>Original &bull; OEM &bull; Aftermarket Chinese Parts</span>
         </div>
         <div className="flex items-center gap-1.5 text-[11px]">
           <MapPin className="size-3 text-brand-red shrink-0" />

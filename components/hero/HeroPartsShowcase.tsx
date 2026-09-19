@@ -60,7 +60,7 @@ export function HeroPartsShowcase() {
         <div className="relative aspect-[4/3] w-full overflow-hidden sm:aspect-[16/11] lg:aspect-[4/3]">
           <Image
             src="/images/hero/hero-parts.jpg"
-            alt="Shanghai Global Genuine, OEM and Performance Automotive Spare Parts"
+            alt="Shanghai Global Original, OEM and Performance Automotive Spare Parts"
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 650px"
             priority
@@ -77,7 +77,7 @@ export function HeroPartsShowcase() {
               <span className="relative inline-flex size-2 rounded-full bg-emerald-500" />
             </span>
             <span className="text-[11px] font-semibold tracking-wide text-white uppercase sm:text-xs">
-              Genuine &bull; OEM &bull; Aftermarket
+              Original &bull; OEM &bull; Aftermarket
             </span>
           </div>
 

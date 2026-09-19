@@ -1,34 +1,39 @@
+"use client";
+
 import { ShieldCheck, CheckCircle2, Truck, Sparkles } from "lucide-react";
 import { Container } from "@/components/ui/Container";
-
-const features = [
-  {
-    icon: ShieldCheck,
-    title: "100% VIN Fitment Guarantee",
-    subtitle: "Precision matched by chassis number",
-    color: "text-brand-red",
-  },
-  {
-    icon: CheckCircle2,
-    title: "Genuine • OEM • Aftermarket",
-    subtitle: "Direct tier-1 factory sourcing",
-    color: "text-emerald-400",
-  },
-  {
-    icon: Truck,
-    title: "Express UAE & Qatar Dispatch",
-    subtitle: "Sharjah, Abu Dhabi & Doha hubs",
-    color: "text-brand-red",
-  },
-  {
-    icon: Sparkles,
-    title: "5,000+ Parts Catalogued",
-    subtitle: "For Jetour, Changan, Geely & more",
-    color: "text-brand-red",
-  },
-];
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 export function TrustFeaturesBar() {
+  const { t } = useLanguage();
+
+  const features = [
+    {
+      icon: ShieldCheck,
+      title: t("trust.feat1Title", "100% VIN Fitment Guarantee"),
+      subtitle: t("trust.feat1Sub", "Precision matched by chassis number"),
+      color: "text-brand-red",
+    },
+    {
+      icon: CheckCircle2,
+      title: t("trust.feat2Title", "Original • OEM • Aftermarket"),
+      subtitle: t("trust.feat2Sub", "Direct tier-1 factory sourcing"),
+      color: "text-emerald-400",
+    },
+    {
+      icon: Truck,
+      title: t("trust.feat3Title", "Express UAE & Qatar Dispatch"),
+      subtitle: t("trust.feat3Sub", "Sharjah, Abu Dhabi & Doha hubs"),
+      color: "text-brand-red",
+    },
+    {
+      icon: Sparkles,
+      title: t("trust.feat4Title", "5,000+ Parts Catalogued"),
+      subtitle: t("trust.feat4Sub", "For Jetour, Changan, Geely & more"),
+      color: "text-brand-red",
+    },
+  ];
+
   return (
     <section className="border-y border-white/10 bg-slate-950 py-4 sm:py-5 text-white select-none">
       <Container>

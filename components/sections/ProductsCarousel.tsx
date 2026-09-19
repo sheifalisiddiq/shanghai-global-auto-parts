@@ -11,17 +11,33 @@ import { Button } from "@/components/ui/Button";
 import { ProductCard } from "@/components/products/ProductCard";
 import { categories } from "@/lib/data/categories";
 import { featuredProducts } from "@/lib/data/products";
-
-const tabItems = [{ id: "all", label: "All" }, ...categories.map((c) => ({ id: c.id, label: c.label }))];
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 export function ProductsCarousel() {
+  const { t, isRTL } = useLanguage();
   const [activeId, setActiveId] = useState("all");
   const filtered =
     activeId === "all" ? featuredProducts : featuredProducts.filter((p) => p.category === activeId);
 
-  const [emblaRef, emblaApi] = useEmblaCarousel({ align: "start", loop: false }, [
-    Autoplay({ delay: 3800, stopOnInteraction: true }),
-  ]);
+  const tabItems = [
+    { id: "all", label: t("catalog.all", "All") },
+    ...categories.map((c) => ({
+      id: c.id,
+      label: t(
+        `cat.${c.id}` as any,
+        t(`cat.${c.id === "body-accessories" ? "body" : c.id}` as any, c.label)
+      ),
+    })),
+  ];
+
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    {
+      align: "start",
+      loop: false,
+      direction: isRTL ? "rtl" : "ltr",
+    },
+    [Autoplay({ delay: 3800, stopOnInteraction: true })]
+  );
   const [canPrev, setCanPrev] = useState(false);
   const [canNext, setCanNext] = useState(false);
 
@@ -40,16 +56,16 @@ export function ProductsCarousel() {
   }, [emblaApi, onSelect]);
 
   useEffect(() => {
-    emblaApi?.reInit();
-  }, [emblaApi, filtered.length]);
+    emblaApi?.reInit({ direction: isRTL ? "rtl" : "ltr" });
+  }, [emblaApi, isRTL, filtered.length]);
 
   return (
     <section className="bg-white py-16 lg:py-24">
       <Container>
         <div className="flex flex-wrap items-end justify-between gap-6">
-          <SectionHeading eyebrow="Catalog" title="Featured Parts" />
+          <SectionHeading eyebrow={t("catalog.eyebrow", "Catalog")} title={t("catalog.title", "Featured Parts")} />
           <Button href="/products" variant="ghost" className="px-0">
-            View full catalog
+            {t("catalog.viewAll", "View full catalog")}
           </Button>
         </div>
 
@@ -61,26 +77,29 @@ export function ProductsCarousel() {
               aria-label="Previous products"
               disabled={!canPrev}
               onClick={() => emblaApi?.scrollPrev()}
-              className="border-steel-light hover:border-ink disabled:opacity-30 flex size-10 items-center justify-center border transition-colors"
+              className="border-steel-light hover:border-ink disabled:opacity-30 flex size-10 items-center justify-center border transition-colors cursor-pointer"
             >
-              <ChevronLeft className="size-4" />
+              <ChevronLeft className="size-4 rtl:rotate-180" />
             </button>
             <button
               type="button"
               aria-label="Next products"
               disabled={!canNext}
               onClick={() => emblaApi?.scrollNext()}
-              className="border-steel-light hover:border-ink disabled:opacity-30 flex size-10 items-center justify-center border transition-colors"
+              className="border-steel-light hover:border-ink disabled:opacity-30 flex size-10 items-center justify-center border transition-colors cursor-pointer"
             >
-              <ChevronRight className="size-4" />
+              <ChevronRight className="size-4 rtl:rotate-180" />
             </button>
           </div>
         </div>
 
-        <div className="mt-6 overflow-hidden" ref={emblaRef}>
-          <div className="-ml-4 flex">
+        <div className="mt-6 overflow-hidden" ref={emblaRef} dir={isRTL ? "rtl" : "ltr"}>
+          <div className="flex -mx-2 sm:-mx-3">
             {filtered.map((product) => (
-              <div key={product.id} className="min-w-0 shrink-0 grow-0 basis-[80%] pl-4 sm:basis-[45%] lg:basis-[27%]">
+              <div
+                key={product.id}
+                className="min-w-0 shrink-0 grow-0 basis-[80%] px-2 sm:basis-[45%] sm:px-3 lg:basis-[27%]"
+              >
                 <ProductCard product={product} />
               </div>
             ))}

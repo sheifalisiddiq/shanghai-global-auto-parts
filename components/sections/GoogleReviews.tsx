@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import Link from "next/link";
 import { Star, CheckCircle2, ArrowUpRight, Quote } from "lucide-react";
 import { useGSAP } from "@gsap/react";
@@ -9,6 +9,7 @@ import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { googleRating, reviews } from "@/lib/data/company";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 function GoogleIcon({ className = "size-5" }: { className?: string }) {
   return (
@@ -54,16 +55,22 @@ function getInitials(name: string): string {
 }
 
 function ReviewCard({ review }: { review: (typeof reviews)[number] }) {
+  const { t, isRTL } = useLanguage();
   const initials = getInitials(review.author);
+  const quote = isRTL && review.quoteAr ? review.quoteAr : review.quote;
+  const meta = isRTL && review.metaAr ? review.metaAr : review.meta;
 
   return (
-    <div className="group relative flex w-[320px] sm:w-[380px] shrink-0 flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-5 sm:p-6 shadow-md shadow-slate-100/80 transition-all duration-300 hover:-translate-y-1 hover:border-brand-red/40 hover:shadow-xl hover:shadow-brand-red/5">
+    <div
+      dir={isRTL ? "rtl" : "ltr"}
+      className="group relative flex w-[320px] sm:w-[380px] shrink-0 flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-5 sm:p-6 shadow-md shadow-slate-100/80 transition-all duration-300 hover:-translate-y-1 hover:border-brand-red/40 hover:shadow-xl hover:shadow-brand-red/5"
+    >
       {/* Top Subtle Red Accent Line */}
       <div className="absolute inset-x-6 top-0 h-0.5 rounded-full bg-transparent transition-colors group-hover:bg-brand-red" />
 
       {/* Background Decorative Quote Mark */}
-      <div className="pointer-events-none absolute right-5 top-5 text-slate-100 transition-colors group-hover:text-red-50/70">
-        <Quote className="size-12 stroke-[1.5]" />
+      <div className={`pointer-events-none absolute ${isRTL ? "left-5" : "right-5"} top-5 text-slate-100 transition-colors group-hover:text-red-50/70`}>
+        <Quote className={`size-12 stroke-[1.5] ${isRTL ? "scale-x-[-1]" : ""}`} />
       </div>
 
       <div>
@@ -82,18 +89,18 @@ function ReviewCard({ review }: { review: (typeof reviews)[number] }) {
                 </h4>
               </div>
               <div className="flex items-center gap-1.5 text-[11px] font-medium text-slate-500">
-                {review.meta ? (
+                {meta ? (
                   <span className="rounded bg-slate-100 px-1.5 py-0.5 font-semibold text-slate-700">
-                    {review.meta}
+                    {meta}
                   </span>
                 ) : (
                   <span className="flex items-center gap-1 text-emerald-600 font-semibold">
                     <CheckCircle2 className="size-3 text-emerald-500" />
-                    Verified Customer
+                    {t("reviews.verifiedCustomer")}
                   </span>
                 )}
                 <span>&bull;</span>
-                <span>UAE Review</span>
+                <span>{t("reviews.uaeReview")}</span>
               </div>
             </div>
           </div>
@@ -108,18 +115,18 @@ function ReviewCard({ review }: { review: (typeof reviews)[number] }) {
         </div>
 
         {/* Quote Content */}
-        <p className="relative z-10 mt-3 text-sm leading-relaxed text-slate-600 group-hover:text-ink transition-colors">
-          &ldquo;{review.quote}&rdquo;
+        <p className={`relative z-10 mt-3 text-sm leading-relaxed text-slate-600 group-hover:text-ink transition-colors ${isRTL ? "text-right" : "text-left"}`}>
+          &ldquo;{quote}&rdquo;
         </p>
       </div>
 
       {/* Card Footer: Verified on Google Maps */}
       <div className="relative z-10 mt-5 flex items-center justify-between border-t border-slate-100 pt-3 text-[11px] text-slate-400">
         <span className="flex items-center gap-1 font-medium">
-          <span>Posted on Google Maps</span>
+          <span>{t("reviews.postedOnMaps")}</span>
         </span>
         <span className="font-semibold text-brand-red opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-0.5">
-          Verified <ArrowUpRight className="size-3" />
+          {t("reviews.verified")} <ArrowUpRight className="size-3 rtl:rotate-180" />
         </span>
       </div>
     </div>
@@ -127,22 +134,35 @@ function ReviewCard({ review }: { review: (typeof reviews)[number] }) {
 }
 
 export function GoogleReviews() {
+  const { t, language } = useLanguage();
   const trackRef = useRef<HTMLDivElement>(null);
+  const tweenRef = useRef<gsap.core.Tween | null>(null);
   const reducedMotion = useReducedMotion();
 
-  useGSAP(() => {
+  // Marquee animation
+  useEffect(() => {
     if (reducedMotion || !trackRef.current) return;
 
-    const tween = gsap.to(trackRef.current, {
-      xPercent: -50,
-      duration: 38,
+    const node = trackRef.current;
+    gsap.set(node, { x: 0 });
+
+    const totalWidth = node.scrollWidth / 2;
+
+    const tween = gsap.to(node, {
+      x: `-=${totalWidth}`,
+      duration: 45,
       ease: "none",
       repeat: -1,
+      modifiers: {
+        x: gsap.utils.unitize((x) => parseFloat(x) % totalWidth),
+      },
     });
 
-    const node = trackRef.current;
+    tweenRef.current = tween;
+
     const pause = () => tween.pause();
-    const resume = () => tween.play();
+    const resume = () => tween.resume();
+
     node.addEventListener("mouseenter", pause);
     node.addEventListener("mouseleave", resume);
 
@@ -151,7 +171,7 @@ export function GoogleReviews() {
       node.removeEventListener("mouseleave", resume);
       tween.kill();
     };
-  }, [reducedMotion]);
+  }, [reducedMotion, language]);
 
   return (
     <section className="bg-paper pt-2 sm:pt-4 pb-12 sm:pb-16 border-b border-slate-200/60 overflow-hidden">
@@ -161,14 +181,17 @@ export function GoogleReviews() {
           <div>
             <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold text-slate-700 shadow-2xs">
               <GoogleIcon className="size-3.5" />
-              <span>Google Verified Reviews</span>
+              <span>{t("reviews.badge", "Google Verified Reviews")}</span>
             </div>
 
             <h2 className="font-display text-ink text-3xl font-black uppercase tracking-tight sm:text-4xl lg:text-5xl">
-              Trusted by Automotive Professionals
+              {t("reviews.title", "Trusted by Automotive Professionals")}
             </h2>
             <p className="mt-2 text-sm sm:text-base text-slate-600 max-w-xl">
-              See what workshops, parts dealers, and vehicle owners across the UAE &amp; Qatar say about our genuine Chinese parts and fast fulfillment.
+              {t(
+                "reviews.subtitle",
+                "See what workshops, parts dealers, and vehicle owners across the UAE & Qatar say about our original Chinese parts and fast fulfillment.",
+              )}
             </p>
           </div>
 
@@ -190,15 +213,15 @@ export function GoogleReviews() {
                 <GoogleStars className="flex gap-0.5" />
               </div>
               <p className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider group-hover:text-brand-red transition-colors flex items-center gap-1 mt-0.5">
-                <span>View Google Profile</span>
-                <ArrowUpRight className="size-3 text-brand-red" />
+                <span>{t("reviews.viewProfile", "View Google Profile")}</span>
+                <ArrowUpRight className="size-3 text-brand-red rtl:rotate-180" />
               </p>
             </div>
           </Link>
         </Reveal>
 
-        {/* Reviews Carousel Track */}
-        <div className="mt-8 -mx-6 overflow-hidden px-6 sm:mx-0 sm:px-0">
+        {/* Reviews Carousel Track (dir="ltr" ensures seamless continuous flow with no right-side voids in RTL) */}
+        <div className="mt-8 -mx-6 overflow-hidden px-6 sm:mx-0 sm:px-0" dir="ltr">
           <div
             ref={trackRef}
             className={
@@ -217,7 +240,7 @@ export function GoogleReviews() {
         <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-200/80 pt-5">
           <div className="flex items-center gap-2 text-xs font-medium text-slate-600">
             <CheckCircle2 className="size-4 text-emerald-600 shrink-0" />
-            <span>Over 4.8-star average rating from workshops, mechanics &amp; car owners across the GCC</span>
+            <span>{t("reviews.ratingBanner", "Over 4.8-star average rating from workshops, mechanics & car owners across the GCC")}</span>
           </div>
 
           <Link
@@ -226,8 +249,8 @@ export function GoogleReviews() {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-brand-red hover:underline"
           >
-            <span>Read all reviews on Google Maps</span>
-            <ArrowUpRight className="size-4" />
+            <span>{t("reviews.readAll", "Read all reviews on Google Maps")}</span>
+            <ArrowUpRight className="size-4 rtl:rotate-180" />
           </Link>
         </div>
       </Container>

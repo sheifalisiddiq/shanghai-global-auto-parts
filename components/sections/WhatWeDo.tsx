@@ -10,16 +10,23 @@ import { Reveal, RevealGroup } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
 import { whatWeDo } from "@/lib/data/company";
 
+import { useLanguage } from "@/lib/i18n/LanguageContext";
+
 function WhatWeDoItem({ item }: { item: (typeof whatWeDo)[number] }) {
+  const { t } = useLanguage();
+  const title = t(`whatWeDo.${item.id}Title` as any, item.title);
+  const copy = t(`whatWeDo.${item.id}Copy` as any, item.copy);
+  const ctaLabel = item.cta ? t("whatWeDo.enquireNow", item.cta.label) : null;
+
   return (
     <>
       <span className="font-display text-steel-light text-5xl font-black">{item.index}</span>
-      <h3 className="font-ui text-ink text-lg tracking-wide uppercase lg:text-xl">{item.title}</h3>
+      <h3 className="font-ui text-ink text-lg tracking-wide uppercase lg:text-xl">{title}</h3>
       <div>
-        <p className="text-steel-dark max-w-2xl text-sm leading-relaxed sm:text-base">{item.copy}</p>
+        <p className="text-steel-dark max-w-2xl text-sm leading-relaxed sm:text-base">{copy}</p>
         {item.cta && (
           <Button href={item.cta.href} variant="outline" className="mt-6 px-5 py-3 text-xs">
-            {item.cta.label}
+            {ctaLabel}
           </Button>
         )}
       </div>
@@ -28,6 +35,7 @@ function WhatWeDoItem({ item }: { item: (typeof whatWeDo)[number] }) {
 }
 
 export function WhatWeDo() {
+  const { t } = useLanguage();
   const sectionRef = useRef<HTMLElement>(null);
   const eyebrowRef = useRef<HTMLSpanElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -148,7 +156,7 @@ export function WhatWeDo() {
               ref={eyebrowRef}
               className="font-ui text-brand-red mb-3 block text-xs tracking-[0.25em] uppercase"
             >
-              What We Do
+              {t("whatWeDo.eyebrow", "What We Do")}
             </span>
           </div>
           <div className="overflow-hidden">
@@ -156,7 +164,7 @@ export function WhatWeDo() {
               ref={titleRef}
               className="font-display text-ink text-4xl leading-[0.95] font-black uppercase sm:text-5xl lg:text-6xl"
             >
-              Built Around Your Supply Chain
+              {t("whatWeDo.title", "Built Around Your Supply Chain")}
             </h2>
           </div>
         </div>

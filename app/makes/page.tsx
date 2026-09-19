@@ -9,7 +9,7 @@ import { brandLogoDisclaimer } from "@/lib/data/company";
 export const metadata: Metadata = {
   title: "Supported Vehicle Makes & Models — Chinese Auto Spare Parts",
   description:
-    "Comprehensive catalog of supported Chinese vehicle makes including Jetour, Changan, Geely, Chery, BYD, Haval, MG, BAIC, and more. Genuine and OEM parts with express GCC delivery.",
+    "Comprehensive catalog of supported Chinese vehicle makes including Jetour, Changan, Geely, Chery, BYD, Haval, MG, BAIC, and more. Original and OEM parts with express GCC delivery.",
 };
 
 export default function MakesPage() {
@@ -40,7 +40,7 @@ export default function MakesPage() {
             </h1>
 
             <p className="mt-5 text-sm sm:text-base lg:text-lg text-slate-300 leading-relaxed">
-              We stock and supply genuine, OEM, and high-grade aftermarket spare parts for all leading Chinese automobile manufacturers. Every part is 100% VIN-verified to guarantee exact chassis fitment.
+              We stock and supply original, OEM, and high-grade aftermarket spare parts for all leading Chinese automobile manufacturers. Every part is 100% VIN-verified to guarantee exact chassis fitment.
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-4 text-xs font-medium text-slate-300">
