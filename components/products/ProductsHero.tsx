@@ -1,18 +1,10 @@
 "use client";
 
 import { Container } from "@/components/ui/Container";
-import { carBrands } from "@/lib/data/brands";
-import { categories } from "@/lib/data/categories";
-import { products } from "@/lib/data/products";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 export function ProductsHero() {
   const { t } = useLanguage();
-  const stats = [
-    { value: carBrands.length, label: t("products.statBrands") },
-    { value: products.length, label: t("products.statParts") },
-    { value: categories.length, label: t("products.statCategories") },
-  ];
 
   return (
     <section className="bg-ink relative overflow-hidden py-16 text-white sm:py-20 lg:py-24">
@@ -35,15 +27,6 @@ export function ProductsHero() {
             {t("products.heroIntro")}
           </p>
         </div>
-
-        <dl className="mt-10 flex flex-wrap gap-x-10 gap-y-4 border-t border-white/15 pt-6">
-          {stats.map((s) => (
-            <div key={s.label}>
-              <dt className="font-ui text-[11px] tracking-wide text-white/50 uppercase">{s.label}</dt>
-              <dd className="font-display mt-1 text-3xl font-black">{s.value}</dd>
-            </div>
-          ))}
-        </dl>
       </Container>
     </section>
   );
