@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -19,6 +19,7 @@ import {
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
+import { Pagination } from "@/components/products/Pagination";
 import { blogPosts, type BlogPost } from "@/lib/data/blogs";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 
@@ -31,10 +32,14 @@ const categories = [
   "Logistics & Trade",
 ];
 
+const PAGE_SIZE = 6;
+
 export function BlogsContent() {
   const { t } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
+  const [page, setPage] = useState(1);
+  const gridRef = useRef<HTMLElement>(null);
   const [subscribed, setSubscribed] = useState(false);
   const [newsletterEmail, setNewsletterEmail] = useState("");
 
@@ -51,6 +56,18 @@ export function BlogsContent() {
 
     return matchesCategory && matchesSearch;
   });
+
+  const totalPages = Math.max(1, Math.ceil(filteredPosts.length / PAGE_SIZE));
+  const currentPage = Math.min(page, totalPages);
+  const visiblePosts = filteredPosts.slice(
+    (currentPage - 1) * PAGE_SIZE,
+    currentPage * PAGE_SIZE,
+  );
+
+  const goToPage = (next: number) => {
+    setPage(next);
+    gridRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
@@ -83,14 +100,20 @@ export function BlogsContent() {
               <input
                 type="text"
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  setPage(1);
+                }}
                 placeholder={t("blogs.searchPlaceholder")}
                 className="w-full bg-transparent px-3 py-2 text-sm text-white placeholder-slate-400 outline-none"
               />
               {searchQuery && (
                 <button
                   type="button"
-                  onClick={() => setSearchQuery("")}
+                  onClick={() => {
+                    setSearchQuery("");
+                    setPage(1);
+                  }}
                   className="mr-2 text-xs font-bold text-slate-400 hover:text-white"
                 >
                   Clear
@@ -184,7 +207,7 @@ export function BlogsContent() {
       )}
 
       {/* 3. Filterable Article Grid */}
-      <section className="bg-white py-16 lg:py-24">
+      <section ref={gridRef} className="bg-white py-16 lg:py-24 scroll-mt-20">
         <Container>
           <div className="mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <SectionHeading
@@ -199,7 +222,10 @@ export function BlogsContent() {
                 <button
                   key={cat}
                   type="button"
-                  onClick={() => setSelectedCategory(cat)}
+                  onClick={() => {
+                    setSelectedCategory(cat);
+                    setPage(1);
+                  }}
                   className={`rounded-full px-4 py-2 text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer ${
                     selectedCategory === cat
                       ? "bg-brand-red text-white shadow-md shadow-brand-red/20"
@@ -224,6 +250,7 @@ export function BlogsContent() {
                 onClick={() => {
                   setSelectedCategory("All");
                   setSearchQuery("");
+                  setPage(1);
                 }}
                 className="font-ui mt-4 inline-flex items-center gap-2 rounded-xl bg-brand-red px-5 py-2.5 text-xs font-bold text-white uppercase"
               >
@@ -231,8 +258,9 @@ export function BlogsContent() {
               </button>
             </div>
           ) : (
+            <>
             <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-              {filteredPosts.map((post) => (
+              {visiblePosts.map((post) => (
                 <article
                   key={post.slug}
                   className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-brand-red/40 hover:shadow-xl"
@@ -291,6 +319,8 @@ export function BlogsContent() {
                 </article>
               ))}
             </div>
+            <Pagination page={currentPage} totalPages={totalPages} onChange={goToPage} />
+            </>
           )}
         </Container>
       </section>
