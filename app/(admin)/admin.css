@@ -1,0 +1,72 @@
+/* Admin-only stylesheet. Deliberately does NOT import the public globals.css,
+   and only scans admin sources so it ships just the utilities admin uses. */
+@import "tailwindcss" source(none);
+@source "./";
+@source "../../components/admin";
+@source "../../lib/admin";
+
+:root {
+  --color-brand-red: #ef0606;
+  --color-brand-red-dark: #c00505;
+  --color-ink: #141414;
+  --color-paper: #f4f4f5;
+  --color-white: #ffffff;
+  --color-steel: #b8b8ba;
+}
+
+@theme inline {
+  --color-brand-red: var(--color-brand-red);
+  --color-brand-red-dark: var(--color-brand-red-dark);
+  --color-ink: var(--color-ink);
+  --color-paper: var(--color-paper);
+  --color-steel: var(--color-steel);
+
+  /* Same neutral grey palette as the public site */
+  --color-slate-50: #fafafa;
+  --color-slate-100: #f4f4f5;
+  --color-slate-200: #e4e4e7;
+  --color-slate-300: #d4d4d8;
+  --color-slate-400: #a1a1aa;
+  --color-slate-500: #71717a;
+  --color-slate-600: #52525b;
+  --color-slate-700: #3f3f46;
+  --color-slate-800: #27272a;
+  --color-slate-900: #18181b;
+  --color-slate-950: #0e0e11;
+
+  --font-display: var(--font-jakarta);
+  --font-ui: var(--font-archivo-black);
+}
+
+html {
+  color-scheme: light;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-jakarta), Arial, Helvetica, sans-serif;
+}
+
+::selection {
+  background: var(--color-brand-red);
+  color: var(--color-white);
+}
+
+.font-display {
+  font-family: var(--font-display), sans-serif;
+  letter-spacing: -0.03em;
+}
+
+.font-ui {
+  font-family: var(--font-ui), sans-serif;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

@@ -1,0 +1,121 @@
+@import "tailwindcss";
+@import "lenis/dist/lenis.css";
+
+/* Admin has its own stylesheet; keep its classes out of the public CSS. */
+@source not "../(admin)";
+@source not "../../components/admin";
+@source not "../../lib/admin";
+
+.custom-cursor-active,
+.custom-cursor-active * {
+  cursor: none !important;
+}
+
+:root {
+  --color-brand-red: #ef0606;
+  --color-brand-red-dark: #c00505;
+  --color-ink: #141414;
+  --color-paper: #f4f4f5;
+  --color-white: #ffffff;
+  --color-steel: #b8b8ba;
+  --color-steel-dark: #b8b8ba;
+  --color-steel-light: #b8b8ba;
+}
+
+@theme inline {
+  --color-brand-red: var(--color-brand-red);
+  --color-brand-red-dark: var(--color-brand-red-dark);
+  --color-ink: var(--color-ink);
+  --color-paper: var(--color-paper);
+  --color-steel: var(--color-steel);
+  --color-steel-dark: var(--color-steel-dark);
+  --color-steel-light: var(--color-steel-light);
+
+  /* Clean neutral grey & charcoal palette replacing cool blue-tinted slate */
+  --color-slate-50: #fafafa;
+  --color-slate-100: #f4f4f5;
+  --color-slate-200: #e4e4e7;
+  --color-slate-300: #d4d4d8;
+  --color-slate-400: #a1a1aa;
+  --color-slate-500: #71717a;
+  --color-slate-600: #52525b;
+  --color-slate-700: #3f3f46;
+  --color-slate-800: #27272a;
+  --color-slate-900: #18181b;
+  --color-slate-950: #0e0e11;
+
+  --font-display: var(--font-jakarta);
+  --font-ui: var(--font-archivo-black);
+  --font-body: var(--font-manrope);
+
+  --animate-marquee: marquee 30s linear infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+html {
+  scroll-behavior: auto;
+  color-scheme: light;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body), Arial, Helvetica, sans-serif;
+}
+
+::selection {
+  background: var(--color-brand-red);
+  color: var(--color-white);
+}
+
+.font-display {
+  font-family: var(--font-display), sans-serif;
+  letter-spacing: -0.04em;
+}
+
+.font-ui {
+  font-family: var(--font-ui), sans-serif;
+}
+
+.font-brand {
+  font-family: var(--font-archivo-black), "Arial Black", Arial, sans-serif;
+  font-weight: 400;
+  font-synthesis: none;
+}
+
+.text-stroke-red {
+  -webkit-text-stroke: 1.5px var(--color-brand-red);
+  color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* RTL and Arabic Language Support */
+[dir="rtl"] {
+  font-family: system-ui, -apple-system, "Segoe UI", Tahoma, "Cairo", "Almarai", sans-serif;
+  letter-spacing: normal;
+}
+
+[dir="rtl"] .font-display,
+[dir="rtl"] .font-ui,
+[dir="rtl"] .font-brand {
+  letter-spacing: 0;
+}
+
