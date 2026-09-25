@@ -17,6 +17,7 @@ import { Container } from "@/components/ui/Container";
 import { Logo } from "@/components/brand/Logo";
 import { locations, contact, companyIntro, brandLogoDisclaimer } from "@/lib/data/company";
 import { categories } from "@/lib/data/categories";
+import { socialLinks } from "@/lib/data/social";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 const popularBrands = [
@@ -76,6 +77,22 @@ export function Footer() {
                 <Clock className="size-3.5 text-brand-red" />
                 <span>{contact.hours} (Sat &ndash; Thu)</span>
               </div>
+            </div>
+
+            {/* Social Media Links */}
+            <div className="mt-6 flex items-center gap-2 border-t border-white/10 pt-5">
+              {socialLinks.map(({ id, label, href, Icon }) => (
+                <a
+                  key={id}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="flex size-8 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-slate-300 transition-colors hover:border-brand-red/50 hover:bg-brand-red/10 hover:text-brand-red"
+                >
+                  <Icon className="size-4" />
+                </a>
+              ))}
             </div>
           </div>
 

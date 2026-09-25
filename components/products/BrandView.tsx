@@ -53,7 +53,7 @@ export function BrandView({ brandId }: { brandId: string }) {
             <p className="font-ui text-brand-red text-xs tracking-[0.2em] uppercase">
               {brandTagline(brand, isRTL)}
             </p>
-            <h1 className="font-display mt-2 text-3xl leading-[1.05] font-black uppercase sm:text-5xl">
+            <h1 className="h1-page mt-2">
               {name}
             </h1>
           </div>

@@ -44,7 +44,7 @@ export function ModelView({ brandId, modelSlug }: { brandId: string; modelSlug: 
           ]}
         />
         <p className="font-ui text-brand-red mt-8 text-xs tracking-[0.2em] uppercase">{bName}</p>
-        <h1 className="font-display mt-2 text-3xl leading-[1.05] font-black uppercase sm:text-5xl">
+        <h1 className="h1-page mt-2">
           {model}
         </h1>
         <p className="mt-6 max-w-2xl text-sm leading-relaxed text-white/70 sm:text-base">

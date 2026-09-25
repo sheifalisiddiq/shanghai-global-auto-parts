@@ -29,7 +29,7 @@ export function AboutHero() {
           <span className="font-ui border-brand-red/30 bg-brand-red/10 text-brand-red mb-4 inline-flex items-center rounded-full border px-3.5 py-1 text-xs tracking-widest uppercase backdrop-blur-sm">
             {t("about.eyebrow", "About Shanghai Global")}
           </span>
-          <h1 className="font-display text-4xl leading-[0.95] font-black uppercase drop-shadow-lg sm:text-6xl lg:text-7xl">
+          <h1 className="h1-hero drop-shadow-lg">
             {t("about.hero.title", "Built On Trust. Driven By Parts.")}
           </h1>
           <p className="mt-6 max-w-2xl text-base leading-relaxed text-slate-200 drop-shadow-md sm:text-lg">

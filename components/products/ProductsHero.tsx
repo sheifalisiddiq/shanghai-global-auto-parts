@@ -20,7 +20,7 @@ export function ProductsHero() {
           <p className="font-ui text-brand-red text-xs tracking-[0.2em] uppercase">
             {t("products.heroEyebrow")}
           </p>
-          <h1 className="font-display mt-4 text-3xl leading-[1.05] font-black uppercase sm:text-5xl lg:text-6xl">
+          <h1 className="h1-page mt-4">
             {t("products.heroTitle")}
           </h1>
           <p className="mt-6 max-w-2xl text-sm leading-relaxed text-white/70 sm:text-base">

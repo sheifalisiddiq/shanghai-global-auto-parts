@@ -75,8 +75,10 @@ export function Hero() {
           className="object-cover object-[center_65%] sm:object-center"
         />
 
-        {/* Subtle, Minimal Vignette - Background Image Remains Sharp & Clear */}
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/30" />
+        {/* Subtle, Minimal Vignette - Background Image Remains Sharp & Clear.
+            Lightened per client feedback (image was reported "too dark") — a brighter/cleaner
+            replacement source photo is still needed from the client; this is a code-only mitigation. */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-black/25" />
       </div>
 
       {/* 2. Hero Content Foreground (Uncluttered, Spacious) */}
@@ -96,7 +98,7 @@ export function Hero() {
           {/* Main Headline with High-Contrast Dark Outline / Shadow */}
           <h1
             aria-label={headlineLines.join(" ")}
-            className="font-display text-white text-3xl font-black uppercase sm:text-5xl lg:text-6xl xl:text-[4.2rem] leading-[1.05] tracking-tight drop-shadow-[0_4px_16px_rgba(0,0,0,1)] drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]"
+            className="font-display text-white text-3xl font-black uppercase sm:text-5xl lg:text-6xl xl:text-[4.2rem] leading-[1.05] tracking-tight drop-shadow-[0_4px_20px_rgba(0,0,0,1)] drop-shadow-[0_2px_6px_rgba(0,0,0,1)]"
           >
             {headlineLines.map((line, i) => (
               <span key={`${line}-${i}`} className="block overflow-hidden" aria-hidden="true">

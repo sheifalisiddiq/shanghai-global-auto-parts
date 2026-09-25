@@ -5,6 +5,7 @@ import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { InquiryForm } from "@/components/forms/InquiryForm";
 import { contact } from "@/lib/data/company";
+import { socialLinks } from "@/lib/data/social";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 export function ContactForm() {
@@ -70,6 +71,22 @@ export function ContactForm() {
                 <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">{t("form.businessHours")}</div>
                 <div className="text-sm font-semibold text-ink">{t("topbar.hours")}</div>
               </div>
+            </div>
+
+            {/* Social Media Links */}
+            <div className="flex items-center gap-2 pt-1">
+              {socialLinks.map(({ id, label, href, Icon }) => (
+                <a
+                  key={id}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="flex size-9 items-center justify-center rounded-lg border border-slate-200 bg-slate-50/60 text-slate-500 transition-colors hover:border-brand-red/40 hover:bg-brand-red/10 hover:text-brand-red"
+                >
+                  <Icon className="size-4" />
+                </a>
+              ))}
             </div>
           </div>
         </div>

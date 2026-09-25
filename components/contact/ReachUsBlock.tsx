@@ -3,6 +3,7 @@ import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { RevealGroup } from "@/components/ui/Reveal";
 import { locations, contact } from "@/lib/data/company";
+import { socialLinks } from "@/lib/data/social";
 
 export function ReachUsBlock() {
   return (
@@ -36,6 +37,20 @@ export function ReachUsBlock() {
           <span className="text-steel-dark flex items-center gap-2">
             <Clock className="size-4" /> {contact.hours}
           </span>
+          <div className="flex items-center gap-2 sm:ml-auto">
+            {socialLinks.map(({ id, label, href, Icon }) => (
+              <a
+                key={id}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                className="border-steel-light text-steel-dark hover:border-brand-red/50 hover:bg-brand-red/5 hover:text-brand-red flex size-8 items-center justify-center rounded-lg border transition-colors"
+              >
+                <Icon className="size-4" />
+              </a>
+            ))}
+          </div>
         </div>
       </Container>
     </section>

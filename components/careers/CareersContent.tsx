@@ -15,6 +15,8 @@ import {
   MessageCircle,
   Mail,
   ShieldCheck,
+  Paperclip,
+  X,
 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -167,14 +169,47 @@ export function CareersContent() {
     notes: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [resumeFile, setResumeFile] = useState<File | null>(null);
+  const [resumeError, setResumeError] = useState("");
 
   const filteredJobs =
     activeTab === "all"
       ? jobPositions
       : jobPositions.filter((job) => job.department === activeTab);
 
+  const MAX_RESUME_SIZE = 5 * 1024 * 1024; // 5MB
+  const ALLOWED_RESUME_EXTENSIONS = [".pdf", ".doc", ".docx"];
+
+  const handleResumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] ?? null;
+    if (!file) {
+      setResumeFile(null);
+      setResumeError("");
+      return;
+    }
+    const ext = file.name.slice(file.name.lastIndexOf(".")).toLowerCase();
+    if (!ALLOWED_RESUME_EXTENSIONS.includes(ext)) {
+      setResumeFile(null);
+      setResumeError("Please upload a PDF, DOC, or DOCX file.");
+      e.target.value = "";
+      return;
+    }
+    if (file.size > MAX_RESUME_SIZE) {
+      setResumeFile(null);
+      setResumeError("File is too large — max 5MB.");
+      e.target.value = "";
+      return;
+    }
+    setResumeFile(file);
+    setResumeError("");
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!resumeFile) {
+      setResumeError("Please attach your resume.");
+      return;
+    }
     setSubmitted(true);
   };
 
@@ -201,7 +236,7 @@ export function CareersContent() {
               <Sparkles className="size-3.5 text-brand-red" />
               <span>We Are Hiring</span>
             </span>
-            <h1 className="font-display text-4xl leading-[0.95] font-black uppercase drop-shadow-lg sm:text-6xl lg:text-7xl">
+            <h1 className="h1-hero drop-shadow-lg">
               {t("careers.title")}
             </h1>
             <p className="mt-6 max-w-2xl text-base leading-relaxed text-slate-200 drop-shadow-md sm:text-lg">
@@ -476,7 +511,11 @@ export function CareersContent() {
                     </p>
                     <button
                       type="button"
-                      onClick={() => setSubmitted(false)}
+                      onClick={() => {
+                        setSubmitted(false);
+                        setResumeFile(null);
+                        setResumeError("");
+                      }}
                       className="font-ui mt-6 inline-flex items-center gap-2 rounded-xl bg-brand-red px-6 py-3 text-xs font-bold text-white uppercase cursor-pointer hover:bg-ink transition-colors"
                     >
                       Submit Another Application
@@ -570,13 +609,49 @@ export function CareersContent() {
 
                     <div>
                       <label className="block text-xs font-bold text-ink uppercase tracking-wider mb-1.5">
-                        Brief Profile / Resume Link / Notes
+                        Resume *
+                      </label>
+                      {resumeFile ? (
+                        <div className="flex items-center justify-between rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-ink">
+                          <span className="flex items-center gap-2 truncate">
+                            <Paperclip className="size-4 shrink-0 text-brand-red" />
+                            <span className="truncate">{resumeFile.name}</span>
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => setResumeFile(null)}
+                            aria-label="Remove resume"
+                            className="ml-2 flex size-6 shrink-0 items-center justify-center rounded-md text-slate-400 hover:bg-slate-100 hover:text-ink cursor-pointer"
+                          >
+                            <X className="size-4" />
+                          </button>
+                        </div>
+                      ) : (
+                        <label className="flex w-full cursor-pointer items-center gap-2 rounded-xl border border-dashed border-slate-300 bg-white px-4 py-3 text-sm text-slate-500 transition-colors hover:border-brand-red hover:text-brand-red">
+                          <Paperclip className="size-4 shrink-0" />
+                          <span>Choose file (PDF, DOC, DOCX — max 5MB)</span>
+                          <input
+                            type="file"
+                            accept=".pdf,.doc,.docx"
+                            onChange={handleResumeChange}
+                            className="sr-only"
+                          />
+                        </label>
+                      )}
+                      {resumeError && (
+                        <p className="mt-1.5 text-xs font-semibold text-brand-red">{resumeError}</p>
+                      )}
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-ink uppercase tracking-wider mb-1.5">
+                        Additional Notes (optional)
                       </label>
                       <textarea
                         rows={4}
                         value={formData.notes}
                         onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                        placeholder="Tell us about your background in spare parts, key skills, or paste a LinkedIn/Google Drive resume link..."
+                        placeholder="Tell us about your background in spare parts, key skills, or anything else you'd like us to know..."
                         className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-ink outline-none transition-colors focus:border-brand-red"
                       />
                     </div>

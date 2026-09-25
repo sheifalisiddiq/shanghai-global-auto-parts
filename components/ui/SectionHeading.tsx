@@ -6,6 +6,7 @@ export function SectionHeading({
   description,
   align = "left",
   tone = "ink",
+  level = "h2",
   className,
 }: {
   eyebrow?: string;
@@ -13,8 +14,11 @@ export function SectionHeading({
   description?: string;
   align?: "left" | "center";
   tone?: "ink" | "white";
+  /** Heading tag to render. Defaults to h2 — pass "h3" when nesting under a page's own h2. */
+  level?: "h2" | "h3";
   className?: string;
 }) {
+  const Tag = level;
   return (
     <div className={cn(align === "center" && "text-center", className)}>
       {eyebrow && (
@@ -27,14 +31,14 @@ export function SectionHeading({
           {eyebrow}
         </span>
       )}
-      <h2
+      <Tag
         className={cn(
           "font-display text-4xl leading-[0.95] font-black uppercase sm:text-5xl lg:text-6xl",
           tone === "white" ? "text-white" : "text-ink",
         )}
       >
         {title}
-      </h2>
+      </Tag>
       {description && (
         <p
           className={cn(

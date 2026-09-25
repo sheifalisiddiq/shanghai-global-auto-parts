@@ -91,6 +91,17 @@ body {
   font-synthesis: none;
 }
 
+/* Shared H1 size ladders — keeps page-title headings consistent instead of
+   each hero/detail component picking its own ad-hoc scale. Homepage Hero
+   keeps its own bespoke ladder (full-bleed image hero, needs its own tuning). */
+.h1-hero {
+  @apply font-display text-4xl leading-[0.95] font-black uppercase sm:text-6xl lg:text-7xl;
+}
+
+.h1-page {
+  @apply font-display text-3xl leading-[1.05] font-black uppercase sm:text-5xl lg:text-6xl;
+}
+
 .text-stroke-red {
   -webkit-text-stroke: 1.5px var(--color-brand-red);
   color: transparent;

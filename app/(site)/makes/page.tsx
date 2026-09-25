@@ -35,7 +35,7 @@ export default function MakesPage() {
               </span>
             </div>
 
-            <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-black uppercase leading-[1.05] tracking-tight">
+            <h1 className="h1-page tracking-tight">
               Supported Vehicle Makes &amp; Models
             </h1>
 

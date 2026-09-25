@@ -9,6 +9,7 @@ import { CustomCursor } from "@/components/cursor/CustomCursor";
 import { TopBar } from "@/components/layout/TopBar";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { WhatsAppFloatingButton } from "@/components/layout/WhatsAppFloatingButton";
 import { JsonLd } from "@/components/seo/JsonLd";
 
 const jakarta = localFont({
@@ -94,6 +95,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <LanguageProvider>
           <Preloader />
           <CustomCursor />
+          <WhatsAppFloatingButton />
           <SmoothScrollProvider>
             <TopBar />
             <Header />

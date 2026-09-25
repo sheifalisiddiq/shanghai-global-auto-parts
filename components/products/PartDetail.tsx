@@ -85,7 +85,7 @@ export function PartDetail({
                   {t(categoryKey(category.id), category.label)}
                 </p>
               )}
-              <h1 className="font-display text-ink mt-3 text-3xl leading-[1.05] font-black uppercase sm:text-4xl">
+              <h1 className="h1-page text-ink mt-3">
                 {name}
               </h1>
               <p className="font-ui text-steel-dark mt-3 text-xs tracking-wide uppercase">

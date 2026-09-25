@@ -88,7 +88,7 @@ export function BlogsContent() {
               <BookOpen className="size-3.5 text-brand-red" />
               <span>Technical Knowledge & Guides</span>
             </span>
-            <h1 className="font-display text-4xl leading-[0.95] font-black uppercase sm:text-6xl lg:text-7xl">
+            <h1 className="h1-hero">
               {t("blogs.title")}
             </h1>
             <p className="mt-6 max-w-2xl text-base leading-relaxed text-slate-300 sm:text-lg">
