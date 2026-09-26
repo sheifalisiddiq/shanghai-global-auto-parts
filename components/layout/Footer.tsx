@@ -21,13 +21,15 @@ import { socialLinks } from "@/lib/data/social";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 const popularBrands = [
-  { id: "jetour", name: "Jetour", models: "T2, Dashing, X70+, X90+" },
-  { id: "changan", name: "Changan", models: "CS95, CS85, UNI-K, UNI-T" },
-  { id: "geely", name: "Geely", models: "Monjaro, Tugella, Coolray" },
-  { id: "chery", name: "Chery", models: "Tiggo 8 Pro, Tiggo 7, Arrizo" },
-  { id: "haval", name: "Haval & GWM", models: "H6, Jolion, Tank 300 / 500" },
-  { id: "byd", name: "BYD & MG", models: "EV, Hybrid & Petrol series" },
+  { id: "jetour", name: "Jetour" },
+  { id: "changan", name: "Changan" },
+  { id: "geely", name: "Geely" },
+  { id: "chery", name: "Chery" },
+  { id: "haval", name: "Haval & GWM" },
+  { id: "byd", name: "BYD & MG" },
 ];
+
+const footerCategoryIds = ["brakes", "filters", "engine", "suspension"];
 
 export function Footer() {
   const { t } = useLanguage();
@@ -103,17 +105,27 @@ export function Footer() {
               {t("footer.catalog", "Spare Parts Catalog")}
             </h3>
             <ul className="space-y-2.5 text-xs sm:text-sm">
-              {categories.map((cat) => (
-                <li key={cat.id}>
-                  <Link
-                    href={`/products#${cat.id}`}
-                    className="group inline-flex items-center gap-1.5 text-slate-400 hover:text-white transition-colors"
-                  >
-                    <ChevronRight className="size-3 text-slate-600 transition-transform group-hover:translate-x-0.5 group-hover:text-brand-red rtl:rotate-180" />
-                    <span>{t(`cat.${cat.id}` as any, cat.label)}</span>
-                  </Link>
-                </li>
-              ))}
+              {categories
+                .filter((cat) => footerCategoryIds.includes(cat.id))
+                .map((cat) => (
+                  <li key={cat.id}>
+                    <Link
+                      href={`/products#${cat.id}`}
+                      className="group inline-flex items-center gap-1.5 text-slate-400 hover:text-white transition-colors"
+                    >
+                      <ChevronRight className="size-3 text-slate-600 transition-transform group-hover:translate-x-0.5 group-hover:text-brand-red rtl:rotate-180" />
+                      <span>{t(`cat.${cat.id}` as any, cat.label)}</span>
+                    </Link>
+                  </li>
+                ))}
+              <li className="pt-1">
+                <Link
+                  href="/products"
+                  className="text-xs font-semibold text-brand-red hover:underline inline-flex items-center gap-1"
+                >
+                  <span>{t("footer.viewAllCategories", "View All Categories →")}</span>
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -123,19 +135,14 @@ export function Footer() {
               <span className="size-1.5 rounded-full bg-brand-red" />
               {t("footer.makes", "Supported Makes")}
             </h3>
-            <ul className="space-y-3 text-xs">
+            <ul className="space-y-2 text-xs sm:text-sm">
               {popularBrands.map((brand) => (
                 <li key={brand.name}>
                   <Link
                     href={`/products?brand=${brand.id}`}
-                    className="group block transition-colors"
+                    className="text-slate-400 hover:text-white transition-colors"
                   >
-                    <div className="font-semibold text-slate-200 group-hover:text-brand-red transition-colors">
-                      {brand.name}
-                    </div>
-                    <div className="text-[11px] text-slate-500 leading-tight">
-                      {brand.models}
-                    </div>
+                    {brand.name}
                   </Link>
                 </li>
               ))}
@@ -156,7 +163,7 @@ export function Footer() {
               <span className="size-1.5 rounded-full bg-brand-red" />
               {t("footer.hubs", "GCC Hubs & Locations")}
             </h3>
-            <div className="space-y-4 text-xs">
+            <div className="space-y-3 text-xs">
               {locations.map((loc) => (
                 <div key={loc.id} className="rounded-lg border border-white/10 bg-white/5 p-3">
                   <div className="flex items-center justify-between">
@@ -165,9 +172,6 @@ export function Footer() {
                     </span>
                     <MapPin className="size-3 text-brand-red" />
                   </div>
-                  <p className="mt-1 text-[11px] text-slate-400 leading-relaxed">
-                    {loc.address}
-                  </p>
                   <div className="mt-2 flex items-center gap-2 pt-2 border-t border-white/10">
                     <Phone className="size-3 text-brand-red shrink-0" />
                     <a
@@ -196,26 +200,11 @@ export function Footer() {
 
           <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
             <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs">
-              <Link href="/makes" className="hover:text-white transition-colors">
-                Vehicle Makes
+              <Link href="/privacy" className="hover:text-white transition-colors">
+                Privacy Policy
               </Link>
-              <Link href="/about" className="hover:text-white transition-colors">
-                About Us
-              </Link>
-              <Link href="/career" className="hover:text-white transition-colors">
-                Career
-              </Link>
-              <Link href="/blogs" className="hover:text-white transition-colors">
-                Blogs
-              </Link>
-              <Link href="/#faq" className="hover:text-white transition-colors">
-                FAQ
-              </Link>
-              <Link href="/products#enquire" className="hover:text-white transition-colors">
-                Enquiry
-              </Link>
-              <Link href="/contact" className="hover:text-white transition-colors">
-                Contact
+              <Link href="/terms" className="hover:text-white transition-colors">
+                Terms & Conditions
               </Link>
             </div>
 

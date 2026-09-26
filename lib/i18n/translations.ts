@@ -148,6 +148,7 @@ export const translations = {
 
     // Footer
     "footer.catalog": "Spare Parts Catalog",
+    "footer.viewAllCategories": "View All Categories →",
     "footer.makes": "Supported Makes",
     "footer.viewAllMakes": "View All 14+ Makes →",
     "footer.hubs": "GCC Hubs & Locations",
@@ -495,6 +496,7 @@ export const translations = {
 
     // Footer
     "footer.catalog": "كتالوج قطع الغيار",
+    "footer.viewAllCategories": "عرض جميع الفئات ←",
     "footer.makes": "الماركات المدعومة",
     "footer.viewAllMakes": "عرض كافة الماركات الـ 14+ ←",
     "footer.hubs": "مراكز التوزيع في الخليج",
