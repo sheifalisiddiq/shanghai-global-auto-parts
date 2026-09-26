@@ -32,7 +32,7 @@ export const translations = {
     "hero.headline1": "YOUR SOURCE FOR",
     "hero.headline2": "CHINESE AUTO SPARE PARTS",
     "hero.subtitle":
-      "Original, OEM & reliable aftermarket components for Jetour, Changan, Geely, Chery, BYD, Haval and all major Chinese vehicle brands. Stocked in Sharjah & Abu Dhabi with express GCC delivery.",
+      "Original, OEM and aftermarket auto spare parts for major Chinese brands. Fast GCC delivery.",
     "hero.fastQuote": "WhatsApp Fast Quote",
     "hero.exploreCatalog": "Explore Full Catalog",
     "hero.trustTag": "Original • OEM • Aftermarket",
@@ -380,7 +380,7 @@ export const translations = {
     "hero.headline1": "وجهتكم الأولى لقطع غيار",
     "hero.headline2": "السيارات الصينية في الخليج",
     "hero.subtitle":
-      "قطع غيار أصلية ومصنّع أصلي وبدائل معتمدة لسيارات جيتور، شانجان، جيلي، شيري، بي واي دي، هافال وكافة العلامات الصينية الرائدة. متوفرة في الشارقة وأبوظبي مع شحن سريع لدول الخليج.",
+      "قطع غيار سيارات أصلية ومصنّع أصلي وتجارية لأبرز العلامات الصينية. توصيل سريع لدول الخليج.",
     "hero.fastQuote": "تسعير سريع عبر واتساب",
     "hero.exploreCatalog": "تصفح كتالوج القطع",
     "hero.trustTag": "أصلية • مصنّع أصلي • تجارية معتمدة",

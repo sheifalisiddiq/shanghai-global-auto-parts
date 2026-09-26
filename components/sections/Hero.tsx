@@ -67,12 +67,12 @@ export function Hero() {
       {/* 1. Full-Bleed Background Image (Clear, Unobstructed, Centered) */}
       <div className="absolute inset-0 z-0 select-none">
         <Image
-          src="/images/hero/hero-bg.jpg"
+          src="/images/hero/hero-auto-parts.jpg"
           alt="Shanghai Global Chinese Auto Spare Parts Workshop Background"
           fill
           priority
           sizes="100vw"
-          className="object-cover object-[center_65%] sm:object-center"
+          className="object-cover object-[75%_center] sm:object-right"
         />
 
         {/* Subtle, Minimal Vignette - Background Image Remains Sharp & Clear.
@@ -121,7 +121,7 @@ export function Hero() {
           >
             {t(
               "hero.subtitle",
-              "Original, OEM & reliable aftermarket components for Jetour, Changan, Geely, Chery, BYD, Haval and all major Chinese vehicle brands. Stocked in Sharjah & Abu Dhabi with express GCC delivery.",
+              "Original, OEM and aftermarket auto spare parts for major Chinese brands. Fast GCC delivery.",
             )}
           </p>
 

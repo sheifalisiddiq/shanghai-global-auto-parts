@@ -19,6 +19,7 @@ import { locations, contact, companyIntro, brandLogoDisclaimer } from "@/lib/dat
 import { categories } from "@/lib/data/categories";
 import { socialLinks } from "@/lib/data/social";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
+import { FooterMobileAccordion } from "@/components/layout/FooterMobileAccordion";
 
 const popularBrands = [
   { id: "jetour", name: "Jetour" },
@@ -38,70 +39,73 @@ export function Footer() {
     scrollToTarget(0);
   };
 
+  const companyBlock = (
+    <div>
+      <Logo tone="white" />
+      <p className="mt-4 text-xs sm:text-sm leading-relaxed text-slate-400 max-w-sm">
+        {t("footer.intro", companyIntro)}
+      </p>
+
+      {/* Quality & Trust Badges */}
+      <div className="mt-6 space-y-2 border-t border-white/10 pt-5 text-xs text-slate-300">
+        <div className="flex items-center gap-2">
+          <ShieldCheck className="size-4 text-brand-red shrink-0" />
+          <span>{t("footer.range", "Original, OEM & Aftermarket Range")}</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <CheckCircle2 className="size-4 text-emerald-400 shrink-0" />
+          <span>{t("footer.vinCheck", "100% VIN Matched Fitment Check")}</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <Truck className="size-4 text-brand-red shrink-0" />
+          <span>{t("footer.dispatch", "Same-Day UAE / Express Qatar Dispatch")}</span>
+        </div>
+      </div>
+
+      {/* Email & Working Hours */}
+      <div className="mt-6 space-y-2 text-xs text-slate-400">
+        <a
+          href={`mailto:${contact.emails.primary}`}
+          className="flex items-center gap-2 text-slate-300 hover:text-brand-red transition-colors"
+        >
+          <Mail className="size-3.5 text-brand-red" />
+          <span>{contact.emails.primary}</span>
+        </a>
+        <div className="flex items-center gap-2">
+          <Clock className="size-3.5 text-brand-red" />
+          <span>{contact.hours} (Sat &ndash; Thu)</span>
+        </div>
+      </div>
+
+      {/* Social Media Links */}
+      <div className="mt-6 flex items-center gap-2 border-t border-white/10 pt-5">
+        {socialLinks.map(({ id, label, href, Icon }) => (
+          <a
+            key={id}
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={label}
+            className="flex size-8 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-slate-300 transition-colors hover:border-brand-red/50 hover:bg-brand-red/10 hover:text-brand-red"
+          >
+            <Icon className="size-4" />
+          </a>
+        ))}
+      </div>
+    </div>
+  );
+
   return (
     <footer className="border-t border-white/10 bg-slate-950 text-white select-none">
-      {/* Main Footer Grid */}
-      <Container className="py-14 lg:py-16">
-        <div className="grid gap-10 lg:grid-cols-12">
+      {/* Desktop / Tablet Footer Grid (md and up) */}
+      <Container className="hidden md:block py-12 lg:py-14">
+        <div className="grid gap-12 md:grid-cols-12">
           {/* Col 1: Brand & Contact Summary (4 cols) */}
-          <div className="lg:col-span-4">
-            <Logo tone="white" />
-            <p className="mt-4 text-xs sm:text-sm leading-relaxed text-slate-400 max-w-sm">
-              {t("footer.intro", companyIntro)}
-            </p>
-
-            {/* Quality & Trust Badges */}
-            <div className="mt-6 space-y-2 border-t border-white/10 pt-5 text-xs text-slate-300">
-              <div className="flex items-center gap-2">
-                <ShieldCheck className="size-4 text-brand-red shrink-0" />
-                <span>{t("footer.range", "Original, OEM & Aftermarket Range")}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="size-4 text-emerald-400 shrink-0" />
-                <span>{t("footer.vinCheck", "100% VIN Matched Fitment Check")}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Truck className="size-4 text-brand-red shrink-0" />
-                <span>{t("footer.dispatch", "Same-Day UAE / Express Qatar Dispatch")}</span>
-              </div>
-            </div>
-
-            {/* Email & Working Hours */}
-            <div className="mt-6 space-y-2 text-xs text-slate-400">
-              <a
-                href={`mailto:${contact.emails.primary}`}
-                className="flex items-center gap-2 text-slate-300 hover:text-brand-red transition-colors"
-              >
-                <Mail className="size-3.5 text-brand-red" />
-                <span>{contact.emails.primary}</span>
-              </a>
-              <div className="flex items-center gap-2">
-                <Clock className="size-3.5 text-brand-red" />
-                <span>{contact.hours} (Sat &ndash; Thu)</span>
-              </div>
-            </div>
-
-            {/* Social Media Links */}
-            <div className="mt-6 flex items-center gap-2 border-t border-white/10 pt-5">
-              {socialLinks.map(({ id, label, href, Icon }) => (
-                <a
-                  key={id}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={label}
-                  className="flex size-8 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-slate-300 transition-colors hover:border-brand-red/50 hover:bg-brand-red/10 hover:text-brand-red"
-                >
-                  <Icon className="size-4" />
-                </a>
-              ))}
-            </div>
-          </div>
+          <div className="md:col-span-4">{companyBlock}</div>
 
           {/* Col 2: Parts Categories (3 cols) */}
-          <div className="lg:col-span-3">
-            <h3 className="font-ui text-xs tracking-[0.2em] text-white uppercase mb-4 flex items-center gap-2">
-              <span className="size-1.5 rounded-full bg-brand-red" />
+          <div className="md:col-span-3">
+            <h3 className="font-ui text-xs tracking-[0.2em] text-slate-400 uppercase mb-4">
               {t("footer.catalog", "Spare Parts Catalog")}
             </h3>
             <ul className="space-y-2.5 text-xs sm:text-sm">
@@ -130,9 +134,8 @@ export function Footer() {
           </div>
 
           {/* Col 3: Supported Brands (2 cols) */}
-          <div className="lg:col-span-2">
-            <h3 className="font-ui text-xs tracking-[0.2em] text-white uppercase mb-4 flex items-center gap-2">
-              <span className="size-1.5 rounded-full bg-brand-red" />
+          <div className="md:col-span-2">
+            <h3 className="font-ui text-xs tracking-[0.2em] text-slate-400 uppercase mb-4">
               {t("footer.makes", "Supported Makes")}
             </h3>
             <ul className="space-y-2 text-xs sm:text-sm">
@@ -158,29 +161,21 @@ export function Footer() {
           </div>
 
           {/* Col 4: GCC Locations & Hubs (3 cols) */}
-          <div className="lg:col-span-3">
-            <h3 className="font-ui text-xs tracking-[0.2em] text-white uppercase mb-4 flex items-center gap-2">
-              <span className="size-1.5 rounded-full bg-brand-red" />
+          <div className="md:col-span-3">
+            <h3 className="font-ui text-xs tracking-[0.2em] text-slate-400 uppercase mb-4">
               {t("footer.hubs", "GCC Hubs & Locations")}
             </h3>
             <div className="space-y-3 text-xs">
               {locations.map((loc) => (
-                <div key={loc.id} className="rounded-lg border border-white/10 bg-white/5 p-3">
-                  <div className="flex items-center justify-between">
-                    <span className="font-bold text-white uppercase tracking-wider text-[11px]">
-                      {loc.label}
-                    </span>
-                    <MapPin className="size-3 text-brand-red" />
-                  </div>
-                  <div className="mt-2 flex items-center gap-2 pt-2 border-t border-white/10">
+                <div key={loc.id} className="flex items-center justify-between gap-3">
+                  <span className="font-semibold text-white">{loc.label}</span>
+                  <a
+                    href={`tel:${loc.phone.replace(/\s+/g, "")}`}
+                    className="flex items-center gap-1.5 text-slate-400 hover:text-brand-red transition-colors"
+                  >
                     <Phone className="size-3 text-brand-red shrink-0" />
-                    <a
-                      href={`tel:${loc.phone.replace(/\s+/g, "")}`}
-                      className="font-semibold text-white hover:text-brand-red transition-colors"
-                    >
-                      {loc.phone}
-                    </a>
-                  </div>
+                    <span>{loc.phone}</span>
+                  </a>
                 </div>
               ))}
             </div>
@@ -188,9 +183,17 @@ export function Footer() {
         </div>
       </Container>
 
-      {/* 3. Bottom Legal & Back to Top Bar */}
+      {/* Mobile Footer (below md) */}
+      <Container className="md:hidden py-10">
+        {companyBlock}
+        <div className="mt-6">
+          <FooterMobileAccordion />
+        </div>
+      </Container>
+
+      {/* Bottom Legal & Back to Top Bar */}
       <div className="border-t border-white/10 bg-black/60">
-        <Container className="flex flex-col gap-4 py-5 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
+        <Container className="flex flex-col gap-4 py-5 text-xs text-slate-500 md:flex-row md:items-center md:justify-between">
           <div className="flex flex-col gap-1">
             <span>{contact.copyright}</span>
             <span className="text-[11px] text-slate-600 max-w-xl">
