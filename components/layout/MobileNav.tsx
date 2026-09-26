@@ -1,20 +1,23 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
-import { X, MessageCircle, Phone, MapPin, ChevronRight, ShieldCheck } from "lucide-react";
+import { X, MessageCircle, Phone, MapPin, ChevronRight, ChevronDown, ShieldCheck } from "lucide-react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsap/registerGSAP";
 import { Logo } from "@/components/brand/Logo";
 import { contact } from "@/lib/data/company";
 import { categories } from "@/lib/data/categories";
+import { carBrands } from "@/lib/data/brands";
 import { useLockBodyScroll } from "@/lib/hooks/useLockBodyScroll";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher";
+import { cn } from "@/lib/utils/cn";
 
 export function MobileNav({ open, onClose }: { open: boolean; onClose: () => void }) {
   const panelRef = useRef<HTMLDivElement>(null);
   const linksRef = useRef<HTMLAnchorElement[]>([]);
+  const [expanded, setExpanded] = useState<"parts" | "makes" | null>(null);
   const { t } = useLanguage();
 
   useLockBodyScroll(open);
@@ -51,13 +54,10 @@ export function MobileNav({ open, onClose }: { open: boolean; onClose: () => voi
   const navItems = [
     { label: t("nav.home", "Home"), href: "/" },
     { label: t("nav.about", "About Shanghai Global"), href: "/about" },
-    { label: t("nav.spareParts", "Spare Parts Catalog"), href: "/products" },
-    { label: t("nav.makes", "Vehicle Makes & Models"), href: "/makes" },
     { label: t("nav.blogs", "Blogs"), href: "/blogs" },
     { label: t("nav.careers", "Careers"), href: "/careers" },
     { label: t("nav.faq", "Frequently Asked Questions"), href: "/#faq" },
     { label: t("nav.contact", "Contact & Locations"), href: "/contact" },
-    { label: t("nav.enquiry", "Make a Part Enquiry"), href: "/products#enquire" },
   ];
 
   return (
@@ -85,12 +85,124 @@ export function MobileNav({ open, onClose }: { open: boolean; onClose: () => voi
 
       {/* Main Links */}
       <nav className="mt-6 flex flex-col gap-2" aria-label="Mobile">
-        {navItems.map((link, i) => (
+        <Link
+          href="/"
+          ref={(el) => {
+            if (el) linksRef.current[0] = el;
+          }}
+          onClick={onClose}
+          className="flex items-center justify-between rounded-xl px-4 py-3 text-base font-bold text-white hover:bg-white/10 hover:text-brand-red transition-colors"
+        >
+          <span>{navItems[0].label}</span>
+          <ChevronRight className="size-4 text-slate-500 rtl:rotate-180" />
+        </Link>
+        <Link
+          href="/about"
+          ref={(el) => {
+            if (el) linksRef.current[1] = el;
+          }}
+          onClick={onClose}
+          className="flex items-center justify-between rounded-xl px-4 py-3 text-base font-bold text-white hover:bg-white/10 hover:text-brand-red transition-colors"
+        >
+          <span>{navItems[1].label}</span>
+          <ChevronRight className="size-4 text-slate-500 rtl:rotate-180" />
+        </Link>
+
+        {/* Spare Parts — expandable */}
+        <div
+          ref={(el) => {
+            if (el) linksRef.current[2] = el as unknown as HTMLAnchorElement;
+          }}
+        >
+          <button
+            type="button"
+            onClick={() => setExpanded((v) => (v === "parts" ? null : "parts"))}
+            aria-expanded={expanded === "parts"}
+            className="flex w-full items-center justify-between rounded-xl px-4 py-3 text-base font-bold text-white hover:bg-white/10 hover:text-brand-red transition-colors cursor-pointer"
+          >
+            <span>{t("nav.spareParts", "Spare Parts Catalog")}</span>
+            <ChevronDown
+              className={cn(
+                "size-4 text-slate-500 transition-transform",
+                expanded === "parts" && "rotate-180",
+              )}
+            />
+          </button>
+          {expanded === "parts" && (
+            <div className="ml-4 mt-1 flex flex-col gap-1 border-l border-white/10 pl-4 pb-2">
+              <Link
+                href="/products"
+                onClick={onClose}
+                className="rounded-lg px-3 py-2 text-sm font-semibold text-brand-red hover:bg-white/10"
+              >
+                {t("nav.exploreAll", "Explore all")}
+              </Link>
+              {categories.map((cat) => {
+                const catLabelKey = `cat.${cat.id}` as any;
+                return (
+                  <Link
+                    key={cat.id}
+                    href={`/products?category=${cat.id}`}
+                    onClick={onClose}
+                    className="rounded-lg px-3 py-2 text-sm text-slate-300 hover:bg-white/10 hover:text-white"
+                  >
+                    {t(catLabelKey, cat.label)}
+                  </Link>
+                );
+              })}
+            </div>
+          )}
+        </div>
+
+        {/* Vehicle Makes — expandable */}
+        <div
+          ref={(el) => {
+            if (el) linksRef.current[3] = el as unknown as HTMLAnchorElement;
+          }}
+        >
+          <button
+            type="button"
+            onClick={() => setExpanded((v) => (v === "makes" ? null : "makes"))}
+            aria-expanded={expanded === "makes"}
+            className="flex w-full items-center justify-between rounded-xl px-4 py-3 text-base font-bold text-white hover:bg-white/10 hover:text-brand-red transition-colors cursor-pointer"
+          >
+            <span>{t("nav.makes", "Vehicle Makes & Models")}</span>
+            <ChevronDown
+              className={cn(
+                "size-4 text-slate-500 transition-transform",
+                expanded === "makes" && "rotate-180",
+              )}
+            />
+          </button>
+          {expanded === "makes" && (
+            <div className="ml-4 mt-1 flex flex-col gap-1 border-l border-white/10 pl-4 pb-2 max-h-64 overflow-y-auto">
+              <Link
+                href="/makes"
+                onClick={onClose}
+                className="rounded-lg px-3 py-2 text-sm font-semibold text-brand-red hover:bg-white/10"
+              >
+                {t("nav.viewAllMakes", "View all makes")}
+              </Link>
+              {carBrands.map((brand) => (
+                <Link
+                  key={brand.id}
+                  href={`/products?brand=${brand.id}`}
+                  onClick={onClose}
+                  className="rounded-lg px-3 py-2 text-sm text-slate-300 hover:bg-white/10 hover:text-white"
+                >
+                  {brand.name}
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {navItems.slice(2).map((link, i) => (
           <Link
             key={link.href}
             href={link.href}
             ref={(el) => {
-              if (el) linksRef.current[i] = el;
+              if (el) linksRef.current[i + 4] = el;
             }}
             onClick={onClose}
             className="flex items-center justify-between rounded-xl px-4 py-3 text-base font-bold text-white hover:bg-white/10 hover:text-brand-red transition-colors"
@@ -100,28 +212,6 @@ export function MobileNav({ open, onClose }: { open: boolean; onClose: () => voi
           </Link>
         ))}
       </nav>
-
-      {/* Quick Category Chips */}
-      <div className="mt-6 border-t border-white/10 pt-5">
-        <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-brand-red mb-2 block">
-          {t("nav.componentCategories", "Browse by Component")}
-        </span>
-        <div className="flex flex-wrap gap-1.5">
-          {categories.map((cat) => {
-            const catLabelKey = `cat.${cat.id}` as any;
-            return (
-              <Link
-                key={cat.id}
-                href={`/products#${cat.id}`}
-                onClick={onClose}
-                className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-slate-300 hover:border-brand-red hover:text-white transition-colors"
-              >
-                {t(catLabelKey, cat.label)}
-              </Link>
-            );
-          })}
-        </div>
-      </div>
 
       {/* 1-Tap Action Buttons */}
       <div className="mt-8 space-y-2.5">

@@ -39,12 +39,22 @@ export function Logo({
 
   return (
     <span className={cn("inline-flex items-center gap-3", className)}>
-      <LogoMark className="h-9 w-9 shrink-0" />
+      <LogoMark className="h-8 w-8 shrink-0 sm:h-9 sm:w-9" />
       <span className="flex flex-col leading-none">
-        <span className={cn("font-brand text-lg tracking-tight uppercase", textColor)}>
+        <span
+          className={cn(
+            "font-brand text-sm tracking-tight uppercase sm:text-lg",
+            textColor,
+          )}
+        >
           SHANGHAI GLOBAL
         </span>
-        <span className={cn("font-body mt-0.5 text-[10px] tracking-wide uppercase", subColor)}>
+        <span
+          className={cn(
+            "font-body mt-0.5 text-[9px] tracking-wide uppercase sm:text-[10px]",
+            subColor,
+          )}
+        >
           AUTO SPARE PARTS CO LLC
         </span>
       </span>

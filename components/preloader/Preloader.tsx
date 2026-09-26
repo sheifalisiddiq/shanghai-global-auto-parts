@@ -25,10 +25,14 @@ export function Preloader() {
 
     function finish() {
       if (cancelled) return;
+      cancelled = true;
+      clearTimeout(failsafe);
       setActive(false);
       preloaderState.done = true;
       window.dispatchEvent(new Event(PRELOADER_DONE_EVENT));
     }
+
+    const failsafe = setTimeout(finish, 6000);
 
     async function run() {
       const overlay = overlayRef.current;
@@ -62,10 +66,12 @@ export function Preloader() {
         tl.eventCallback("onComplete", () => resolve());
       });
 
-      await Promise.all([
-        timelineDone,
-        typeof document !== "undefined" && document.fonts ? document.fonts.ready : Promise.resolve(),
-      ]);
+      const fontsReady =
+        typeof document !== "undefined" && document.fonts
+          ? document.fonts.ready
+          : Promise.resolve();
+
+      await Promise.all([timelineDone, Promise.race([fontsReady, wait(2500)])]);
 
       if (cancelled) return;
 
@@ -77,6 +83,7 @@ export function Preloader() {
 
     return () => {
       cancelled = true;
+      clearTimeout(failsafe);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

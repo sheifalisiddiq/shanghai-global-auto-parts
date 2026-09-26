@@ -194,8 +194,8 @@ export function Footer() {
             </span>
           </div>
 
-          <div className="flex items-center gap-6">
-            <div className="flex items-center gap-4 text-xs">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs">
               <Link href="/makes" className="hover:text-white transition-colors">
                 Vehicle Makes
               </Link>
