@@ -33,7 +33,7 @@ export default function TermsPage() {
 
             <h2>2. Product Information &amp; Fitment</h2>
             <p>
-              Product listings, categories, and vehicle-make/model information are provided for
+              Product listings, categories, and vehicle-brand/model information are provided for
               general reference only. Part compatibility should always be confirmed with our team
               via VIN or vehicle details before purchase; we do not guarantee fitment based solely
               on information displayed on this website.

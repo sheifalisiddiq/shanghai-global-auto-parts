@@ -40,7 +40,7 @@ export const whatWeDo: WhatWeDoItem[] = [
     id: "sourcing",
     index: "01",
     title: "Product Sourcing",
-    copy: "We have established strong relationships with reputable manufacturers and suppliers across China, allowing us to source a comprehensive range of auto spare parts. Our expert team ensures that all products meet strict quality standards and are compatible with various vehicle makes and models.",
+    copy: "We have established strong relationships with reputable manufacturers and suppliers across China, allowing us to source a comprehensive range of auto spare parts. Our expert team ensures that all products meet strict quality standards and are compatible with various vehicle brands and models.",
     cta: { label: "ENQUIRE NOW", href: "/products#enquire" },
   },
   {

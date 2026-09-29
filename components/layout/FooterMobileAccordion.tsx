@@ -19,7 +19,7 @@ const popularBrands = [
   { id: "byd", name: "BYD & MG" },
 ];
 
-type SectionKey = "parts" | "makes" | "locations";
+type SectionKey = "parts" | "brands" | "locations";
 
 const focusRing =
   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/60 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950";
@@ -34,7 +34,7 @@ export function FooterMobileAccordion() {
 
   const sections: { key: SectionKey; label: string }[] = [
     { key: "parts", label: t("footer.catalog", "Spare Parts Catalog") },
-    { key: "makes", label: t("footer.makes", "Supported Makes") },
+    { key: "brands", label: t("footer.brands", "Supported Brands") },
     { key: "locations", label: t("footer.hubs", "GCC Hubs & Locations") },
   ];
 
@@ -98,7 +98,7 @@ export function FooterMobileAccordion() {
                   </ul>
                 )}
 
-                {key === "makes" && (
+                {key === "brands" && (
                   <ul className="space-y-2">
                     {popularBrands.map((brand) => (
                       <li key={brand.id}>
@@ -115,13 +115,13 @@ export function FooterMobileAccordion() {
                     ))}
                     <li>
                       <Link
-                        href="/makes"
+                        href="/brands"
                         className={cn(
                           "block rounded px-1 py-1 font-semibold text-brand-red hover:underline",
                           focusRing,
                         )}
                       >
-                        {t("footer.viewAllMakes", "View All 14+ Makes →")}
+                        {t("footer.viewAllBrands", "View All 14+ Brands →")}
                       </Link>
                     </li>
                   </ul>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import Image from "next/image";
+import { getImageProps } from "next/image";
 import Link from "next/link";
 import {
   ShieldCheck,
@@ -17,6 +17,24 @@ import { preloaderState } from "@/lib/preloader/state";
 import { PRELOADER_DONE_EVENT } from "@/components/preloader/Preloader";
 import { Container } from "@/components/ui/Container";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
+
+const heroImageAlt = "Shanghai Global Chinese Auto Spare Parts Workshop Background";
+const { props: mobileHeroImageProps } = getImageProps({
+  src: "/images/hero/hero-auto-parts-mobile.png",
+  alt: heroImageAlt,
+  width: 1024,
+  height: 1536,
+  sizes: "100vw",
+});
+const {
+  props: { srcSet: desktopHeroSrcSet },
+} = getImageProps({
+  src: "/images/hero/hero-auto-parts.jpg",
+  alt: heroImageAlt,
+  width: 1920,
+  height: 1080,
+  sizes: "100vw",
+});
 
 export function Hero() {
   const { t } = useLanguage();
@@ -66,19 +84,21 @@ export function Hero() {
     >
       {/* 1. Full-Bleed Background Image (Clear, Unobstructed, Centered) */}
       <div className="absolute inset-0 z-0 select-none">
-        <Image
-          src="/images/hero/hero-auto-parts.jpg"
-          alt="Shanghai Global Chinese Auto Spare Parts Workshop Background"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-[75%_center] sm:object-right"
-        />
+        <picture>
+          <source media="(min-width: 768px)" srcSet={desktopHeroSrcSet} />
+          <img
+            {...mobileHeroImageProps}
+            alt={heroImageAlt}
+            loading="eager"
+            className="absolute inset-0 size-full object-cover md:object-right"
+          />
+        </picture>
 
         {/* Subtle, Minimal Vignette - Background Image Remains Sharp & Clear.
             Lightened per client feedback (image was reported "too dark") — a brighter/cleaner
             replacement source photo is still needed from the client; this is a code-only mitigation. */}
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-black/25" />
+        <div className="pointer-events-none absolute inset-0 hidden bg-gradient-to-t from-black/70 via-black/15 to-black/25 md:block" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/40 via-black/15 to-transparent md:hidden" />
       </div>
 
       {/* 2. Hero Content Foreground (Uncluttered, Spacious) */}

@@ -17,7 +17,7 @@ import { cn } from "@/lib/utils/cn";
 export function MobileNav({ open, onClose }: { open: boolean; onClose: () => void }) {
   const panelRef = useRef<HTMLDivElement>(null);
   const linksRef = useRef<HTMLAnchorElement[]>([]);
-  const [expanded, setExpanded] = useState<"parts" | "makes" | null>(null);
+  const [expanded, setExpanded] = useState<"parts" | "brands" | null>(null);
   const { t } = useLanguage();
 
   useLockBodyScroll(open);
@@ -154,7 +154,7 @@ export function MobileNav({ open, onClose }: { open: boolean; onClose: () => voi
           )}
         </div>
 
-        {/* Vehicle Makes — expandable */}
+        {/* Brands — expandable */}
         <div
           ref={(el) => {
             if (el) linksRef.current[3] = el as unknown as HTMLAnchorElement;
@@ -162,26 +162,26 @@ export function MobileNav({ open, onClose }: { open: boolean; onClose: () => voi
         >
           <button
             type="button"
-            onClick={() => setExpanded((v) => (v === "makes" ? null : "makes"))}
-            aria-expanded={expanded === "makes"}
+            onClick={() => setExpanded((v) => (v === "brands" ? null : "brands"))}
+            aria-expanded={expanded === "brands"}
             className="flex w-full items-center justify-between rounded-xl px-4 py-3 text-base font-bold text-white hover:bg-white/10 hover:text-brand-red transition-colors cursor-pointer"
           >
-            <span>{t("nav.makes", "Vehicle Makes & Models")}</span>
+            <span>{t("nav.brands", "Brands & Models")}</span>
             <ChevronDown
               className={cn(
                 "size-4 text-slate-500 transition-transform",
-                expanded === "makes" && "rotate-180",
+                expanded === "brands" && "rotate-180",
               )}
             />
           </button>
-          {expanded === "makes" && (
+          {expanded === "brands" && (
             <div className="ml-4 mt-1 flex flex-col gap-1 border-l border-white/10 pl-4 pb-2 max-h-64 overflow-y-auto">
               <Link
-                href="/makes"
+                href="/brands"
                 onClick={onClose}
                 className="rounded-lg px-3 py-2 text-sm font-semibold text-brand-red hover:bg-white/10"
               >
-                {t("nav.viewAllMakes", "View all makes")}
+                {t("nav.viewAllBrands", "View all brands")}
               </Link>
               {carBrands.map((brand) => (
                 <Link

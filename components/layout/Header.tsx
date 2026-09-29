@@ -183,15 +183,15 @@ export function Header() {
             </div>
 
             <Link
-              href="/makes"
+              href="/brands"
               className={cn(
                 "rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wider transition-colors",
-                pathname.startsWith("/makes")
+                pathname.startsWith("/brands") || pathname.startsWith("/makes")
                   ? "text-brand-red bg-white/10"
                   : "text-zinc-200 hover:text-white hover:bg-white/10",
               )}
             >
-              {t("nav.makes", "Vehicle Makes")}
+              {t("nav.brands", "Brands")}
             </Link>
 
             <Link

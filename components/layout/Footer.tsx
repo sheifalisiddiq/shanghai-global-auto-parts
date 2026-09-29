@@ -136,7 +136,7 @@ export function Footer() {
           {/* Col 3: Supported Brands (2 cols) */}
           <div className="md:col-span-2">
             <h3 className="font-ui text-xs tracking-[0.2em] text-slate-400 uppercase mb-4">
-              {t("footer.makes", "Supported Makes")}
+              {t("footer.brands", "Supported Brands")}
             </h3>
             <ul className="space-y-2 text-xs sm:text-sm">
               {popularBrands.map((brand) => (
@@ -151,10 +151,10 @@ export function Footer() {
               ))}
               <li className="pt-1">
                 <Link
-                  href="/makes"
+                  href="/brands"
                   className="text-xs font-semibold text-brand-red hover:underline inline-flex items-center gap-1"
                 >
-                  <span>{t("footer.viewAllMakes", "View All 14+ Makes →")}</span>
+                  <span>{t("footer.viewAllBrands", "View All 14+ Brands →")}</span>
                 </Link>
               </li>
             </ul>

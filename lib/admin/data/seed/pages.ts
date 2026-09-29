@@ -78,7 +78,7 @@ const home = () =>
         subtitle: T("brands.subtitle"),
         disclaimer: T("brands.disclaimer", brandLogoDisclaimer),
         viewAllLabel: T("brands.viewAll"),
-        viewAllLink: "/makes",
+        viewAllLink: "/brands",
       }),
       sec("featuredProducts", {
         eyebrow: T("catalog.eyebrow"),
@@ -146,7 +146,7 @@ const home = () =>
         { label: T("nav.contact"), href: "/contact", visible: true },
       ],
       footerLinks: [
-        { label: L("Vehicle Makes"), href: "/makes" },
+        { label: L("Brands"), href: "/brands" },
         { label: L("About"), href: "/about" },
         { label: L("Career"), href: "/career" },
         { label: L("Blogs"), href: "/blogs" },

@@ -225,7 +225,7 @@ export function InquiryForm({
             rows={4}
             placeholder={t(
               "form.detailsPlaceholder",
-              "Please specify vehicle make/model, year, VIN or chassis number, and the required part numbers or descriptions...",
+              "Please specify vehicle brand/model, year, VIN or chassis number, and the required part numbers or descriptions...",
             )}
             className={cn(inputClass, "resize-none leading-relaxed")}
           />

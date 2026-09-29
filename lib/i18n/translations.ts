@@ -9,7 +9,8 @@ export const translations = {
     "nav.blogs": "Blogs",
     "nav.careers": "Careers",
     "nav.contact": "Contact",
-    "nav.makes": "Vehicle Makes",
+    "nav.makes": "Brands",
+    "nav.brands": "Brands",
     "nav.browseByBrand": "Browse by Brand",
     "nav.faq": "FAQ",
     "nav.enquiry": "Enquiry",
@@ -18,7 +19,8 @@ export const translations = {
     "nav.componentCategories": "Component Categories",
     "nav.exploreAll": "Explore all",
     "nav.supportedBrands": "Supported Chinese Brands",
-    "nav.viewAllMakes": "View All 14+ Supported Makes",
+    "nav.viewAllMakes": "View All 14+ Supported Brands",
+    "nav.viewAllBrands": "View All 14+ Supported Brands",
 
     // TopBar
     "topbar.hub": "UAE • Qatar Parts Hub",
@@ -48,11 +50,11 @@ export const translations = {
     "trust.feat4Sub": "For Jetour, Changan, Geely & more",
 
     // Brand Marquee
-    "brands.eyebrow": "Compatible Vehicle Makes",
+    "brands.eyebrow": "Compatible Brands",
     "brands.title": "Supported Chinese Automobile Brands",
-    "brands.subtitle": "Select any brand to filter compatible parts, or explore our full make directory.",
+    "brands.subtitle": "Select any brand to filter compatible parts, or explore our full brand directory.",
     "brands.disclaimer": "Logos shown for parts-compatibility reference only. All trademarks are the property of their respective owners.",
-    "brands.viewAll": "View All Supported Makes & Models",
+    "brands.viewAll": "View All Supported Brands & Models",
 
     // Stats Band
     "stats.countries": "Countries served",
@@ -65,7 +67,7 @@ export const translations = {
     "whatWeDo.title": "Built Around Your Supply Chain",
     "whatWeDo.sourcingTitle": "Product Sourcing",
     "whatWeDo.sourcingCopy":
-      "We have established strong relationships with reputable manufacturers and suppliers across China, allowing us to source a comprehensive range of auto spare parts. Our expert team ensures that all products meet strict quality standards and are compatible with various vehicle makes and models.",
+      "We have established strong relationships with reputable manufacturers and suppliers across China, allowing us to source a comprehensive range of auto spare parts. Our expert team ensures that all products meet strict quality standards and are compatible with various vehicle brands and models.",
     "whatWeDo.networkTitle": "Network of OEM & Partner Facilities",
     "whatWeDo.networkCopy":
       "Our extensive network includes our own factories and partner OEM facilities. This ensures a smooth supply chain for top-notch products made with precision and meeting the highest quality standards.",
@@ -149,8 +151,10 @@ export const translations = {
     // Footer
     "footer.catalog": "Spare Parts Catalog",
     "footer.viewAllCategories": "View All Categories →",
-    "footer.makes": "Supported Makes",
-    "footer.viewAllMakes": "View All 14+ Makes →",
+    "footer.makes": "Supported Brands",
+    "footer.brands": "Supported Brands",
+    "footer.viewAllMakes": "View All 14+ Brands →",
+    "footer.viewAllBrands": "View All 14+ Brands →",
     "footer.hubs": "GCC Hubs & Locations",
     "footer.intro": "Leading supplier of original, OEM and reliable auto spare parts worldwide.",
     "footer.range": "Original, OEM & Aftermarket Range",
@@ -175,7 +179,7 @@ export const translations = {
     "form.subject": "Subject / Inquiry Type",
     "form.details": "Tell Us What You Need",
     "form.detailsPlaceholder":
-      "Please specify vehicle make/model, year, VIN or chassis number, and the required part numbers or descriptions...",
+      "Please specify vehicle brand/model, year, VIN or chassis number, and the required part numbers or descriptions...",
     "form.namePlaceholder": "e.g. Ahmed Al Mansoori",
     "form.emailPlaceholder": "e.g. ahmed@example.com",
     "form.phonePlaceholder": "e.g. +971 50 123 4567",
@@ -337,7 +341,7 @@ export const translations = {
     "products.enquireEyebrow": "Product Enquiry",
     "products.enquireTitle": "Get a Quote",
     "products.enquireBody":
-      "Tell us the part, quantity and vehicle make or model — our team responds within 0–2 hours with pricing and availability.",
+      "Tell us the part, quantity and vehicle brand or model — our team responds within 0–2 hours with pricing and availability.",
     "catdesc.brakes": "Brake components for reliable stopping power on Chinese-vehicle platforms.",
     "catdesc.filters": "Filtration parts that protect the engine and keep cabin air clean.",
     "catdesc.engine": "Engine components and sensors for dependable engine performance.",
@@ -357,7 +361,8 @@ export const translations = {
     "nav.blogs": "المدونة",
     "nav.careers": "الوظائف",
     "nav.contact": "اتصل بنا",
-    "nav.makes": "ماركات السيارات",
+    "nav.makes": "العلامات التجارية",
+    "nav.brands": "العلامات التجارية",
     "nav.browseByBrand": "تصفح حسب الماركة",
     "nav.faq": "الأسئلة الشائعة",
     "nav.enquiry": "طلب تسعير",
@@ -366,7 +371,8 @@ export const translations = {
     "nav.componentCategories": "أقسام قطع الغيار",
     "nav.exploreAll": "عرض الكل",
     "nav.supportedBrands": "العلامات التجارية الصينية المدعومة",
-    "nav.viewAllMakes": "عرض كافة الماركات الـ 14+",
+    "nav.viewAllMakes": "عرض كافة العلامات التجارية الـ 14+",
+    "nav.viewAllBrands": "عرض كافة العلامات التجارية الـ 14+",
 
     // TopBar
     "topbar.hub": "مركز قطع الغيار — الإمارات وقطر",
@@ -398,9 +404,9 @@ export const translations = {
     // Brand Marquee
     "brands.eyebrow": "العلامات التجارية المتوافقة",
     "brands.title": "ماركات السيارات الصينية المدعومة",
-    "brands.subtitle": "اختر أي علامة تجارية لتصفية قطع الغيار المتوافقة، أو استكشف دليل الماركات الكامل.",
+    "brands.subtitle": "اختر أي علامة تجارية لتصفية قطع الغيار المتوافقة، أو استكشف دليل العلامات التجارية الكامل.",
     "brands.disclaimer": "الشعارات المعروضة هي للإشارة إلى توافق قطع الغيار فقط. جميع العلامات التجارية ملك لأصحابها.",
-    "brands.viewAll": "عرض كافة الماركات والموديلات المدعومة",
+    "brands.viewAll": "عرض كافة العلامات التجارية والموديلات المدعومة",
 
     // Stats Band
     "stats.countries": "دولة نخدمها",
@@ -497,8 +503,10 @@ export const translations = {
     // Footer
     "footer.catalog": "كتالوج قطع الغيار",
     "footer.viewAllCategories": "عرض جميع الفئات ←",
-    "footer.makes": "الماركات المدعومة",
-    "footer.viewAllMakes": "عرض كافة الماركات الـ 14+ ←",
+    "footer.makes": "العلامات التجارية المدعومة",
+    "footer.brands": "العلامات التجارية المدعومة",
+    "footer.viewAllMakes": "عرض كافة العلامات التجارية الـ 14+ ←",
+    "footer.viewAllBrands": "عرض كافة العلامات التجارية الـ 14+ ←",
     "footer.hubs": "مراكز التوزيع في الخليج",
     "footer.intro": "المورد الرائد لقطع غيار السيارات الأصلية والمصنّع الأصلي والبدائل المعتمدة حول العالم.",
     "footer.range": "تشكيلة أصلية، مصنّع أصلي، وتجارية معتمدة",

@@ -74,19 +74,19 @@ export function BrandMarquee() {
   }, [reducedMotion, language]);
 
   return (
-    <section id="vehicle-makes" className="border-steel-light border-y bg-white py-12">
+    <section id="brands" className="border-steel-light border-y bg-white py-12">
       <Container className="mb-8 text-center">
         <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-1 shadow-2xs mb-2">
           <span className="size-1.5 rounded-full bg-brand-red animate-pulse" />
           <span className="font-mono text-[10px] sm:text-xs font-bold tracking-wider text-slate-700 uppercase">
-            {t("brands.eyebrow", "Compatible Vehicle Makes")}
+            {t("brands.eyebrow", "Compatible Brands")}
           </span>
         </div>
         <h2 className="font-display text-ink text-xl sm:text-2xl lg:text-3xl font-bold uppercase tracking-tight">
           {t("brands.title", "Supported Chinese Automobile Brands")}
         </h2>
         <p className="text-xs sm:text-sm text-slate-500 max-w-lg mx-auto mt-1">
-          {t("brands.subtitle", "Select any brand to filter compatible parts, or explore our full make directory.")}
+          {t("brands.subtitle", "Select any brand to filter compatible parts, or explore our full brand directory.")}
         </p>
       </Container>
 
@@ -108,10 +108,10 @@ export function BrandMarquee() {
             {t("brands.disclaimer", brandLogoDisclaimer)}
           </p>
           <Link
-            href="/makes"
+            href="/brands"
             className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-slate-50 px-4 py-1.5 text-xs font-bold text-slate-800 transition-colors hover:bg-brand-red hover:text-white hover:border-brand-red shrink-0"
           >
-            <span>{t("brands.viewAll", "View All Supported Makes & Models")}</span>
+            <span>{t("brands.viewAll", "View All Supported Brands & Models")}</span>
             <ArrowRight className="size-3.5 rtl:rotate-180" />
           </Link>
         </div>
