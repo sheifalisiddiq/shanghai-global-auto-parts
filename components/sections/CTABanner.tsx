@@ -43,7 +43,7 @@ export function CTABanner() {
       <Container className="relative">
         <Reveal>
           <div className="flex flex-col items-start gap-8 lg:flex-row lg:items-end lg:justify-between">
-            <h2 className="font-display max-w-2xl text-4xl leading-[1.05] font-black text-white uppercase sm:text-5xl lg:text-6xl">
+            <h2 className="font-display max-w-2xl text-4xl leading-[0.95] font-black text-white uppercase tracking-[-0.005em] sm:tracking-[-0.02em] sm:text-5xl lg:text-6xl sm:leading-[0.9]">
               {t("ctaBanner.title", "Sourcing original auto parts, worldwide.")}
             </h2>
             <div className="flex flex-wrap gap-4">

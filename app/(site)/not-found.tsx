@@ -7,7 +7,7 @@ export default function NotFound() {
     <section className="flex min-h-[70vh] items-center bg-white">
       <Container className="text-center">
         <LogoMark className="mx-auto h-14 w-14" />
-        <p className="font-display text-ink mt-8 text-8xl font-black">404</p>
+        <p className="font-display text-ink mt-8 text-8xl font-black tracking-[-0.01em] sm:tracking-[-0.03em]">404</p>
         <h1 className="font-ui text-ink mt-4 text-lg tracking-wide uppercase">
           Part Not Found
         </h1>

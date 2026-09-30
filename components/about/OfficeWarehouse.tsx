@@ -54,7 +54,7 @@ export function OfficeWarehouse() {
           <ul className="grid gap-6 md:grid-cols-3">
             {locations.map((loc) => (
               <li key={loc.id} className="border-steel-light border-t pt-4">
-                <h3 className="font-display text-ink text-lg font-black uppercase">
+                <h3 className="font-display text-ink text-lg font-black uppercase tracking-[-0.005em] sm:tracking-[-0.02em]">
                   {loc.label}
                 </h3>
                 <p className="text-steel-dark mt-2 text-sm leading-relaxed">

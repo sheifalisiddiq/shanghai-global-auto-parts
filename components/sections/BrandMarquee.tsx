@@ -82,7 +82,7 @@ export function BrandMarquee() {
             {t("brands.eyebrow", "Compatible Brands")}
           </span>
         </div>
-        <h2 className="font-display text-ink text-xl sm:text-2xl lg:text-3xl font-bold uppercase tracking-tight">
+        <h2 className="font-display text-ink text-xl sm:text-2xl lg:text-3xl font-bold uppercase tracking-[-0.005em] sm:tracking-[-0.02em]">
           {t("brands.title", "Supported Chinese Automobile Brands")}
         </h2>
         <p className="text-xs sm:text-sm text-slate-500 max-w-lg mx-auto mt-1">

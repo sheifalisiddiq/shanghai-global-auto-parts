@@ -78,7 +78,6 @@ body {
 
 .font-display {
   font-family: var(--font-display), sans-serif;
-  letter-spacing: -0.04em;
 }
 
 .font-ui {
@@ -95,11 +94,11 @@ body {
    each hero/detail component picking its own ad-hoc scale. Homepage Hero
    keeps its own bespoke ladder (full-bleed image hero, needs its own tuning). */
 .h1-hero {
-  @apply font-display text-4xl leading-[0.95] font-black uppercase sm:text-6xl lg:text-7xl;
+  @apply font-display text-4xl leading-[0.95] font-black uppercase tracking-[-0.01em] sm:tracking-[-0.03em] sm:text-6xl lg:text-7xl sm:leading-[0.92];
 }
 
 .h1-page {
-  @apply font-display text-3xl leading-[1.05] font-black uppercase sm:text-5xl lg:text-6xl;
+  @apply font-display text-3xl leading-[1.05] font-black uppercase tracking-[-0.005em] sm:tracking-[-0.025em] sm:text-5xl lg:text-6xl sm:leading-[1];
 }
 
 .text-stroke-red {
@@ -126,7 +125,26 @@ body {
 
 [dir="rtl"] .font-display,
 [dir="rtl"] .font-ui,
-[dir="rtl"] .font-brand {
+[dir="rtl"] .font-brand,
+[dir="rtl"] .tracking-tight,
+[dir="rtl"] .tracking-wide,
+[dir="rtl"] .tracking-wider,
+[dir="rtl"] .tracking-widest,
+[dir="rtl"] .tracking-\[-0\.005em\],
+[dir="rtl"] .tracking-\[-0\.01em\],
+[dir="rtl"] .tracking-\[-0\.025em\],
+[dir="rtl"] .tracking-\[-0\.03em\],
+[dir="rtl"] .tracking-\[0\.1em\],
+[dir="rtl"] .tracking-\[0\.12em\],
+[dir="rtl"] .tracking-\[0\.14em\],
+[dir="rtl"] .tracking-\[0\.15em\],
+[dir="rtl"] .tracking-\[0\.16em\],
+[dir="rtl"] .tracking-\[0\.18em\],
+[dir="rtl"] .tracking-\[0\.2em\],
+[dir="rtl"] .tracking-\[0\.22em\],
+[dir="rtl"] .tracking-\[0\.25em\],
+[dir="rtl"] .tracking-\[0\.3em\],
+[dir="rtl"] .tracking-\[0\.4em\] {
   letter-spacing: 0;
 }
 

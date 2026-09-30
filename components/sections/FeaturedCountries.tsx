@@ -90,7 +90,7 @@ export function FeaturedCountries() {
                           }
                         : undefined
                     }
-                    className="font-display block text-4xl font-black text-white sm:text-5xl"
+                    className="font-display block text-4xl font-black text-white tracking-[-0.01em] sm:tracking-[-0.03em] sm:text-5xl"
                     dir="ltr"
                   >
                     {isAnimated

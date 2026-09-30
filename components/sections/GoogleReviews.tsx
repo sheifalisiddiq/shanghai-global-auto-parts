@@ -184,7 +184,7 @@ export function GoogleReviews() {
               <span>{t("reviews.badge", "Google Verified Reviews")}</span>
             </div>
 
-            <h2 className="font-display text-ink text-3xl font-black uppercase tracking-tight sm:text-4xl lg:text-5xl">
+            <h2 className="font-display text-ink text-3xl font-black uppercase tracking-[-0.005em] sm:tracking-[-0.02em] sm:text-4xl lg:text-5xl">
               {t("reviews.title", "Trusted by Automotive Professionals")}
             </h2>
             <p className="mt-2 text-sm sm:text-base text-slate-600 max-w-xl">

@@ -32,7 +32,7 @@ export function JourneyTimeline() {
               <span className="font-display text-brand-red text-sm font-black" dir="ltr">
                 {step.year ?? String(i + 1).padStart(2, "0")}
               </span>
-              <h3 className="font-display text-ink mt-2 text-xl leading-tight font-bold uppercase">
+              <h3 className="font-display text-ink mt-2 text-xl leading-tight font-bold uppercase tracking-[-0.005em] sm:tracking-[-0.02em]">
                 {t(`about.timeline.${step.id}.title` as never, step.title)}
               </h3>
               <p className="text-steel-dark mt-3 text-sm leading-relaxed">

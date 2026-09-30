@@ -69,7 +69,7 @@ export default function BrandsPage() {
               <span className="font-mono text-xs font-bold uppercase tracking-wider text-brand-red block mb-1">
                 Directory
               </span>
-              <h2 className="font-display text-2xl sm:text-3xl font-bold uppercase text-slate-900 tracking-tight">
+              <h2 className="font-display text-2xl sm:text-3xl font-bold uppercase text-slate-900 tracking-[-0.005em] sm:tracking-[-0.02em]">
                 Select Your Vehicle Brand
               </h2>
               <p className="text-xs sm:text-sm text-slate-600 mt-1">
@@ -208,7 +208,7 @@ export default function BrandsPage() {
               <span className="font-mono text-xs font-bold uppercase tracking-wider text-emerald-400 block mb-1">
                 Custom Parts Sourcing Desk
               </span>
-              <h2 className="font-display text-xl sm:text-2xl font-bold uppercase tracking-tight text-white">
+              <h2 className="font-display text-xl sm:text-2xl font-bold uppercase tracking-[-0.005em] sm:tracking-[-0.02em] text-white">
                 Don&apos;t see your specific model or rare component?
               </h2>
               <p className="mt-2 text-xs sm:text-sm text-slate-400">

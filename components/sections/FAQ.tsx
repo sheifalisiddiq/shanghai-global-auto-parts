@@ -113,7 +113,7 @@ export function FAQ() {
                 </span>
               </div>
 
-              <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold uppercase text-slate-900 tracking-tight">
+              <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold uppercase text-slate-900 tracking-[-0.005em] sm:tracking-[-0.02em]">
                 {t("faq.title", "Everything You Need to Know")}
               </h2>
 

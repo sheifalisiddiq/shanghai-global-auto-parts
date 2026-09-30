@@ -162,7 +162,7 @@ export function WhatWeDo() {
           <div className="overflow-hidden">
             <h2
               ref={titleRef}
-              className="font-display text-ink text-4xl leading-[0.95] font-black uppercase sm:text-5xl lg:text-6xl"
+              className="font-display text-ink text-4xl leading-[0.95] font-black uppercase tracking-[-0.005em] sm:tracking-[-0.02em] sm:text-5xl lg:text-6xl sm:leading-[0.9]"
             >
               {t("whatWeDo.title", "Built Around Your Supply Chain")}
             </h2>

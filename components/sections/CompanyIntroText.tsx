@@ -16,7 +16,7 @@ export function CompanyIntroText() {
           <span className="font-ui text-brand-red mb-4 block text-xs tracking-[0.3em] uppercase">
             {t("home.intro.eyebrow", "Who We Are")}
           </span>
-          <h2 className="font-display text-ink max-w-4xl text-3xl leading-[1.15] font-bold uppercase sm:text-4xl lg:text-5xl">
+          <h2 className="font-display text-ink max-w-4xl text-3xl leading-[1.15] font-bold uppercase tracking-[-0.005em] sm:tracking-[-0.02em] sm:text-4xl lg:text-5xl sm:leading-[1.05]">
             {t("about.headline", companyIntro)}
           </h2>
         </Reveal>

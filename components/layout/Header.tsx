@@ -239,7 +239,7 @@ export function Header() {
               href="https://wa.me/97165335866?text=Hi%20Shanghai%20Global,%20I%20need%20a%20part%20quote%20for%20my%20vehicle."
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-full bg-emerald-600 px-3.5 py-2 text-xs font-bold text-white shadow-md shadow-emerald-950/40 transition-transform hover:bg-emerald-500 hover:scale-[1.02]"
+              className="inline-flex items-center gap-1.5 rounded-full bg-emerald-600 px-3.5 py-2 text-xs font-bold tracking-wide text-white shadow-md shadow-emerald-950/40 transition-transform hover:bg-emerald-500 hover:scale-[1.02]"
             >
               <MessageCircle className="size-3.5 fill-white text-emerald-600" />
               <span>{t("nav.whatsappQuote", "WhatsApp Quote")}</span>
@@ -247,7 +247,7 @@ export function Header() {
 
             <Link
               href="/products#enquire"
-              className="inline-flex items-center gap-1.5 rounded-full bg-brand-red px-4 py-2 text-xs font-bold text-white shadow-md shadow-brand-red/30 transition-transform hover:bg-brand-red-dark hover:scale-[1.02]"
+              className="inline-flex items-center gap-1.5 rounded-full bg-brand-red px-4 py-2 text-xs font-bold tracking-wide text-white shadow-md shadow-brand-red/30 transition-transform hover:bg-brand-red-dark hover:scale-[1.02]"
             >
               <span>{t("nav.vinEnquiry", "VIN Enquiry")}</span>
             </Link>

@@ -149,7 +149,7 @@ export default async function BlogPostPage({ params }: Props) {
               <div className="mt-10 space-y-10">
                 {post.content.sections.map((section, idx) => (
                   <div key={idx} className="space-y-4">
-                    <h2 className="font-display text-2xl font-black uppercase text-ink sm:text-3xl">
+                    <h2 className="font-display text-2xl font-black uppercase text-ink tracking-[-0.005em] sm:tracking-[-0.02em] sm:text-3xl">
                       {section.heading}
                     </h2>
                     {section.paragraphs.map((p, pIdx) => (
@@ -173,7 +173,7 @@ export default async function BlogPostPage({ params }: Props) {
 
               {/* Conclusion */}
               <div className="mt-12 rounded-2xl bg-slate-900 p-8 text-white">
-                <h3 className="font-display text-xl font-bold uppercase text-brand-red mb-2">
+                <h3 className="font-display text-xl font-bold uppercase text-brand-red mb-2 tracking-[-0.005em] sm:tracking-[-0.02em]">
                   Conclusion & Support
                 </h3>
                 <p className="text-sm leading-relaxed text-slate-300">
@@ -230,7 +230,7 @@ export default async function BlogPostPage({ params }: Props) {
               <span className="font-ui text-xs font-bold uppercase tracking-widest text-brand-red">
                 More Reading
               </span>
-              <h2 className="font-display mt-2 text-3xl font-black uppercase text-ink">
+              <h2 className="font-display mt-2 text-3xl font-black uppercase text-ink tracking-[-0.005em] sm:tracking-[-0.02em]">
                 Related Technical Guides
               </h2>
             </div>
@@ -263,7 +263,7 @@ export default async function BlogPostPage({ params }: Props) {
                     <span className="font-ui text-[10px] font-bold text-brand-red uppercase tracking-wider">
                       {rel.category}
                     </span>
-                    <h3 className="font-display mt-2 text-lg font-black uppercase text-ink group-hover:text-brand-red transition-colors leading-snug">
+                    <h3 className="font-display mt-2 text-lg font-black uppercase text-ink group-hover:text-brand-red transition-colors leading-snug tracking-[-0.005em] sm:tracking-[-0.02em]">
                       <Link href={`/blogs/${rel.slug}`}>{rel.title}</Link>
                     </h3>
                   </div>

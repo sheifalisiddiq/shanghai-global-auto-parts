@@ -72,7 +72,7 @@ export function StatsBand() {
               ref={(el) => {
                 counterRefs.current[stat.id] = el;
               }}
-              className="font-display block text-4xl font-black text-white sm:text-6xl lg:text-7xl"
+              className="font-display block text-4xl font-black text-white tracking-[-0.01em] sm:tracking-[-0.03em] sm:text-6xl lg:text-7xl"
             >
               0{stat.suffix}
             </span>
@@ -84,7 +84,7 @@ export function StatsBand() {
 
         {staticStat && (
           <div className="border-l-2 rtl:border-l-0 rtl:border-r-2 border-brand-red pl-4 sm:pl-6 rtl:pl-0 rtl:pr-4 sm:rtl:pr-6">
-            <span className="font-display block text-4xl font-black text-white sm:text-6xl lg:text-7xl" dir="ltr">
+            <span className="font-display block text-4xl font-black text-white tracking-[-0.01em] sm:tracking-[-0.03em] sm:text-6xl lg:text-7xl" dir="ltr">
               {staticStat.displayValue || `${staticStat.value}${staticStat.suffix}`}
             </span>
             <span className="font-ui text-white/50 mt-2 block text-[11px] tracking-[0.2em] uppercase sm:text-xs">

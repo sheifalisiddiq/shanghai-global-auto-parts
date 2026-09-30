@@ -33,7 +33,7 @@ export function SectionHeading({
       )}
       <Tag
         className={cn(
-          "font-display text-4xl leading-[0.95] font-black uppercase sm:text-5xl lg:text-6xl",
+          "font-display text-4xl leading-[0.95] font-black uppercase tracking-[-0.005em] sm:tracking-[-0.02em] sm:text-5xl lg:text-6xl sm:leading-[0.9]",
           tone === "white" ? "text-white" : "text-ink",
         )}
       >

@@ -27,7 +27,7 @@ export function MissionVisionValues() {
           itemSelector=":scope > div"
         >
           <div className="border-steel-light border-t-2 bg-white p-8">
-            <h3 className="font-display text-ink text-2xl font-black uppercase">
+            <h3 className="font-display text-ink text-2xl font-black uppercase tracking-[-0.005em] sm:tracking-[-0.02em]">
               {t("about.mission.title", "Mission")}
             </h3>
             <p className="text-steel-dark mt-4 text-base leading-relaxed">
@@ -38,7 +38,7 @@ export function MissionVisionValues() {
             </p>
           </div>
           <div className="border-steel-light border-t-2 bg-white p-8">
-            <h3 className="font-display text-ink text-2xl font-black uppercase">
+            <h3 className="font-display text-ink text-2xl font-black uppercase tracking-[-0.005em] sm:tracking-[-0.02em]">
               {t("about.vision.title", "Vision")}
             </h3>
             <p className="text-steel-dark mt-4 text-base leading-relaxed">
@@ -49,7 +49,7 @@ export function MissionVisionValues() {
             </p>
           </div>
           <div className="border-brand-red bg-ink border-t-2 p-8">
-            <h3 className="font-display text-2xl font-black text-white uppercase">
+            <h3 className="font-display text-2xl font-black text-white uppercase tracking-[-0.005em] sm:tracking-[-0.02em]">
               {t("about.values.title", "Values")}
             </h3>
             <ul className="mt-4 space-y-3">

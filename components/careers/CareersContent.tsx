@@ -352,7 +352,7 @@ export function CareersContent() {
                           <span>{job.type}</span>
                         </span>
                       </div>
-                      <h3 className="font-display mt-3 text-2xl font-black text-ink uppercase tracking-tight sm:text-3xl">
+                      <h3 className="font-display mt-3 text-2xl font-black text-ink uppercase tracking-[-0.005em] sm:tracking-[-0.02em] sm:text-3xl">
                         {job.title}
                       </h3>
                       <p className="mt-2 text-sm leading-relaxed text-steel-dark max-w-3xl">
@@ -450,7 +450,7 @@ export function CareersContent() {
               <span className="font-ui mb-3 block text-xs tracking-[0.3em] text-brand-red uppercase font-bold">
                 Quick Application
               </span>
-              <h2 className="font-display text-3xl font-black uppercase text-ink sm:text-4xl lg:text-5xl">
+              <h2 className="font-display text-3xl font-black uppercase text-ink tracking-[-0.005em] sm:tracking-[-0.02em] sm:text-4xl lg:text-5xl">
                 Submit your CV to our recruitment team.
               </h2>
               <p className="mt-4 text-sm leading-relaxed text-steel-dark">
@@ -503,7 +503,7 @@ export function CareersContent() {
                     <div className="mx-auto flex size-16 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
                       <CheckCircle2 className="size-10" />
                     </div>
-                    <h3 className="font-display mt-6 text-2xl font-black text-ink uppercase">
+                    <h3 className="font-display mt-6 text-2xl font-black text-ink uppercase tracking-[-0.005em] sm:tracking-[-0.02em]">
                       Application Received!
                     </h3>
                     <p className="mt-3 text-sm leading-relaxed text-slate-600 max-w-md mx-auto">
@@ -682,7 +682,7 @@ export function CareersContent() {
             <span className="font-ui text-xs tracking-[0.25em] text-brand-red uppercase font-bold">
               Got Questions?
             </span>
-            <h2 className="font-display mt-3 text-3xl font-black uppercase sm:text-4xl">
+            <h2 className="font-display mt-3 text-3xl font-black uppercase tracking-[-0.005em] sm:tracking-[-0.02em] sm:text-4xl">
               Connect directly with our recruitment desk.
             </h2>
             <p className="mt-3 text-sm leading-relaxed text-slate-400">

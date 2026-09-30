@@ -162,7 +162,7 @@ export function BlogsContent() {
                     </span>
                   </div>
 
-                  <h2 className="font-display text-2xl font-black uppercase text-ink leading-tight sm:text-3xl lg:text-4xl group-hover:text-brand-red transition-colors">
+                  <h2 className="font-display text-2xl font-black uppercase text-ink leading-tight tracking-[-0.005em] sm:tracking-[-0.02em] sm:text-3xl lg:text-4xl group-hover:text-brand-red transition-colors">
                     <Link href={`/blogs/${featuredPost.slug}`}>{featuredPost.title}</Link>
                   </h2>
 
@@ -293,7 +293,7 @@ export function BlogsContent() {
                         </span>
                       </div>
 
-                      <h3 className="font-display text-xl font-black uppercase text-ink leading-snug group-hover:text-brand-red transition-colors">
+                      <h3 className="font-display text-xl font-black uppercase text-ink leading-snug tracking-[-0.005em] sm:tracking-[-0.02em] group-hover:text-brand-red transition-colors">
                         <Link href={`/blogs/${post.slug}`}>{post.title}</Link>
                       </h3>
 
@@ -334,7 +334,7 @@ export function BlogsContent() {
               <span className="font-ui text-xs font-bold uppercase tracking-widest text-brand-red">
                 Stay Informed
               </span>
-              <h2 className="font-display mt-2 text-3xl font-black uppercase sm:text-4xl">
+              <h2 className="font-display mt-2 text-3xl font-black uppercase tracking-[-0.005em] sm:tracking-[-0.02em] sm:text-4xl">
                 Get Wholesale Parts Market Updates
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-slate-300 max-w-xl">
@@ -393,7 +393,7 @@ export function BlogsContent() {
             <span className="font-ui text-xs tracking-[0.25em] text-brand-red uppercase font-bold">
               Need Direct Assistance?
             </span>
-            <h2 className="font-display mt-3 text-3xl font-black uppercase sm:text-4xl">
+            <h2 className="font-display mt-3 text-3xl font-black uppercase tracking-[-0.005em] sm:tracking-[-0.02em] sm:text-4xl">
               Ask our parts specialists about your vehicle.
             </h2>
             <p className="mt-3 text-sm leading-relaxed text-slate-400">

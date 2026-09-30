@@ -118,7 +118,7 @@ export function Hero() {
           {/* Main Headline with High-Contrast Dark Outline / Shadow */}
           <h1
             aria-label={headlineLines.join(" ")}
-            className="font-display text-white text-3xl font-black uppercase sm:text-5xl lg:text-6xl xl:text-[4.2rem] leading-[1.05] tracking-tight drop-shadow-[0_4px_20px_rgba(0,0,0,1)] drop-shadow-[0_2px_6px_rgba(0,0,0,1)]"
+            className="font-display text-white text-3xl font-black uppercase sm:text-5xl lg:text-6xl xl:text-[4.2rem] leading-[1.05] tracking-normal sm:tracking-[-0.03em] drop-shadow-[0_4px_20px_rgba(0,0,0,1)] drop-shadow-[0_2px_6px_rgba(0,0,0,1)]"
           >
             {headlineLines.map((line, i) => (
               <span key={`${line}-${i}`} className="block overflow-hidden" aria-hidden="true">
@@ -151,7 +151,7 @@ export function Hero() {
               href="https://wa.me/97165335866?text=Hi%20Shanghai%20Global,%20I%20need%20a%20spare%20part%20quote%20for%20my%20vehicle."
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-5 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-bold text-white shadow-xl shadow-emerald-950/40 transition-transform hover:bg-emerald-500 hover:scale-[1.02]"
+              className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-5 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-bold tracking-wide text-white shadow-xl shadow-emerald-950/40 transition-transform hover:bg-emerald-500 hover:scale-[1.02]"
             >
               <MessageCircle className="size-4 fill-white text-emerald-600" />
               <span>{t("hero.fastQuote", "WhatsApp Fast Quote")}</span>
@@ -159,7 +159,7 @@ export function Hero() {
 
             <Link
               href="/products"
-              className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-black/60 px-5 py-2.5 sm:py-3 text-xs sm:text-sm font-bold text-white shadow-lg backdrop-blur-md transition-all hover:bg-white/20 hover:border-white/50"
+              className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-black/60 px-5 py-2.5 sm:py-3 text-xs sm:text-sm font-bold tracking-wide text-white shadow-lg backdrop-blur-md transition-all hover:bg-white/20 hover:border-white/50"
             >
               <span>{t("hero.exploreCatalog", "Explore Full Catalog")}</span>
               <ArrowUpRight className="size-4 text-brand-red rtl:rotate-180" />

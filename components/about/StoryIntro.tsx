@@ -24,7 +24,7 @@ export function StoryIntro() {
           <span className="font-ui text-brand-red mb-4 block text-xs tracking-[0.3em] uppercase">
             {t("about.intro.eyebrow", "Who We Are")}
           </span>
-          <p className="font-display text-ink text-3xl leading-[1.15] font-bold uppercase sm:text-4xl">
+          <p className="font-display text-ink text-3xl leading-[1.15] font-bold uppercase tracking-[-0.005em] sm:tracking-[-0.02em] sm:text-4xl">
             {t("about.headline", companyIntro)}
           </p>
           <p className="text-steel-dark mt-6 max-w-lg text-base leading-relaxed">

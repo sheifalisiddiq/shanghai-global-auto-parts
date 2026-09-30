@@ -24,7 +24,7 @@ export function Certifications() {
           {certifications.map((cert) => (
             <div key={cert.id} className="border-steel-light border bg-white p-6">
               <ShieldCheck className="text-brand-red size-8" aria-hidden />
-              <h3 className="font-display text-ink mt-4 text-lg font-black uppercase">
+              <h3 className="font-display text-ink mt-4 text-lg font-black uppercase tracking-[-0.005em] sm:tracking-[-0.02em]">
                 {cert.name}
               </h3>
               <p className="text-steel-dark mt-2 text-sm leading-relaxed">

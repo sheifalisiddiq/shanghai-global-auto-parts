@@ -91,7 +91,7 @@ export function MobileNav({ open, onClose }: { open: boolean; onClose: () => voi
             if (el) linksRef.current[0] = el;
           }}
           onClick={onClose}
-          className="flex items-center justify-between rounded-xl px-4 py-3 text-base font-bold text-white hover:bg-white/10 hover:text-brand-red transition-colors"
+          className="flex items-center justify-between rounded-xl px-4 py-3 text-base font-bold tracking-wide text-white hover:bg-white/10 hover:text-brand-red transition-colors"
         >
           <span>{navItems[0].label}</span>
           <ChevronRight className="size-4 text-slate-500 rtl:rotate-180" />
@@ -102,7 +102,7 @@ export function MobileNav({ open, onClose }: { open: boolean; onClose: () => voi
             if (el) linksRef.current[1] = el;
           }}
           onClick={onClose}
-          className="flex items-center justify-between rounded-xl px-4 py-3 text-base font-bold text-white hover:bg-white/10 hover:text-brand-red transition-colors"
+          className="flex items-center justify-between rounded-xl px-4 py-3 text-base font-bold tracking-wide text-white hover:bg-white/10 hover:text-brand-red transition-colors"
         >
           <span>{navItems[1].label}</span>
           <ChevronRight className="size-4 text-slate-500 rtl:rotate-180" />
@@ -118,7 +118,7 @@ export function MobileNav({ open, onClose }: { open: boolean; onClose: () => voi
             type="button"
             onClick={() => setExpanded((v) => (v === "parts" ? null : "parts"))}
             aria-expanded={expanded === "parts"}
-            className="flex w-full items-center justify-between rounded-xl px-4 py-3 text-base font-bold text-white hover:bg-white/10 hover:text-brand-red transition-colors cursor-pointer"
+            className="flex w-full items-center justify-between rounded-xl px-4 py-3 text-base font-bold tracking-wide text-white hover:bg-white/10 hover:text-brand-red transition-colors cursor-pointer"
           >
             <span>{t("nav.spareParts", "Spare Parts Catalog")}</span>
             <ChevronDown
@@ -164,7 +164,7 @@ export function MobileNav({ open, onClose }: { open: boolean; onClose: () => voi
             type="button"
             onClick={() => setExpanded((v) => (v === "brands" ? null : "brands"))}
             aria-expanded={expanded === "brands"}
-            className="flex w-full items-center justify-between rounded-xl px-4 py-3 text-base font-bold text-white hover:bg-white/10 hover:text-brand-red transition-colors cursor-pointer"
+            className="flex w-full items-center justify-between rounded-xl px-4 py-3 text-base font-bold tracking-wide text-white hover:bg-white/10 hover:text-brand-red transition-colors cursor-pointer"
           >
             <span>{t("nav.brands", "Brands & Models")}</span>
             <ChevronDown
@@ -205,7 +205,7 @@ export function MobileNav({ open, onClose }: { open: boolean; onClose: () => voi
               if (el) linksRef.current[i + 4] = el;
             }}
             onClick={onClose}
-            className="flex items-center justify-between rounded-xl px-4 py-3 text-base font-bold text-white hover:bg-white/10 hover:text-brand-red transition-colors"
+            className="flex items-center justify-between rounded-xl px-4 py-3 text-base font-bold tracking-wide text-white hover:bg-white/10 hover:text-brand-red transition-colors"
           >
             <span>{link.label}</span>
             <ChevronRight className="size-4 text-slate-500 rtl:rotate-180" />
@@ -219,7 +219,7 @@ export function MobileNav({ open, onClose }: { open: boolean; onClose: () => voi
           href="https://wa.me/97165335866?text=Hi%20Shanghai%20Global,%20I%20need%20a%20part%20quote%20for%20my%20vehicle."
           target="_blank"
           rel="noopener noreferrer"
-          className="flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-600 py-3 text-sm font-bold text-white shadow-lg transition-transform hover:bg-emerald-500"
+          className="flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-600 py-3 text-sm font-bold tracking-wide text-white shadow-lg transition-transform hover:bg-emerald-500"
         >
           <MessageCircle className="size-4 fill-white text-emerald-600" />
           <span>{t("nav.whatsappQuote", "WhatsApp Fast Quote")}</span>
@@ -228,14 +228,14 @@ export function MobileNav({ open, onClose }: { open: boolean; onClose: () => voi
         <div className="grid grid-cols-2 gap-2">
           <a
             href={`tel:${contact.primaryPhone.replace(/\s+/g, "")}`}
-            className="flex items-center justify-center gap-1.5 rounded-xl border border-white/15 bg-white/5 py-2.5 text-xs font-semibold text-white hover:bg-white/10"
+            className="flex items-center justify-center gap-1.5 rounded-xl border border-white/15 bg-white/5 py-2.5 text-xs font-semibold tracking-wide text-white hover:bg-white/10"
           >
             <Phone className="size-3.5 text-brand-red" />
             <span>Sharjah HQ</span>
           </a>
           <a
             href="tel:+97126225133"
-            className="flex items-center justify-center gap-1.5 rounded-xl border border-white/15 bg-white/5 py-2.5 text-xs font-semibold text-white hover:bg-white/10"
+            className="flex items-center justify-center gap-1.5 rounded-xl border border-white/15 bg-white/5 py-2.5 text-xs font-semibold tracking-wide text-white hover:bg-white/10"
           >
             <Phone className="size-3.5 text-brand-red" />
             <span>Abu Dhabi</span>
