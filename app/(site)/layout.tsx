@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Manrope } from "next/font/google";
+import { Cairo, Manrope } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import { siteConfig } from "@/lib/seo/site";
@@ -39,6 +39,13 @@ const manrope = Manrope({
   display: "swap",
 });
 
+const cairo = Cairo({
+  variable: "--font-cairo",
+  subsets: ["arabic", "latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
@@ -72,7 +79,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${jakarta.variable} ${archivoBlack.variable} ${manrope.variable} h-full antialiased`}
+      className={`${jakarta.variable} ${archivoBlack.variable} ${manrope.variable} ${cairo.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <JsonLd

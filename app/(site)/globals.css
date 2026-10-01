@@ -118,9 +118,17 @@ body {
 }
 
 /* RTL and Arabic Language Support */
+:root[dir="rtl"],
 [dir="rtl"] {
-  font-family: system-ui, -apple-system, "Segoe UI", Tahoma, "Cairo", "Almarai", sans-serif;
+  --font-display: var(--font-cairo), var(--font-jakarta), Tahoma, sans-serif;
+  --font-ui: var(--font-cairo), var(--font-archivo-black), Tahoma, sans-serif;
+  --font-body: var(--font-cairo), var(--font-manrope), Tahoma, sans-serif;
+  font-family: var(--font-cairo), system-ui, -apple-system, "Segoe UI", Tahoma, sans-serif;
   letter-spacing: normal;
+}
+
+[dir="rtl"] .font-brand {
+  font-family: var(--font-cairo), "Arial Black", Arial, sans-serif;
 }
 
 [dir="rtl"] .font-display,
