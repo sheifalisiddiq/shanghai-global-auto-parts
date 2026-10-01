@@ -6,11 +6,12 @@ import { gsap, registerGSAP } from "@/lib/gsap/registerGSAP";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
+import { Parallax } from "@/components/ui/Parallax";
 
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 export function CTABanner() {
-  const { t } = useLanguage();
+  const { t, isRTL } = useLanguage();
   const sectionRef = useRef<HTMLElement>(null);
   const blockRef = useRef<HTMLDivElement>(null);
 
@@ -21,9 +22,9 @@ export function CTABanner() {
 
       gsap.fromTo(
         blockRef.current,
-        { clipPath: "inset(0 100% 0 0)" },
+        { clipPath: isRTL ? "inset(0 0 0 100%)" : "inset(0 100% 0 0)" },
         {
-          clipPath: "inset(0 0% 0 0)",
+          clipPath: "inset(0 0% 0 0%)",
           ease: "none",
           scrollTrigger: {
             trigger: sectionRef.current,
@@ -34,12 +35,19 @@ export function CTABanner() {
         },
       );
     },
-    { scope: sectionRef },
+    { scope: sectionRef, dependencies: [isRTL] },
   );
 
   return (
     <section ref={sectionRef} className="relative overflow-hidden bg-white py-16 lg:py-24">
-      <div ref={blockRef} className="bg-brand-red absolute inset-0" />
+      <div ref={blockRef} className="bg-brand-red absolute inset-0">
+        <Parallax className="absolute inset-0" speed={25}>
+          <div
+            aria-hidden
+            className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(255,255,255,0.18),transparent_45%),repeating-linear-gradient(135deg,rgba(0,0,0,0.07)_0_2px,transparent_2px_26px)]"
+          />
+        </Parallax>
+      </div>
       <Container className="relative">
         <Reveal>
           <div className="flex flex-col items-start gap-8 lg:flex-row lg:items-end lg:justify-between">

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ChevronDown, HelpCircle, MessageCircle, Phone } from "lucide-react";
 import { Container } from "@/components/ui/Container";
+import { Reveal, RevealGroup } from "@/components/ui/Reveal";
 import { faqs } from "@/lib/data/faq";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
@@ -108,7 +109,7 @@ export function FAQ() {
         <Container>
           <div className="mx-auto max-w-4xl">
             {/* Section Header */}
-            <div className="text-center">
+            <RevealGroup className="text-center" stagger={0.12} y={24}>
               <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3.5 py-1.5 shadow-2xs mb-3">
                 <HelpCircle className="size-3.5 text-brand-red" />
                 <span className="font-mono text-xs font-bold tracking-wider text-slate-700 uppercase">
@@ -126,10 +127,10 @@ export function FAQ() {
                   "Got questions about parts authenticity, VIN fitment verification, delivery schedules, or warranties? Find quick answers below.",
                 )}
               </p>
-            </div>
+            </RevealGroup>
 
             {/* Category Filter Pills */}
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
+            <Reveal className="mt-8 flex flex-wrap items-center justify-center gap-2">
               {categories.map((cat) => (
                 <button
                   key={cat.id}
@@ -144,7 +145,7 @@ export function FAQ() {
                   {cat.label}
                 </button>
               ))}
-            </div>
+            </Reveal>
 
             {/* FAQ Accordion List */}
             <div className="mt-8 divide-y divide-slate-200/80 rounded-2xl border border-slate-200/80 bg-white shadow-xs overflow-hidden">

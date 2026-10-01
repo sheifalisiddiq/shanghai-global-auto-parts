@@ -16,6 +16,7 @@ import { gsap, registerGSAP } from "@/lib/gsap/registerGSAP";
 import { preloaderState } from "@/lib/preloader/state";
 import { PRELOADER_DONE_EVENT } from "@/components/preloader/Preloader";
 import { Container } from "@/components/ui/Container";
+import { Parallax } from "@/components/ui/Parallax";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 const heroImageAlt = "Shanghai Global Chinese Auto Spare Parts Workshop Background";
@@ -43,6 +44,8 @@ export function Hero() {
   const lineRefs = useRef<HTMLSpanElement[]>([]);
   const subRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const shadeRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
@@ -64,6 +67,18 @@ export function Hero() {
 
       const play = () => tl.play();
 
+      // Scroll-out: copy drifts up slower than the page and fades, backdrop darkens.
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        const scrollOut = {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        };
+        gsap.to(contentRef.current, { y: -70, opacity: 0.25, ease: "none", scrollTrigger: scrollOut });
+        gsap.fromTo(shadeRef.current, { opacity: 0 }, { opacity: 1, ease: "none", scrollTrigger: scrollOut });
+      }
+
       if (preloaderState.done) {
         play();
       } else {
@@ -84,15 +99,18 @@ export function Hero() {
     >
       {/* 1. Full-Bleed Background Image (Clear, Unobstructed, Centered) */}
       <div className="absolute inset-0 z-0 select-none">
-        <picture>
-          <source media="(min-width: 768px)" srcSet={desktopHeroSrcSet} />
-          <img
-            {...mobileHeroImageProps}
-            alt={t("misc.hero.imageAlt")}
-            loading="eager"
-            className="absolute inset-0 size-full object-cover md:object-right"
-          />
-        </picture>
+        <Parallax className="absolute inset-0" speed={10} start="top top">
+          <picture>
+            <source media="(min-width: 768px)" srcSet={desktopHeroSrcSet} />
+            <img
+              {...mobileHeroImageProps}
+              alt={t("misc.hero.imageAlt")}
+              loading="eager"
+              className="absolute inset-0 size-full object-cover md:object-right"
+            />
+          </picture>
+        </Parallax>
+        <div ref={shadeRef} className="pointer-events-none absolute inset-0 bg-slate-950/60 opacity-0" />
 
         {/* Subtle, Minimal Vignette - Background Image Remains Sharp & Clear.
             Lightened per client feedback (image was reported "too dark") — a brighter/cleaner
@@ -103,7 +121,7 @@ export function Hero() {
 
       {/* 2. Hero Content Foreground (Uncluttered, Spacious) */}
       <Container className="relative z-10 py-12 sm:py-16 lg:py-20">
-        <div className="max-w-3xl">
+        <div ref={contentRef} className="max-w-3xl will-change-transform">
           {/* Top Pill / Badge */}
           <div className="mb-3.5 inline-flex items-center gap-2 rounded-full border border-white/25 bg-black/65 px-3.5 py-1.5 shadow-lg backdrop-blur-md">
             <span className="relative flex size-2">

@@ -16,11 +16,13 @@ export function Tabs({
   activeId,
   onChange,
   className,
+  tone = "light",
 }: {
   items: TabItem[];
   activeId: string;
   onChange: (id: string) => void;
   className?: string;
+  tone?: "light" | "dark";
 }) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const pillRef = useRef<HTMLSpanElement>(null);
@@ -84,7 +86,7 @@ export function Tabs({
       : undefined;
 
   return (
-    <div className={cn("border-steel-light min-w-0 border-b", className)}>
+    <div className={cn("min-w-0 border-b", tone === "dark" ? "border-white/15" : "border-steel-light", className)}>
       <div
         ref={scrollRef}
         onScroll={updateFade}
@@ -107,7 +109,13 @@ export function Tabs({
             onClick={() => onChange(item.id)}
             className={cn(
               "font-ui shrink-0 cursor-pointer px-3 py-3 text-xs tracking-wide whitespace-nowrap uppercase transition-colors duration-200",
-              activeId === item.id ? "text-ink" : "text-steel-dark hover:text-ink",
+              tone === "dark"
+                ? activeId === item.id
+                  ? "text-white"
+                  : "text-white/50 hover:text-white"
+                : activeId === item.id
+                  ? "text-ink"
+                  : "text-steel-dark hover:text-ink",
             )}
             aria-pressed={activeId === item.id}
           >

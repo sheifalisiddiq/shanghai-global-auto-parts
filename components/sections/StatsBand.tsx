@@ -44,8 +44,8 @@ export function StatsBand() {
             const counter = { value: 0 };
             gsap.to(counter, {
               value: stat.value,
-              duration: 1.4,
-              ease: "power4.out",
+              duration: 3,
+              ease: "expo.out",
               onUpdate: () => {
                 el.textContent = `${Math.round(counter.value).toLocaleString()}${stat.suffix}`;
               },

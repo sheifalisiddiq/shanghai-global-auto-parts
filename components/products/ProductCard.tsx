@@ -10,7 +10,15 @@ import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 import { ArrowUpRight } from "lucide-react";
 
-export function ProductCard({ product, href }: { product: Product; href?: string | null }) {
+export function ProductCard({
+  product,
+  href,
+  index,
+}: {
+  product: Product;
+  href?: string | null;
+  index?: number;
+}) {
   const { t, isRTL } = useLanguage();
   const category = categories.find((c) => c.id === product.category);
   const brands = product.compatibleBrandIds
@@ -42,7 +50,7 @@ export function ProductCard({ product, href }: { product: Product; href?: string
           alt={isRTL && product.nameAr ? product.nameAr : product.image.alt}
           fill
           sizes="(min-width: 1024px) 25vw, (min-width: 640px) 45vw, 90vw"
-          className="object-cover transition-transform duration-500 ease-out group-hover:scale-106"
+          className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
         />
 
         {/* Modern Frosted Glass Pill Badge */}
@@ -53,6 +61,17 @@ export function ProductCard({ product, href }: { product: Product; href?: string
             } z-10 inline-flex items-center rounded-full bg-slate-950/75 px-3 py-1 text-[10px] font-semibold tracking-wider text-white uppercase backdrop-blur-md shadow-sm ring-1 ring-white/15`}
           >
             {categoryLabel}
+          </span>
+        )}
+
+        {typeof index === "number" && (
+          <span
+            aria-hidden
+            className={`font-display absolute bottom-2 ${
+              isRTL ? "left-3" : "right-3"
+            } z-[5] text-4xl leading-none font-black text-white drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)] transition-opacity duration-300 group-hover:opacity-0`}
+          >
+            {String(index + 1).padStart(2, "0")}
           </span>
         )}
 

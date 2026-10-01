@@ -9,6 +9,7 @@ import { carBrands } from "@/lib/data/brands";
 import { brandName } from "@/lib/data/catalog";
 import { brandLogoDisclaimer } from "@/lib/data/company";
 import { Container } from "@/components/ui/Container";
+import { RevealGroup } from "@/components/ui/Reveal";
 
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
@@ -80,6 +81,7 @@ export function BrandMarquee() {
   return (
     <section id="brands" className="border-steel-light border-y bg-white py-12">
       <Container className="mb-8 text-center">
+        <RevealGroup stagger={0.12} y={24}>
         <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-1 shadow-2xs mb-2">
           <span className="size-1.5 rounded-full bg-brand-red animate-pulse" />
           <span className="font-mono text-[10px] sm:text-xs font-bold tracking-wider text-slate-700 uppercase">
@@ -92,6 +94,7 @@ export function BrandMarquee() {
         <p className="text-xs sm:text-sm text-slate-500 max-w-lg mx-auto mt-1">
           {t("brands.subtitle", "Select any brand to filter compatible parts, or explore our full brand directory.")}
         </p>
+        </RevealGroup>
       </Container>
 
       {/* Marquee Track Container (dir="ltr" ensures seamless continuous flow with no right-side voids in RTL) */}

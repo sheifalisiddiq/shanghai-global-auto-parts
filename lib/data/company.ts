@@ -20,10 +20,10 @@ export const stats: Stat[] = [
   { id: "accuracy", value: 98, suffix: "%", label: "Order accuracy" },
   {
     id: "response",
-    value: 0,
-    suffix: "–2h",
+    value: 1,
+    suffix: " hr",
     label: "Avg. response time",
-    displayValue: "0–2h",
+    displayValue: "1 hr",
   },
 ];
 

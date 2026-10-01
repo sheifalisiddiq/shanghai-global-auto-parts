@@ -35,7 +35,7 @@ export function CompanyIntro() {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden bg-gradient-to-b from-white via-slate-50/50 to-white py-8 sm:py-12 lg:py-14 border-b border-slate-200/80"
+      className="relative overflow-hidden bg-white py-8 sm:py-12 lg:py-14 border-b border-slate-200/80"
     >
       <Container>
         <div className="mx-auto max-w-4xl lg:max-w-5xl relative w-full h-[480px] sm:h-[540px] lg:h-[600px]">

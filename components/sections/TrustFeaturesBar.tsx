@@ -2,6 +2,7 @@
 
 import { ShieldCheck, CheckCircle2, Truck, Sparkles } from "lucide-react";
 import { Container } from "@/components/ui/Container";
+import { RevealGroup } from "@/components/ui/Reveal";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 export function TrustFeaturesBar() {
@@ -37,7 +38,7 @@ export function TrustFeaturesBar() {
   return (
     <section className="border-y border-white/10 bg-slate-950 py-4 sm:py-5 text-white select-none">
       <Container>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 items-center">
+        <RevealGroup y={20} stagger={0.12} className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 items-center">
           {features.map((item) => {
             const Icon = item.icon;
             return (
@@ -59,7 +60,7 @@ export function TrustFeaturesBar() {
               </div>
             );
           })}
-        </div>
+        </RevealGroup>
       </Container>
     </section>
   );
