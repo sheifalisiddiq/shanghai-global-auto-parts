@@ -49,7 +49,7 @@ export function ContactForm() {
             </a>
 
             <a
-              href="https://wa.me/97165335866?text=Hi%20Shanghai%20Global,%20I%20need%20a%20spare%20part%20inquiry."
+              href={`https://wa.me/97165335866?text=${encodeURIComponent(t("misc.contact.whatsappText"))}`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-3.5 rounded-xl border border-slate-200 bg-slate-50/60 p-3.5 transition-all hover:border-emerald-500/40 hover:bg-white hover:shadow-xs group"
@@ -59,7 +59,7 @@ export function ContactForm() {
               </div>
               <div>
                 <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">{t("form.instantChat")}</div>
-                <div className="text-sm font-bold text-ink" dir="ltr">WhatsApp Desk (+971 6 533 5866)</div>
+                <div className="text-sm font-bold text-ink" dir="ltr">{t("misc.contact.whatsappDesk")} (+971 6 533 5866)</div>
               </div>
             </a>
 

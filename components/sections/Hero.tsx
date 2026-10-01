@@ -88,7 +88,7 @@ export function Hero() {
           <source media="(min-width: 768px)" srcSet={desktopHeroSrcSet} />
           <img
             {...mobileHeroImageProps}
-            alt={heroImageAlt}
+            alt={t("misc.hero.imageAlt")}
             loading="eager"
             className="absolute inset-0 size-full object-cover md:object-right"
           />
@@ -148,7 +148,7 @@ export function Hero() {
           {/* Direct Conversion Actions */}
           <div ref={ctaRef} className="mt-6 sm:mt-7 flex flex-wrap items-center gap-3 sm:gap-4">
             <a
-              href="https://wa.me/97165335866?text=Hi%20Shanghai%20Global,%20I%20need%20a%20spare%20part%20quote%20for%20my%20vehicle."
+              href={`https://wa.me/97165335866?text=${encodeURIComponent(t("misc.hero.whatsappText"))}`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-5 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-bold tracking-wide text-white shadow-xl shadow-emerald-950/40 transition-transform hover:bg-emerald-500 hover:scale-[1.02]"

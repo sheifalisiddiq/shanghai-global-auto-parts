@@ -1,3 +1,6 @@
+"use client";
+
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 import type { RefObject } from "react";
 import { LOGO_MARK_PATH } from "@/lib/brand/logoMark";
 
@@ -12,14 +15,15 @@ export function PreloaderMark({
   gaugeRef: RefObject<HTMLSpanElement | null>;
   ticksRef: RefObject<HTMLDivElement | null>;
 }) {
+  const { t, language } = useLanguage();
   return (
     <div className="flex flex-col items-center gap-8">
       <svg viewBox="0 0 100 100" className="h-20 w-20" fill="none" aria-hidden>
         <path ref={pathRef} d={LOGO_MARK_PATH} fill="#EF0606" />
       </svg>
 
-      <span ref={wordRef} className="font-ui text-sm tracking-[0.4em] text-white uppercase opacity-0">
-        Shanghai Global
+      <span ref={wordRef} className={`font-ui text-sm text-white uppercase ${language === "ar" ? "tracking-normal" : "tracking-[0.4em]"} opacity-0`}>
+        {t("viewer.brandName")}
       </span>
 
       <div className="flex w-56 flex-col gap-2">

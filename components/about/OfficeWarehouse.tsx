@@ -9,7 +9,7 @@ import { locations } from "@/lib/data/company";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 export function OfficeWarehouse() {
-  const { t } = useLanguage();
+  const { t, isRTL } = useLanguage();
 
   const photos = [
     {
@@ -55,10 +55,10 @@ export function OfficeWarehouse() {
             {locations.map((loc) => (
               <li key={loc.id} className="border-steel-light border-t pt-4">
                 <h3 className="font-display text-ink text-lg font-black uppercase tracking-[-0.005em] sm:tracking-[-0.02em]">
-                  {loc.label}
+                  {isRTL && loc.labelAr ? loc.labelAr : loc.label}
                 </h3>
                 <p className="text-steel-dark mt-2 text-sm leading-relaxed">
-                  {loc.address}
+                  {isRTL && loc.addressAr ? loc.addressAr : loc.address}
                 </p>
                 <p className="text-ink mt-2 text-sm" dir="ltr">
                   {loc.phone}

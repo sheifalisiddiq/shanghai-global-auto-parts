@@ -6,6 +6,7 @@ import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsap/registerGSAP";
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 import { carBrands } from "@/lib/data/brands";
+import { brandName } from "@/lib/data/catalog";
 import { brandLogoDisclaimer } from "@/lib/data/company";
 import { Container } from "@/components/ui/Container";
 
@@ -14,14 +15,17 @@ import { ArrowRight } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 function BrandChip({ brand }: { brand: (typeof carBrands)[number] }) {
+  const { t, isRTL } = useLanguage();
+  const name = brandName(brand, isRTL);
+  const title = `${t("misc.brands.explorePrefix")} ${name}`;
   if (!brand.logo) {
     return (
       <Link
         href={`/products?brand=${brand.id}`}
-        title={`Explore spare parts for ${brand.name}`}
+        title={title}
         className="font-ui text-steel-dark border-steel-light flex h-16 shrink-0 items-center rounded-full border px-6 text-xs tracking-wide uppercase hover:border-brand-red hover:text-brand-red transition-colors"
       >
-        {brand.name}
+        {name}
       </Link>
     );
   }
@@ -29,12 +33,12 @@ function BrandChip({ brand }: { brand: (typeof carBrands)[number] }) {
   return (
     <Link
       href={`/products?brand=${brand.id}`}
-      title={`Explore spare parts for ${brand.name}`}
+      title={title}
       className="flex h-16 shrink-0 items-center px-8 grayscale transition-all duration-300 hover:grayscale-0 hover:scale-105"
     >
       <Image
         src={brand.logo.src}
-        alt={brand.logo.alt}
+        alt={isRTL ? name : brand.logo.alt}
         width={120}
         height={48}
         className="h-8 w-auto object-contain opacity-70 hover:opacity-100"

@@ -42,7 +42,7 @@ function CategoryTile({
   onSelect: (id: string) => void;
 }) {
   const Icon = iconMap[category.icon];
-  const { t } = useLanguage();
+  const { t, isRTL } = useLanguage();
   return (
     <button
       type="button"
@@ -56,7 +56,7 @@ function CategoryTile({
     >
       <Image
         src={category.image.src}
-        alt={category.image.alt}
+        alt={isRTL ? category.image.altAr : category.image.alt}
         fill
         sizes="(min-width: 640px) 22vw, 45vw"
         className="object-cover transition-transform duration-500 group-hover:scale-105"

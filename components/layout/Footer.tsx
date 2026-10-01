@@ -19,21 +19,13 @@ import { locations, contact, companyIntro, brandLogoDisclaimer } from "@/lib/dat
 import { categories } from "@/lib/data/categories";
 import { socialLinks } from "@/lib/data/social";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
-import { FooterMobileAccordion } from "@/components/layout/FooterMobileAccordion";
-
-const popularBrands = [
-  { id: "jetour", name: "Jetour" },
-  { id: "changan", name: "Changan" },
-  { id: "geely", name: "Geely" },
-  { id: "chery", name: "Chery" },
-  { id: "haval", name: "Haval & GWM" },
-  { id: "byd", name: "BYD & MG" },
-];
+import { FooterMobileAccordion, popularBrands, usePopularBrandLabel } from "@/components/layout/FooterMobileAccordion";
 
 const footerCategoryIds = ["brakes", "filters", "engine", "suspension"];
 
 export function Footer() {
-  const { t } = useLanguage();
+  const { t, isRTL } = useLanguage();
+  const brandLabel = usePopularBrandLabel();
 
   const scrollToTop = () => {
     scrollToTarget(0);
@@ -73,7 +65,7 @@ export function Footer() {
         </a>
         <div className="flex items-center gap-2">
           <Clock className="size-3.5 text-brand-red" />
-          <span>{contact.hours} (Sat &ndash; Thu)</span>
+          <span>{t("topbar.hours", contact.hours)}</span>
         </div>
       </div>
 
@@ -145,7 +137,7 @@ export function Footer() {
                     href={`/products?brand=${brand.id}`}
                     className="text-slate-400 hover:text-white transition-colors"
                   >
-                    {brand.name}
+                    {brandLabel(brand.id, brand.name)}
                   </Link>
                 </li>
               ))}
@@ -168,13 +160,13 @@ export function Footer() {
             <div className="space-y-3 text-xs">
               {locations.map((loc) => (
                 <div key={loc.id} className="flex items-center justify-between gap-3">
-                  <span className="font-semibold text-white">{loc.label}</span>
+                  <span className="font-semibold text-white">{isRTL && loc.labelAr ? loc.labelAr : loc.label}</span>
                   <a
                     href={`tel:${loc.phone.replace(/\s+/g, "")}`}
                     className="flex items-center gap-1.5 text-slate-400 hover:text-brand-red transition-colors"
                   >
                     <Phone className="size-3 text-brand-red shrink-0" />
-                    <span>{loc.phone}</span>
+                    <span dir="ltr">{loc.phone}</span>
                   </a>
                 </div>
               ))}
@@ -195,29 +187,29 @@ export function Footer() {
       <div className="border-t border-white/10 bg-black/60">
         <Container className="flex flex-col gap-4 py-5 text-xs text-slate-500 md:flex-row md:items-center md:justify-between">
           <div className="flex flex-col gap-1">
-            <span>{contact.copyright}</span>
+            <span>{isRTL ? contact.copyrightAr : contact.copyright}</span>
             <span className="text-[11px] text-slate-600 max-w-xl">
-              {brandLogoDisclaimer}
+              {t("brands.disclaimer", brandLogoDisclaimer)}
             </span>
           </div>
 
           <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
             <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs">
               <Link href="/privacy" className="hover:text-white transition-colors">
-                Privacy Policy
+                {t("lay.privacy", "Privacy Policy")}
               </Link>
               <Link href="/terms" className="hover:text-white transition-colors">
-                Terms & Conditions
+                {t("lay.terms", "Terms & Conditions")}
               </Link>
             </div>
 
             <button
               type="button"
               onClick={scrollToTop}
-              aria-label="Back to top"
+              aria-label={t("lay.backToTop", "Back to top")}
               className="inline-flex items-center gap-1 rounded-md border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] text-slate-300 hover:border-white/30 hover:bg-white/10 hover:text-white transition-all cursor-pointer"
             >
-              <span>Top</span>
+              <span>{t("lay.top", "Top")}</span>
               <ArrowUp className="size-3 text-brand-red" />
             </button>
           </div>

@@ -72,7 +72,7 @@ export function ProductsCarousel() {
             <div className="flex gap-2">
               <button
                 type="button"
-                aria-label="Previous products"
+                aria-label={t("misc.carousel.prev")}
                 disabled={!canPrev}
                 onClick={() => emblaApi?.scrollPrev()}
                 className="flex size-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 shadow-sm transition-all hover:border-slate-900 hover:bg-slate-900 hover:text-white disabled:opacity-30 disabled:hover:border-slate-200 disabled:hover:bg-white disabled:hover:text-slate-700 cursor-pointer"
@@ -81,7 +81,7 @@ export function ProductsCarousel() {
               </button>
               <button
                 type="button"
-                aria-label="Next products"
+                aria-label={t("misc.carousel.next")}
                 disabled={!canNext}
                 onClick={() => emblaApi?.scrollNext()}
                 className="flex size-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 shadow-sm transition-all hover:border-slate-900 hover:bg-slate-900 hover:text-white disabled:opacity-30 disabled:hover:border-slate-200 disabled:hover:bg-white disabled:hover:text-slate-700 cursor-pointer"

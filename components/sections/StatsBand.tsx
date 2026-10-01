@@ -61,7 +61,7 @@ export function StatsBand() {
     { scope: sectionRef, dependencies: [reducedMotion] },
   );
 
-  const { t } = useLanguage();
+  const { t, isRTL } = useLanguage();
 
   return (
     <section ref={sectionRef} className="bg-ink relative py-14 lg:py-20">
@@ -84,8 +84,10 @@ export function StatsBand() {
 
         {staticStat && (
           <div className="border-l-2 rtl:border-l-0 rtl:border-r-2 border-brand-red pl-4 sm:pl-6 rtl:pl-0 rtl:pr-4 sm:rtl:pr-6">
-            <span className="font-display block text-4xl font-black text-white tracking-[-0.01em] sm:tracking-[-0.03em] sm:text-6xl lg:text-7xl" dir="ltr">
-              {staticStat.displayValue || `${staticStat.value}${staticStat.suffix}`}
+            <span className="font-display block text-4xl font-black text-white tracking-[-0.01em] sm:tracking-[-0.03em] sm:text-6xl lg:text-7xl" dir={isRTL ? "rtl" : "ltr"}>
+              {staticStat.id === "response"
+                ? t("misc.stats.responseValue", staticStat.displayValue)
+                : staticStat.displayValue || `${staticStat.value}${staticStat.suffix}`}
             </span>
             <span className="font-ui text-white/50 mt-2 block text-[11px] tracking-[0.2em] uppercase sm:text-xs">
               {t(`stats.${staticStat.id}` as any, staticStat.label)}

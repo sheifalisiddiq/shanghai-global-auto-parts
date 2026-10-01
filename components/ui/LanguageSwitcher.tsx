@@ -5,7 +5,7 @@ import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { cn } from "@/lib/utils/cn";
 
 export function LanguageSwitcher({ className }: { className?: string }) {
-  const { language, setLanguage } = useLanguage();
+  const { language, setLanguage, t } = useLanguage();
 
   return (
     <div
@@ -14,7 +14,7 @@ export function LanguageSwitcher({ className }: { className?: string }) {
         className,
       )}
       role="group"
-      aria-label="Language selector"
+      aria-label={t("lay.langSelector", "Language selector")}
     >
       <button
         type="button"
@@ -48,7 +48,7 @@ export function LanguageSwitcher({ className }: { className?: string }) {
 }
 
 export function LanguageSwitcherCompact({ className }: { className?: string }) {
-  const { language, toggleLanguage } = useLanguage();
+  const { language, toggleLanguage, t } = useLanguage();
 
   return (
     <button
@@ -58,7 +58,11 @@ export function LanguageSwitcherCompact({ className }: { className?: string }) {
         "inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-xs font-bold text-zinc-300 transition-colors hover:border-white/30 hover:bg-white/10 hover:text-white cursor-pointer",
         className,
       )}
-      aria-label={`Switch language to ${language === "en" ? "Arabic" : "English"}`}
+      aria-label={
+        language === "en"
+          ? t("lay.switchToArabic", "Switch language to Arabic")
+          : t("lay.switchToEnglish", "Switch language to English")
+      }
     >
       <Globe className="size-3.5 text-brand-red" />
       <span>{language === "en" ? "العربية" : "EN"}</span>

@@ -4,13 +4,15 @@ import { useState } from "react";
 import Link from "next/link";
 import { ChevronDown, Phone } from "lucide-react";
 import { categories } from "@/lib/data/categories";
+import { carBrands } from "@/lib/data/brands";
+import { brandName } from "@/lib/data/catalog";
 import { locations } from "@/lib/data/company";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { cn } from "@/lib/utils/cn";
 
 const footerCategoryIds = ["brakes", "filters", "engine", "suspension"];
 
-const popularBrands = [
+export const popularBrands = [
   { id: "jetour", name: "Jetour" },
   { id: "changan", name: "Changan" },
   { id: "geely", name: "Geely" },
@@ -19,6 +21,16 @@ const popularBrands = [
   { id: "byd", name: "BYD & MG" },
 ];
 
+export function usePopularBrandLabel() {
+  const { t, isRTL } = useLanguage();
+  return (id: string, fallback: string) => {
+    if (id === "haval") return t("lay.brandHavalGwm", fallback);
+    if (id === "byd") return t("lay.brandBydMg", fallback);
+    const b = carBrands.find((x) => x.id === id);
+    return b ? brandName(b, isRTL) : fallback;
+  };
+}
+
 type SectionKey = "parts" | "brands" | "locations";
 
 const focusRing =
@@ -26,7 +38,8 @@ const focusRing =
 
 export function FooterMobileAccordion() {
   const [expanded, setExpanded] = useState<SectionKey | null>(null);
-  const { t } = useLanguage();
+  const { t, isRTL } = useLanguage();
+  const brandLabel = usePopularBrandLabel();
 
   const toggle = (key: SectionKey) => {
     setExpanded((prev) => (prev === key ? null : key));
@@ -109,7 +122,7 @@ export function FooterMobileAccordion() {
                             focusRing,
                           )}
                         >
-                          {brand.name}
+                          {brandLabel(brand.id, brand.name)}
                         </Link>
                       </li>
                     ))}
@@ -131,7 +144,7 @@ export function FooterMobileAccordion() {
                   <ul className="space-y-2.5">
                     {locations.map((loc) => (
                       <li key={loc.id} className="flex items-center justify-between gap-3">
-                        <span className="font-semibold text-white">{loc.label}</span>
+                        <span className="font-semibold text-white">{isRTL && loc.labelAr ? loc.labelAr : loc.label}</span>
                         <a
                           href={`tel:${loc.phone.replace(/\s+/g, "")}`}
                           className={cn(
@@ -140,7 +153,7 @@ export function FooterMobileAccordion() {
                           )}
                         >
                           <Phone className="size-3 text-brand-red shrink-0" />
-                          <span>{loc.phone}</span>
+                          <span dir="ltr">{loc.phone}</span>
                         </a>
                       </li>
                     ))}

@@ -65,16 +65,19 @@ export function FAQ() {
     { id: "Warranty & Support", label: t("faq.catWarranty", "Warranty & Support") },
   ];
 
+  const categoryLabels: Record<string, string> = Object.fromEntries(
+    categories.map((c) => [c.id, c.label]),
+  );
+
+  // Filtering always uses the stable English category id; only the displayed text is localized.
   const displayFaqs = faqs.map((f) => {
-    if (isRTL && arabicFaqs[f.id]) {
-      return {
-        ...f,
-        question: arabicFaqs[f.id].question,
-        answer: arabicFaqs[f.id].answer,
-        category: arabicFaqs[f.id].category || f.category,
-      };
-    }
-    return f;
+    const ar = isRTL ? arabicFaqs[f.id] : undefined;
+    return {
+      ...f,
+      question: ar?.question ?? f.question,
+      answer: ar?.answer ?? f.answer,
+      categoryLabel: f.category ? (categoryLabels[f.category] ?? f.category) : undefined,
+    };
   });
 
   const filteredFaqs = displayFaqs.filter(
@@ -157,15 +160,15 @@ export function FAQ() {
                     >
                       <div className="flex items-start gap-3">
                         <span className="font-mono text-xs font-bold text-brand-red pt-0.5">
-                          Q:
+                          {t("misc.faq.q")}
                         </span>
                         <div>
                           <span className="font-display text-base sm:text-lg font-bold text-slate-900 leading-snug">
                             {faq.question}
                           </span>
-                          {faq.category && (
+                          {faq.categoryLabel && (
                             <span className="ml-2 rtl:ml-0 rtl:mr-2 hidden rounded bg-slate-100 px-2 py-0.5 font-mono text-[10px] font-semibold text-slate-500 sm:inline-block">
-                              {faq.category}
+                              {faq.categoryLabel}
                             </span>
                           )}
                         </div>
@@ -216,7 +219,7 @@ export function FAQ() {
 
               <div className="flex flex-wrap items-center gap-3 shrink-0">
                 <a
-                  href="https://wa.me/97165335866?text=Hi%20Shanghai%20Global,%20I%20have%20a%20question%20about%20your%20spare%20parts%20and%20services."
+                  href={`https://wa.me/97165335866?text=${encodeURIComponent(t("misc.faq.whatsappText"))}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-5 py-3 text-xs sm:text-sm font-bold text-white shadow-lg transition-transform hover:bg-emerald-500 hover:scale-[1.02]"

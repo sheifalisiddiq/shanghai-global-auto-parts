@@ -130,7 +130,10 @@ export function WhatWeDo() {
     return (
       <section className="bg-white py-16 lg:py-24">
         <Container>
-          <SectionHeading eyebrow="What We Do" title="Built Around Your Supply Chain" />
+          <SectionHeading
+            eyebrow={t("whatWeDo.eyebrow", "What We Do")}
+            title={t("whatWeDo.title", "Built Around Your Supply Chain")}
+          />
 
           <RevealGroup className="border-steel-light mt-14 border-t" itemSelector=":scope > article">
             {whatWeDo.map((item) => (

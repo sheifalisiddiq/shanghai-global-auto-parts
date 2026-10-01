@@ -7,14 +7,15 @@ import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { RevealGroup } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
-import { blogPosts } from "@/lib/data/blogs";
+import { blogPosts, blogCategoryKey, localizePost } from "@/lib/data/blogs";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 // blogPosts is ordered newest first.
-const latestPosts = blogPosts.slice(0, 3);
-
 export function BlogHighlights() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const latestPosts = blogPosts
+    .slice(0, 3)
+    .map((p) => localizePost(p, language));
 
   return (
     <section className="bg-paper py-20 lg:py-28">
@@ -54,7 +55,7 @@ export function BlogHighlights() {
                 </div>
                 <div className="flex flex-1 flex-col p-6">
                   <span className="font-ui text-brand-red text-xs tracking-[0.2em] uppercase">
-                    {post.category}
+                    {t(blogCategoryKey[post.category])}
                   </span>
                   <h3 className="font-display text-ink mt-3 text-xl leading-tight font-bold">
                     {post.title}

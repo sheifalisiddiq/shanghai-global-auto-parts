@@ -9,7 +9,13 @@ export async function POST(request: Request) {
 
   if (!parsed.success) {
     return NextResponse.json(
-      { ok: false, error: "Invalid submission", issues: parsed.error.flatten() },
+      {
+        ok: false,
+        code: "invalid",
+        error: "Invalid submission",
+        // Field messages are stable codes (see lib/validation/enquiry.ts) mapped client-side.
+        issues: parsed.error.flatten(),
+      },
       { status: 400 },
     );
   }
@@ -17,7 +23,7 @@ export async function POST(request: Request) {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
     return NextResponse.json(
-      { ok: false, error: "Email delivery is not configured yet.", fallback: true },
+      { ok: false, code: "not_configured", error: "Email delivery is not configured yet.", fallback: true },
       { status: 503 },
     );
   }
@@ -35,6 +41,6 @@ export async function POST(request: Request) {
     });
     return NextResponse.json({ ok: true });
   } catch {
-    return NextResponse.json({ ok: false, error: "Could not send your enquiry. Please try again." }, { status: 502 });
+    return NextResponse.json({ ok: false, code: "send_failed", error: "Could not send your enquiry. Please try again." }, { status: 502 });
   }
 }

@@ -14,7 +14,7 @@ import { useLanguage } from "@/lib/i18n/LanguageContext";
 const animatable = stats.filter((s) => s.suffix === "+" || s.suffix === "%");
 
 export function FeaturedCountries() {
-  const { t } = useLanguage();
+  const { t, isRTL } = useLanguage();
   const sectionRef = useRef<HTMLElement>(null);
   const counterRefs = useRef<Record<string, HTMLSpanElement | null>>({});
   const reducedMotion = useReducedMotion();
@@ -91,11 +91,13 @@ export function FeaturedCountries() {
                         : undefined
                     }
                     className="font-display block text-4xl font-black text-white tracking-[-0.01em] sm:tracking-[-0.03em] sm:text-5xl"
-                    dir="ltr"
+                    dir={isAnimated || !isRTL ? "ltr" : "rtl"}
                   >
                     {isAnimated
                       ? `0${stat.suffix}`
-                      : (stat.displayValue ?? `${stat.value}${stat.suffix}`)}
+                      : stat.id === "response"
+                        ? t("misc.stats.responseValue", stat.displayValue)
+                        : (stat.displayValue ?? `${stat.value}${stat.suffix}`)}
                   </span>
                   <span className="font-ui mt-2 block text-[11px] tracking-[0.2em] text-white/50 uppercase sm:text-xs">
                     {t(`stats.${stat.id}` as never, stat.label)}

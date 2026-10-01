@@ -1,0 +1,68 @@
+export const miscEn = {
+  "misc.hero.imageAlt": "Shanghai Global Chinese auto spare parts workshop background",
+  "misc.hero.whatsappText": "Hi Shanghai Global, I need a spare part quote for my vehicle.",
+  "misc.brands.explorePrefix": "Explore spare parts for",
+  "misc.reviews.stars": "5 out of 5 stars",
+  "misc.stats.responseValue": "0–2h",
+  "misc.carousel.prev": "Previous products",
+  "misc.carousel.next": "Next products",
+  "misc.faq.q": "Q:",
+  "misc.faq.whatsappText":
+    "Hi Shanghai Global, I have a question about your spare parts and services.",
+  "misc.contact.whatsappDesk": "WhatsApp Desk",
+  "misc.contact.whatsappText": "Hi Shanghai Global, I need a spare part inquiry.",
+  "misc.contact.reachEyebrow": "Reach Us",
+  "misc.contact.reachTitle": "Our Locations",
+  "misc.nav.breadcrumb": "Breadcrumb",
+  "misc.nav.pagination": "Pagination",
+  "misc.product.oemQuality": "OEM Quality",
+  "misc.part.whatsappText":
+    "Hi Shanghai Global, I'd like a quote for {product} ({sku}) for {vehicle}.",
+  "misc.form.successTitle": "Enquiry Received Successfully",
+  "misc.form.successBody":
+    "Thank you for reaching out. Our parts specialist is reviewing your request and will contact you within 0–2 hours with pricing and availability.",
+  "misc.form.fallback":
+    "Online submission isn't available right now — reach our parts desk directly for an instant quote.",
+  "misc.form.emailUs": "Email Us",
+  "misc.form.err.generic": "Something went wrong. Please try again.",
+  "misc.form.err.invalid": "Please check your details and try again.",
+  "misc.form.err.send_failed": "Could not send your enquiry. Please try again.",
+  "misc.form.err.name_invalid": "Enter your full name",
+  "misc.form.err.email_invalid": "Enter a valid email",
+  "misc.form.err.phone_invalid": "Enter a valid phone number",
+  "misc.form.err.message_short": "Tell us a little more about what you need",
+} as const;
+
+export const miscAr = {
+  "misc.hero.imageAlt": "خلفية ورشة شنغهاي جلوبال لقطع غيار السيارات الصينية",
+  "misc.hero.whatsappText": "مرحباً شنغهاي جلوبال، أحتاج إلى عرض سعر لقطعة غيار لسيارتي.",
+  "misc.brands.explorePrefix": "تصفح قطع غيار",
+  "misc.reviews.stars": "5 من 5 نجوم",
+  "misc.stats.responseValue": "0–2 ساعة",
+  "misc.carousel.prev": "المنتجات السابقة",
+  "misc.carousel.next": "المنتجات التالية",
+  "misc.faq.q": "س:",
+  "misc.faq.whatsappText": "مرحباً شنغهاي جلوبال، لدي استفسار حول قطع الغيار والخدمات لديكم.",
+  "misc.contact.whatsappDesk": "مكتب واتساب",
+  "misc.contact.whatsappText": "مرحباً شنغهاي جلوبال، أرغب في الاستفسار عن قطعة غيار.",
+  "misc.contact.reachEyebrow": "تواصل معنا",
+  "misc.contact.reachTitle": "مواقعنا",
+  "misc.nav.breadcrumb": "مسار التنقل",
+  "misc.nav.pagination": "ترقيم الصفحات",
+  "misc.product.oemQuality": "جودة OEM",
+  "misc.part.whatsappText":
+    "مرحباً شنغهاي جلوبال، أرغب في الحصول على عرض سعر لـ {product} ({sku}) لسيارة {vehicle}.",
+  "misc.form.successTitle": "تم استلام طلبك بنجاح",
+  "misc.form.successBody":
+    "شكراً لتواصلك معنا. يقوم أخصائي القطع لدينا بمراجعة طلبك وسيتواصل معك خلال 0–2 ساعة بالأسعار والتوفر.",
+  "misc.form.fallback":
+    "خدمة الإرسال عبر الموقع غير متاحة حالياً، يرجى التواصل مع مكتب القطع مباشرة للحصول على عرض سعر فوري.",
+  "misc.form.emailUs": "راسلنا عبر البريد",
+  "misc.form.err.generic": "حدث خطأ ما. يرجى المحاولة مرة أخرى.",
+  "misc.form.err.invalid": "يرجى التحقق من بياناتك والمحاولة مرة أخرى.",
+  "misc.form.err.send_failed": "تعذر إرسال طلبك. يرجى المحاولة مرة أخرى.",
+  "misc.form.err.name_invalid": "أدخل اسمك الكامل",
+  "misc.form.err.email_invalid": "أدخل بريداً إلكترونياً صحيحاً",
+  "misc.form.err.phone_invalid": "أدخل رقم هاتف صحيحاً",
+  "misc.form.err.message_short": "أخبرنا بمزيد من التفاصيل عن احتياجك",
+} as const;

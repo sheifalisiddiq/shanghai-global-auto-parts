@@ -35,8 +35,9 @@ function GoogleIcon({ className = "size-5" }: { className?: string }) {
 }
 
 function GoogleStars({ className = "flex gap-1" }: { className?: string }) {
+  const { t } = useLanguage();
   return (
-    <div className={className} aria-label="5 out of 5 stars">
+    <div className={className} role="img" aria-label={t("misc.reviews.stars")}>
       {Array.from({ length: 5 }).map((_, i) => (
         <Star
           key={i}

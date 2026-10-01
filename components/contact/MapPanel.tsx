@@ -7,7 +7,7 @@ import { locations } from "@/lib/data/company";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 export function MapPanel() {
-  const { t } = useLanguage();
+  const { t, isRTL } = useLanguage();
 
   return (
     <section id="maps" className="bg-paper py-16 lg:py-24 border-t border-slate-200">
@@ -38,7 +38,7 @@ export function MapPanel() {
                   <div className="flex items-center gap-2">
                     <MapPin className="size-4 text-brand-red shrink-0" />
                     <span className="font-ui text-xs font-bold uppercase tracking-wider text-ink">
-                      {loc.label}
+                      {isRTL && loc.labelAr ? loc.labelAr : loc.label}
                     </span>
                   </div>
                   <a
@@ -55,7 +55,7 @@ export function MapPanel() {
                 {/* Embedded Map Frame */}
                 <div className="relative aspect-[4/3] w-full bg-slate-100 overflow-hidden">
                   <iframe
-                    title={`Map — ${loc.label}`}
+                    title={`${t("lay.mapTitle", "Map")} — ${isRTL && loc.labelAr ? loc.labelAr : loc.label}`}
                     src={embedUrl}
                     className="h-full w-full border-0"
                     loading="lazy"
@@ -66,7 +66,7 @@ export function MapPanel() {
                 {/* Location Details Footer */}
                 <div className="flex flex-1 flex-col justify-between p-5 bg-white">
                   <p className="text-xs leading-relaxed text-steel-dark line-clamp-2">
-                    {loc.address}
+                    {isRTL && loc.addressAr ? loc.addressAr : loc.address}
                   </p>
                   <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
                     <span className="text-xs font-bold text-ink" dir="ltr">{loc.phone}</span>

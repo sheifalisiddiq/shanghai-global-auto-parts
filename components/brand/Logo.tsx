@@ -1,3 +1,6 @@
+"use client";
+
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { cn } from "@/lib/utils/cn";
 import { LOGO_MARK_PATH } from "@/lib/brand/logoMark";
 
@@ -30,6 +33,8 @@ export function Logo({
   tone?: "ink" | "white";
   className?: string;
 }) {
+  const { t, language } = useLanguage();
+  const isAr = language === "ar";
   const textColor = tone === "white" ? "text-white" : "text-ink";
   const subColor = tone === "white" ? "text-white/70" : "text-steel-dark";
 
@@ -43,19 +48,19 @@ export function Logo({
       <span className="flex flex-col leading-none">
         <span
           className={cn(
-            "font-brand text-sm tracking-tight uppercase sm:text-lg",
+            isAr ? "font-brand text-base sm:text-xl" : "font-brand text-sm tracking-tight uppercase sm:text-lg",
             textColor,
           )}
         >
-          SHANGHAI GLOBAL
+          {t("viewer.brandName")}
         </span>
         <span
           className={cn(
-            "font-body mt-0.5 text-[9px] tracking-wide uppercase sm:text-[10px]",
+            isAr ? "font-body mt-0.5 text-[10px] sm:text-[11px]" : "font-body mt-0.5 text-[9px] tracking-wide uppercase sm:text-[10px]",
             subColor,
           )}
         >
-          AUTO SPARE PARTS CO LLC
+          {t("viewer.brandSub")}
         </span>
       </span>
     </span>

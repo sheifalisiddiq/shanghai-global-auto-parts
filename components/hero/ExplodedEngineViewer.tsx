@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import Image from "next/image";
 import type { MutableRefObject } from "react";
 import { Play, Pause } from "lucide-react";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 interface ExplodedEngineViewerProps {
   explodeProgress?: MutableRefObject<number>;
@@ -11,6 +12,7 @@ interface ExplodedEngineViewerProps {
 }
 
 export function ExplodedEngineViewer({ explodeProgress, className = "" }: ExplodedEngineViewerProps) {
+  const { t: tr } = useLanguage();
   const containerRef = useRef<HTMLDivElement>(null);
   const isScrollDriven = !!explodeProgress;
   const [progress, setProgress] = useState(() => (isScrollDriven ? 0 : 0.85)); // 0 = assembled, 1 = exploded
@@ -150,22 +152,23 @@ export function ExplodedEngineViewer({ explodeProgress, className = "" }: Explod
             <span className="relative inline-flex size-2 rounded-full bg-brand-red" />
           </span>
           <span className="font-mono text-[11px] font-bold tracking-wider text-slate-800 uppercase">
-            FIG. 01 // EXPLODED ENGINE SCHEMATIC
+            {tr("viewer.fig")}
           </span>
           <span className="hidden rounded bg-slate-100 px-1.5 py-0.5 font-mono text-[9px] font-semibold text-slate-500 sm:inline-block">
-            {t < 0.15 ? "STRUCTURE: ASSEMBLED" : t > 0.85 ? "STRUCTURE: EXPLODED" : "STRUCTURE: EXPANDING"}
+            {tr(t < 0.15 ? "viewer.structure.assembled" : t > 0.85 ? "viewer.structure.exploded" : "viewer.structure.expanding")}
           </span>
         </div>
 
         {/* Live Interactive Status Badge */}
         <div className="flex items-center gap-1.5 rounded-md border border-slate-200 bg-white/90 px-2 py-0.5 shadow-2xs font-mono text-[10px] font-semibold text-slate-600">
           <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
-          INTERACTIVE 3D
+          {tr("viewer.interactive")}
         </div>
       </div>
 
       {/* Main 3D Engine Display Canvas */}
       <div
+        dir="ltr"
         className="relative flex h-[340px] w-[340px] items-center justify-center transition-transform duration-150 ease-out sm:h-[440px] sm:w-[440px] lg:h-[500px] lg:w-[500px]"
         style={{
           perspective: "1200px",
@@ -185,11 +188,11 @@ export function ExplodedEngineViewer({ explodeProgress, className = "" }: Explod
                 transform: `translate3d(0px, 0px, 0px)`,
                 zIndex: 10,
               }}
-              onMouseEnter={() => setHoveredPart("Engine Block with 4 Cylinders")}
+              onMouseEnter={() => setHoveredPart("viewer.part.block")}
             >
               <Image
                 src="/images/engine_schematic/cad_parts/engine_block.png"
-                alt="Engine Block"
+                alt={tr("viewer.alt.block")}
                 fill
                 sizes="500px"
                 className="object-contain drop-shadow-md"
@@ -208,11 +211,11 @@ export function ExplodedEngineViewer({ explodeProgress, className = "" }: Explod
                 transform: `translate3d(0px, ${assembleFactor * 78}px, ${t * 15}px)`,
                 zIndex: 12,
               }}
-              onMouseEnter={() => setHoveredPart("DOHC Cylinder Head & Valve Springs")}
+              onMouseEnter={() => setHoveredPart("viewer.part.head")}
             >
               <Image
                 src="/images/engine_schematic/cad_parts/cylinder_head.png"
-                alt="Cylinder Head"
+                alt={tr("viewer.alt.head")}
                 fill
                 sizes="500px"
                 className="object-contain drop-shadow-md"
@@ -231,11 +234,11 @@ export function ExplodedEngineViewer({ explodeProgress, className = "" }: Explod
                 transform: `translate3d(0px, ${assembleFactor * 115}px, ${t * 25}px)`,
                 zIndex: 14,
               }}
-              onMouseEnter={() => setHoveredPart("Dual Overhead Camshafts (DOHC)")}
+              onMouseEnter={() => setHoveredPart("viewer.part.camshafts")}
             >
               <Image
                 src="/images/engine_schematic/cad_parts/camshafts.png"
-                alt="Camshafts"
+                alt={tr("viewer.alt.camshafts")}
                 fill
                 sizes="500px"
                 className="object-contain drop-shadow-sm"
@@ -254,11 +257,11 @@ export function ExplodedEngineViewer({ explodeProgress, className = "" }: Explod
                 transform: `translate3d(0px, ${assembleFactor * 175}px, ${t * 35}px)`,
                 zIndex: 16,
               }}
-              onMouseEnter={() => setHoveredPart("Cast Aluminum Valve Cover")}
+              onMouseEnter={() => setHoveredPart("viewer.part.valveCover")}
             >
               <Image
                 src="/images/engine_schematic/cad_parts/valve_cover.png"
-                alt="Valve Cover"
+                alt={tr("viewer.alt.valveCover")}
                 fill
                 sizes="500px"
                 className="object-contain drop-shadow-lg"
@@ -277,11 +280,11 @@ export function ExplodedEngineViewer({ explodeProgress, className = "" }: Explod
                 transform: `translate3d(0px, ${-assembleFactor * 85}px, ${t * -10}px)`,
                 zIndex: 8,
               }}
-              onMouseEnter={() => setHoveredPart("Forged Steel Crankshaft & Counterweights")}
+              onMouseEnter={() => setHoveredPart("viewer.part.crankshaft")}
             >
               <Image
                 src="/images/engine_schematic/cad_parts/crankshaft.png"
-                alt="Crankshaft"
+                alt={tr("viewer.alt.crankshaft")}
                 fill
                 sizes="500px"
                 className="object-contain drop-shadow-md"
@@ -300,11 +303,11 @@ export function ExplodedEngineViewer({ explodeProgress, className = "" }: Explod
                 transform: `translate3d(${assembleFactor * 125}px, ${-assembleFactor * 30}px, ${t * 20}px)`,
                 zIndex: 9,
               }}
-              onMouseEnter={() => setHoveredPart("Pistons, Wrist Pins & Forged Connecting Rods")}
+              onMouseEnter={() => setHoveredPart("viewer.part.pistons")}
             >
               <Image
                 src="/images/engine_schematic/cad_parts/pistons.png"
-                alt="Pistons and Rods"
+                alt={tr("viewer.alt.pistons")}
                 fill
                 sizes="500px"
                 className="object-contain drop-shadow-md"
@@ -323,11 +326,11 @@ export function ExplodedEngineViewer({ explodeProgress, className = "" }: Explod
                 transform: `translate3d(${-assembleFactor * 120}px, 0px, ${t * 15}px)`,
                 zIndex: 11,
               }}
-              onMouseEnter={() => setHoveredPart("Timing Chain, Guides & Sprockets")}
+              onMouseEnter={() => setHoveredPart("viewer.part.timingChain")}
             >
               <Image
                 src="/images/engine_schematic/cad_parts/timing_chain.png"
-                alt="Timing Chain Assembly"
+                alt={tr("viewer.alt.timingChain")}
                 fill
                 sizes="500px"
                 className="object-contain drop-shadow-md"
@@ -346,11 +349,11 @@ export function ExplodedEngineViewer({ explodeProgress, className = "" }: Explod
                 transform: `translate3d(0px, ${-assembleFactor * 165}px, ${t * -25}px)`,
                 zIndex: 7,
               }}
-              onMouseEnter={() => setHoveredPart("Stamped Steel Oil Sump & Pickup Tube")}
+              onMouseEnter={() => setHoveredPart("viewer.part.oilSump")}
             >
               <Image
                 src="/images/engine_schematic/cad_parts/oil_sump.png"
-                alt="Oil Sump"
+                alt={tr("viewer.alt.oilSump")}
                 fill
                 sizes="500px"
                 className="object-contain drop-shadow-md"
@@ -366,14 +369,14 @@ export function ExplodedEngineViewer({ explodeProgress, className = "" }: Explod
           <div className="animate-fade-in flex items-center gap-2 rounded-full border border-brand-red/30 bg-white/95 px-3 py-1 shadow-md backdrop-blur-xs">
             <span className="size-2 rounded-full bg-brand-red animate-ping" />
             <span className="font-mono text-xs font-bold text-slate-800 uppercase tracking-wide">
-              {hoveredPart}
+              {tr(hoveredPart as Parameters<typeof tr>[0])}
             </span>
           </div>
         ) : (
           <div className="flex items-center gap-1.5 font-mono text-[10px] text-slate-400">
-            <span>Hover parts to inspect</span>
+            <span>{tr("viewer.hoverHint")}</span>
             <span>•</span>
-            <span>Drag slider below to expand/assemble</span>
+            <span>{tr("viewer.dragHint")}</span>
           </div>
         )}
       </div>
@@ -384,7 +387,7 @@ export function ExplodedEngineViewer({ explodeProgress, className = "" }: Explod
         <button
           type="button"
           onClick={toggleAutoCycle}
-          title={isAutoCycle ? "Pause Animation Cycle" : "Play Animation Cycle"}
+          title={tr(isAutoCycle ? "viewer.pauseTitle" : "viewer.playTitle")}
           className={`flex items-center gap-1.5 rounded-lg px-2.5 py-1 font-mono text-xs font-semibold transition-colors ${
             isAutoCycle
               ? "bg-brand-red/10 text-brand-red hover:bg-brand-red/20"
@@ -394,19 +397,19 @@ export function ExplodedEngineViewer({ explodeProgress, className = "" }: Explod
           {isAutoCycle ? (
             <>
               <Pause className="size-3.5" />
-              <span>PAUSE</span>
+              <span>{tr("viewer.pause")}</span>
             </>
           ) : (
             <>
               <Play className="size-3.5" />
-              <span>AUTO</span>
+              <span>{tr("viewer.auto")}</span>
             </>
           )}
         </button>
 
         {/* Manual Progress Slider */}
-        <div className="flex flex-1 items-center gap-2">
-          <span className="font-mono text-[9px] font-bold text-slate-400 uppercase">Fixed</span>
+        <div dir="ltr" className="flex flex-1 items-center gap-2">
+          <span className="font-mono text-[9px] font-bold text-slate-400 uppercase">{tr("viewer.fixed")}</span>
           <input
             type="range"
             min="0"
@@ -414,10 +417,10 @@ export function ExplodedEngineViewer({ explodeProgress, className = "" }: Explod
             step="0.01"
             value={progress}
             onChange={handleSliderChange}
-            aria-label="Explode progress slider"
+            aria-label={tr("viewer.sliderLabel")}
             className="h-1.5 w-full cursor-pointer appearance-none rounded-lg bg-slate-200 accent-brand-red"
           />
-          <span className="font-mono text-[9px] font-bold text-slate-400 uppercase">Exploded</span>
+          <span className="font-mono text-[9px] font-bold text-slate-400 uppercase">{tr("viewer.exploded")}</span>
         </div>
 
         {/* Quick Toggle Action Button */}
@@ -426,7 +429,7 @@ export function ExplodedEngineViewer({ explodeProgress, className = "" }: Explod
           onClick={toggleAssembleExplode}
           className="rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-1 font-mono text-xs font-bold text-slate-800 transition-colors hover:bg-brand-red hover:text-white"
         >
-          {t > 0.5 ? "ASSEMBLE" : "EXPLODE"}
+          {tr(t > 0.5 ? "viewer.assemble" : "viewer.explode")}
         </button>
       </div>
     </div>

@@ -4,6 +4,7 @@ import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { InquiryForm } from "@/components/forms/InquiryForm";
 import { categories } from "@/lib/data/categories";
+import { categoryKey } from "@/lib/data/catalog";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 export function EnquireSection() {
@@ -21,7 +22,10 @@ export function EnquireSection() {
             {t("products.enquireBody")}
           </p>
         </div>
-        <InquiryForm interestOptions={categories.map((c) => c.label)} tone="dark" />
+        <InquiryForm interestOptions={categories.map((c) => ({
+            value: c.label,
+            label: t(categoryKey(c.id), c.label),
+          }))} tone="dark" />
       </Container>
     </section>
   );

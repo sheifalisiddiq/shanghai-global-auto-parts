@@ -34,7 +34,7 @@ export default function ContactPage() {
             address: loc.address,
             telephone: loc.phone,
             email: contact.emails.primary,
-            openingHours: "Mo-Fr 08:00-21:00",
+            openingHours: "Sa-Th 08:00-20:30",
             url: `${siteConfig.url}/contact`,
           }}
         />

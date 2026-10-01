@@ -9,6 +9,7 @@ import { Logo } from "@/components/brand/Logo";
 import { contact } from "@/lib/data/company";
 import { categories } from "@/lib/data/categories";
 import { carBrands } from "@/lib/data/brands";
+import { brandName } from "@/lib/data/catalog";
 import { useLockBodyScroll } from "@/lib/hooks/useLockBodyScroll";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher";
@@ -18,7 +19,7 @@ export function MobileNav({ open, onClose }: { open: boolean; onClose: () => voi
   const panelRef = useRef<HTMLDivElement>(null);
   const linksRef = useRef<HTMLAnchorElement[]>([]);
   const [expanded, setExpanded] = useState<"parts" | "brands" | null>(null);
-  const { t } = useLanguage();
+  const { t, isRTL } = useLanguage();
 
   useLockBodyScroll(open);
 
@@ -75,7 +76,7 @@ export function MobileNav({ open, onClose }: { open: boolean; onClose: () => voi
           <button
             type="button"
             onClick={onClose}
-            aria-label="Close menu"
+            aria-label={t("lay.closeMenu", "Close menu")}
             className="flex size-9 items-center justify-center rounded-lg border border-white/20 bg-white/5 text-slate-300 hover:text-white cursor-pointer"
           >
             <X className="size-5" />
@@ -84,7 +85,7 @@ export function MobileNav({ open, onClose }: { open: boolean; onClose: () => voi
       </div>
 
       {/* Main Links */}
-      <nav className="mt-6 flex flex-col gap-2" aria-label="Mobile">
+      <nav className="mt-6 flex flex-col gap-2" aria-label={t("lay.mobileNav", "Mobile")}>
         <Link
           href="/"
           ref={(el) => {
@@ -190,7 +191,7 @@ export function MobileNav({ open, onClose }: { open: boolean; onClose: () => voi
                   onClick={onClose}
                   className="rounded-lg px-3 py-2 text-sm text-slate-300 hover:bg-white/10 hover:text-white"
                 >
-                  {brand.name}
+                  {brandName(brand, isRTL)}
                 </Link>
               ))}
             </div>
@@ -216,7 +217,7 @@ export function MobileNav({ open, onClose }: { open: boolean; onClose: () => voi
       {/* 1-Tap Action Buttons */}
       <div className="mt-8 space-y-2.5">
         <a
-          href="https://wa.me/97165335866?text=Hi%20Shanghai%20Global,%20I%20need%20a%20part%20quote%20for%20my%20vehicle."
+          href={`https://wa.me/97165335866?text=${encodeURIComponent(t("lay.waQuoteMsg", "Hi Shanghai Global, I need a part quote for my vehicle."))}`}
           target="_blank"
           rel="noopener noreferrer"
           className="flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-600 py-3 text-sm font-bold tracking-wide text-white shadow-lg transition-transform hover:bg-emerald-500"
@@ -231,14 +232,14 @@ export function MobileNav({ open, onClose }: { open: boolean; onClose: () => voi
             className="flex items-center justify-center gap-1.5 rounded-xl border border-white/15 bg-white/5 py-2.5 text-xs font-semibold tracking-wide text-white hover:bg-white/10"
           >
             <Phone className="size-3.5 text-brand-red" />
-            <span>Sharjah HQ</span>
+            <span>{t("lay.sharjahHq", "Sharjah HQ")}</span>
           </a>
           <a
             href="tel:+97126225133"
             className="flex items-center justify-center gap-1.5 rounded-xl border border-white/15 bg-white/5 py-2.5 text-xs font-semibold tracking-wide text-white hover:bg-white/10"
           >
             <Phone className="size-3.5 text-brand-red" />
-            <span>Abu Dhabi</span>
+            <span>{t("lay.abuDhabi", "Abu Dhabi")}</span>
           </a>
         </div>
       </div>
@@ -247,11 +248,11 @@ export function MobileNav({ open, onClose }: { open: boolean; onClose: () => voi
       <div className="mt-auto pt-6 border-t border-white/10 text-xs text-slate-400 space-y-1">
         <div className="flex items-center gap-1.5 text-slate-300">
           <ShieldCheck className="size-3.5 text-brand-red shrink-0" />
-          <span>Original &bull; OEM &bull; Aftermarket Chinese Parts</span>
+          <span>{t("lay.mobileRange", "Original • OEM • Aftermarket Chinese Parts")}</span>
         </div>
         <div className="flex items-center gap-1.5 text-[11px]">
           <MapPin className="size-3 text-brand-red shrink-0" />
-          <span>Sharjah &bull; Abu Dhabi &bull; Qatar Hub</span>
+          <span>{t("lay.mobileHubs", "Sharjah • Abu Dhabi • Qatar Hub")}</span>
         </div>
       </div>
     </div>

@@ -22,6 +22,7 @@ import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
+import type { TranslationKey } from "@/lib/i18n/translations";
 
 interface JobPosition {
   id: string;
@@ -134,28 +135,36 @@ const jobPositions: JobPosition[] = [
 const perks = [
   {
     icon: Award,
-    title: "Industry Leader",
-    description: "Work with the region's top specialist in Chinese automotive brands with rapid market expansion.",
+    id: "leader",
   },
   {
     icon: Globe2,
-    title: "International Reach",
-    description: "Collaborate with suppliers, logistics partners, and B2B clients across the GCC, Africa, and Eurasia.",
+    id: "reach",
   },
   {
     icon: Users,
-    title: "Growth & Mobility",
-    description: "We promote from within. Accelerate your career from technical roles into management positions.",
+    id: "growth",
   },
   {
     icon: ShieldCheck,
-    title: "Full GCC Benefits",
-    description: "Competitive tax-free packages, annual flight tickets, comprehensive health insurance, and UAE visa.",
+    id: "benefits",
   },
 ];
 
 export function CareersContent() {
-  const { t } = useLanguage();
+  const { t: rawT } = useLanguage();
+  const t = (key: string) => rawT(key as TranslationKey);
+  const jt = (job: JobPosition, f: string) => t(`career.job.${job.id}.${f}`);
+  const expLabels: Record<string, string> = {
+    "Less than 1 Year": t("career.form.exp.lt1"),
+    "1-3 Years": t("career.form.exp.1to3"),
+    "3-5 Years": t("career.form.exp.3to5"),
+    "5+ Years": t("career.form.exp.5plus"),
+  };
+  const positionLabel = (value: string) => {
+    const job = jobPositions.find((j) => j.title === value);
+    return job ? jt(job, "title") : t("career.form.general");
+  };
   const [activeTab, setActiveTab] = useState<string>("all");
   const [selectedJob, setSelectedJob] = useState<JobPosition | null>(null);
 
@@ -190,13 +199,13 @@ export function CareersContent() {
     const ext = file.name.slice(file.name.lastIndexOf(".")).toLowerCase();
     if (!ALLOWED_RESUME_EXTENSIONS.includes(ext)) {
       setResumeFile(null);
-      setResumeError("Please upload a PDF, DOC, or DOCX file.");
+      setResumeError(t("career.err.type"));
       e.target.value = "";
       return;
     }
     if (file.size > MAX_RESUME_SIZE) {
       setResumeFile(null);
-      setResumeError("File is too large — max 5MB.");
+      setResumeError(t("career.err.size"));
       e.target.value = "";
       return;
     }
@@ -207,7 +216,7 @@ export function CareersContent() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!resumeFile) {
-      setResumeError("Please attach your resume.");
+      setResumeError(t("career.err.missing"));
       return;
     }
     setSubmitted(true);
@@ -219,7 +228,7 @@ export function CareersContent() {
       <section className="relative flex min-h-[620px] items-center overflow-hidden bg-slate-950 py-16 text-white sm:py-24 lg:min-h-[680px] lg:py-28">
         <Image
           src="/images/careers/automotive-engineer-hero.png"
-          alt="Automotive engineer measuring an engine component at a quality-control workstation"
+          alt={t("career.heroAlt")}
           fill
           priority
           sizes="100vw"
@@ -234,7 +243,7 @@ export function CareersContent() {
           <div className="max-w-3xl">
             <span className="font-ui mb-4 inline-flex items-center gap-2 rounded-full border border-brand-red/30 bg-brand-red/10 px-3.5 py-1 text-xs tracking-widest text-brand-red uppercase backdrop-blur-sm">
               <Sparkles className="size-3.5 text-brand-red" />
-              <span>We Are Hiring</span>
+              <span>{t("career.hiring")}</span>
             </span>
             <h1 className="h1-hero drop-shadow-lg">
               {t("careers.title")}
@@ -267,9 +276,9 @@ export function CareersContent() {
       <section className="bg-white py-16 lg:py-24">
         <Container>
           <SectionHeading
-            eyebrow="Why Join Us"
-            title="Empowering Automotive Talent Across the GCC"
-            description="We combine deep technical expertise in OEM components with modern logistics technology and a supportive work culture."
+            eyebrow={t("career.perks.eyebrow")}
+            title={t("career.perks.title")}
+            description={t("career.perks.desc")}
             className="max-w-3xl"
           />
 
@@ -278,16 +287,16 @@ export function CareersContent() {
               const Icon = perk.icon;
               return (
                 <div
-                  key={perk.title}
+                  key={perk.id}
                   className="group rounded-2xl border border-slate-200 bg-slate-50/70 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-red/30 hover:bg-white hover:shadow-xl hover:shadow-slate-200/50"
                 >
                   <div className="flex size-12 items-center justify-center rounded-xl bg-brand-red/10 text-brand-red group-hover:bg-brand-red group-hover:text-white transition-colors">
                     <Icon className="size-6" />
                   </div>
                   <h3 className="font-ui mt-6 text-lg font-bold text-ink uppercase tracking-wide">
-                    {perk.title}
+                    {t(`career.perk.${perk.id}.title`)}
                   </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-steel-dark">{perk.description}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-steel-dark">{t(`career.perk.${perk.id}.desc`)}</p>
                 </div>
               );
             })}
@@ -300,19 +309,19 @@ export function CareersContent() {
         <Container>
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <SectionHeading
-              eyebrow="Current Vacancies"
-              title="Explore Open Roles"
-              description="Click on any position to view key responsibilities and submit your application directly."
+              eyebrow={t("career.open.eyebrow")}
+              title={t("career.open.title")}
+              description={t("career.open.desc")}
             />
 
             {/* Department Filter Tabs */}
             <div className="flex flex-wrap gap-2 rounded-xl border border-slate-200 bg-white p-1.5 shadow-sm">
               {[
-                { id: "all", label: "All Roles" },
-                { id: "sales", label: "Sales" },
-                { id: "warehouse", label: "Warehouse" },
-                { id: "logistics", label: "Logistics" },
-                { id: "procurement", label: "Procurement" },
+                { id: "all", label: t("career.tab.all") },
+                { id: "sales", label: t("career.tab.sales") },
+                { id: "warehouse", label: t("career.tab.warehouse") },
+                { id: "logistics", label: t("career.tab.logistics") },
+                { id: "procurement", label: t("career.tab.procurement") },
               ].map((tab) => (
                 <button
                   key={tab.id}
@@ -341,22 +350,22 @@ export function CareersContent() {
                     <div>
                       <div className="flex flex-wrap items-center gap-2">
                         <span className="font-ui rounded-md bg-brand-red/10 px-2.5 py-1 text-[11px] font-bold tracking-wider text-brand-red uppercase">
-                          {job.departmentLabel}
+                          {jt(job, "dept")}
                         </span>
                         <span className="flex items-center gap-1 text-xs text-slate-500">
                           <MapPin className="size-3.5 text-slate-400" />
-                          <span>{job.location}</span>
+                          <span>{jt(job, "loc")}</span>
                         </span>
                         <span className="flex items-center gap-1 text-xs text-slate-500">
                           <Clock className="size-3.5 text-slate-400" />
-                          <span>{job.type}</span>
+                          <span>{jt(job, "type")}</span>
                         </span>
                       </div>
                       <h3 className="font-display mt-3 text-2xl font-black text-ink uppercase tracking-[-0.005em] sm:tracking-[-0.02em] sm:text-3xl">
-                        {job.title}
+                        {jt(job, "title")}
                       </h3>
                       <p className="mt-2 text-sm leading-relaxed text-steel-dark max-w-3xl">
-                        {job.overview}
+                        {jt(job, "overview")}
                       </p>
                     </div>
 
@@ -366,10 +375,10 @@ export function CareersContent() {
                         onClick={() => setSelectedJob(selectedJob?.id === job.id ? null : job)}
                         className="font-ui inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-slate-50 px-5 py-3 text-xs font-bold text-ink uppercase transition-colors hover:border-ink hover:bg-white cursor-pointer"
                       >
-                        <span>{selectedJob?.id === job.id ? "Hide Details" : "View Role Details"}</span>
+                        <span>{selectedJob?.id === job.id ? t("career.hideDetails") : t("career.viewDetails")}</span>
                         <ArrowRight
-                          className={`size-4 transition-transform duration-200 ${
-                            selectedJob?.id === job.id ? "rotate-90" : ""
+                          className={`size-4 transition-transform duration-200 rtl:rotate-180 ${
+                            selectedJob?.id === job.id ? "rotate-90 rtl:rotate-90" : ""
                           }`}
                         />
                       </button>
@@ -381,7 +390,7 @@ export function CareersContent() {
                         }
                         className="font-ui inline-flex items-center gap-2 rounded-xl bg-brand-red px-5 py-3 text-xs font-bold text-white uppercase transition-colors hover:bg-ink cursor-pointer"
                       >
-                        <span>Apply Now</span>
+                        <span>{t("career.applyNow")}</span>
                       </a>
                     </div>
                   </div>
@@ -392,13 +401,13 @@ export function CareersContent() {
                       <div className="grid gap-6 md:grid-cols-2">
                         <div>
                           <h4 className="font-ui text-xs font-bold uppercase tracking-wider text-brand-red mb-3">
-                            Key Responsibilities
+                            {t("career.responsibilities")}
                           </h4>
                           <ul className="space-y-2">
-                            {job.responsibilities.map((resp, i) => (
+                            {job.responsibilities.map((_, i) => (
                               <li key={i} className="flex items-start gap-2 text-xs leading-relaxed text-steel-dark">
                                 <CheckCircle2 className="size-4 shrink-0 text-brand-red mt-0.5" />
-                                <span>{resp}</span>
+                                <span>{jt(job, `r${i + 1}`)}</span>
                               </li>
                             ))}
                           </ul>
@@ -406,13 +415,13 @@ export function CareersContent() {
 
                         <div>
                           <h4 className="font-ui text-xs font-bold uppercase tracking-wider text-brand-red mb-3">
-                            Role Requirements
+                            {t("career.requirements")}
                           </h4>
                           <ul className="space-y-2">
-                            {job.requirements.map((req, i) => (
+                            {job.requirements.map((_, i) => (
                               <li key={i} className="flex items-start gap-2 text-xs leading-relaxed text-steel-dark">
                                 <CheckCircle2 className="size-4 shrink-0 text-brand-red mt-0.5" />
-                                <span>{req}</span>
+                                <span>{jt(job, `q${i + 1}`)}</span>
                               </li>
                             ))}
                           </ul>
@@ -421,16 +430,16 @@ export function CareersContent() {
 
                       <div className="mt-6 flex flex-wrap items-center justify-between gap-4 rounded-xl bg-slate-50 p-4">
                         <div className="text-xs text-slate-600">
-                          <span className="font-bold text-ink">Required Experience:</span> {job.experience}
+                          <span className="font-bold text-ink">{t("career.requiredExp")}</span> {jt(job, "exp")}
                         </div>
                         <a
-                          href={`mailto:info@shanghaiglobalauto.com?subject=Application%20for%20${encodeURIComponent(
-                            job.title,
+                          href={`mailto:info@shanghaiglobalauto.com?subject=${encodeURIComponent(
+                            `${t("career.mailSubject")} ${jt(job, "title")}`,
                           )}`}
                           className="inline-flex items-center gap-1.5 text-xs font-bold text-brand-red hover:text-ink"
                         >
                           <Mail className="size-4" />
-                          <span>Direct Email Application for {job.title}</span>
+                          <span>{t("career.directEmail")} {jt(job, "title")}</span>
                         </a>
                       </div>
                     </div>
@@ -448,13 +457,13 @@ export function CareersContent() {
           <div className="grid gap-12 lg:grid-cols-12 lg:items-start">
             <div className="lg:col-span-5">
               <span className="font-ui mb-3 block text-xs tracking-[0.3em] text-brand-red uppercase font-bold">
-                Quick Application
+                {t("career.apply.eyebrow")}
               </span>
               <h2 className="font-display text-3xl font-black uppercase text-ink tracking-[-0.005em] sm:tracking-[-0.02em] sm:text-4xl lg:text-5xl">
-                Submit your CV to our recruitment team.
+                {t("career.apply.title")}
               </h2>
               <p className="mt-4 text-sm leading-relaxed text-steel-dark">
-                Fill out the form below or send your resume directly to our HR team. We review applications continuously for sales, logistics, warehouse, and catalog roles.
+                {t("career.apply.desc")}
               </p>
 
               <div className="mt-8 space-y-4">
@@ -463,16 +472,16 @@ export function CareersContent() {
                     <MessageCircle className="size-5" />
                   </div>
                   <div>
-                    <div className="font-bold text-ink text-sm">WhatsApp Recruitment Line</div>
-                    <p className="text-xs text-slate-600 mt-0.5">Chat directly with our team regarding career opportunities.</p>
+                    <div className="font-bold text-ink text-sm">{t("career.wa.title")}</div>
+                    <p className="text-xs text-slate-600 mt-0.5">{t("career.wa.desc")}</p>
                     <a
-                      href="https://wa.me/97165335866?text=Hi%20Shanghai%20Global,%20I%20would%20like%20to%20apply%20for%20a%20career%20opportunity."
+                      href={`https://wa.me/97165335866?text=${encodeURIComponent(t("career.wa.text"))}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="mt-2 inline-flex items-center gap-1 text-xs font-bold text-emerald-600 hover:underline"
                     >
-                      <span>Message on WhatsApp</span>
-                      <ArrowRight className="size-3.5" />
+                      <span>{t("career.wa.cta")}</span>
+                      <ArrowRight className="size-3.5 rtl:rotate-180" />
                     </a>
                   </div>
                 </div>
@@ -482,14 +491,14 @@ export function CareersContent() {
                     <Mail className="size-5" />
                   </div>
                   <div>
-                    <div className="font-bold text-ink text-sm">HR Email Address</div>
+                    <div className="font-bold text-ink text-sm">{t("career.hr.title")}</div>
                     <p className="text-xs text-slate-600 mt-0.5">info@shanghaiglobalauto.com</p>
                     <a
-                      href="mailto:info@shanghaiglobalauto.com?subject=General%20Career%20Application"
+                      href={`mailto:info@shanghaiglobalauto.com?subject=${encodeURIComponent(t("career.hr.subject"))}`}
                       className="mt-2 inline-flex items-center gap-1 text-xs font-bold text-brand-red hover:underline"
                     >
-                      <span>Send Direct Email</span>
-                      <ArrowRight className="size-3.5" />
+                      <span>{t("career.hr.cta")}</span>
+                      <ArrowRight className="size-3.5 rtl:rotate-180" />
                     </a>
                   </div>
                 </div>
@@ -504,10 +513,10 @@ export function CareersContent() {
                       <CheckCircle2 className="size-10" />
                     </div>
                     <h3 className="font-display mt-6 text-2xl font-black text-ink uppercase tracking-[-0.005em] sm:tracking-[-0.02em]">
-                      Application Received!
+                      {t("career.success.title")}
                     </h3>
                     <p className="mt-3 text-sm leading-relaxed text-slate-600 max-w-md mx-auto">
-                      Thank you for applying to Shanghai Global Auto Parts, <strong className="text-ink">{formData.name}</strong>. Our HR & operations team will review your application for the <strong className="text-ink">{formData.position}</strong> position and contact you shortly.
+                      {t("career.success.a")} <strong className="text-ink">{formData.name}</strong>. {t("career.success.b")} <strong className="text-ink">{positionLabel(formData.position)}</strong> {t("career.success.c")}
                     </p>
                     <button
                       type="button"
@@ -518,33 +527,33 @@ export function CareersContent() {
                       }}
                       className="font-ui mt-6 inline-flex items-center gap-2 rounded-xl bg-brand-red px-6 py-3 text-xs font-bold text-white uppercase cursor-pointer hover:bg-ink transition-colors"
                     >
-                      Submit Another Application
+                      {t("career.success.again")}
                     </button>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-4">
                     <h3 className="font-ui text-lg font-bold text-ink uppercase tracking-wide mb-2">
-                      Candidate Profile Form
+                      {t("career.form.title")}
                     </h3>
 
                     <div className="grid gap-4 sm:grid-cols-2">
                       <div>
                         <label className="block text-xs font-bold text-ink uppercase tracking-wider mb-1.5">
-                          Full Name *
+                          {t("career.form.name")}
                         </label>
                         <input
                           type="text"
                           required
                           value={formData.name}
                           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          placeholder="e.g. Ahmed Al-Mansoori"
+                          placeholder={t("career.form.namePh")}
                           className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-ink outline-none transition-colors focus:border-brand-red"
                         />
                       </div>
 
                       <div>
                         <label className="block text-xs font-bold text-ink uppercase tracking-wider mb-1.5">
-                          Email Address *
+                          {t("career.form.email")}
                         </label>
                         <input
                           type="email"
@@ -560,7 +569,7 @@ export function CareersContent() {
                     <div className="grid gap-4 sm:grid-cols-2">
                       <div>
                         <label className="block text-xs font-bold text-ink uppercase tracking-wider mb-1.5">
-                          Phone / WhatsApp *
+                          {t("career.form.phone")}
                         </label>
                         <input
                           type="tel"
@@ -574,24 +583,24 @@ export function CareersContent() {
 
                       <div>
                         <label className="block text-xs font-bold text-ink uppercase tracking-wider mb-1.5">
-                          Years of Experience
+                          {t("career.form.exp")}
                         </label>
                         <select
                           value={formData.experience}
                           onChange={(e) => setFormData({ ...formData, experience: e.target.value })}
                           className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-ink outline-none transition-colors focus:border-brand-red"
                         >
-                          <option value="Less than 1 Year">Less than 1 Year</option>
-                          <option value="1-3 Years">1-3 Years</option>
-                          <option value="3-5 Years">3-5 Years</option>
-                          <option value="5+ Years">5+ Years</option>
+                          <option value="Less than 1 Year">{expLabels["Less than 1 Year"]}</option>
+                          <option value="1-3 Years">{expLabels["1-3 Years"]}</option>
+                          <option value="3-5 Years">{expLabels["3-5 Years"]}</option>
+                          <option value="5+ Years">{expLabels["5+ Years"]}</option>
                         </select>
                       </div>
                     </div>
 
                     <div>
                       <label className="block text-xs font-bold text-ink uppercase tracking-wider mb-1.5">
-                        Target Position *
+                        {t("career.form.position")}
                       </label>
                       <select
                         value={formData.position}
@@ -600,16 +609,16 @@ export function CareersContent() {
                       >
                         {jobPositions.map((job) => (
                           <option key={job.id} value={job.title}>
-                            {job.title} ({job.departmentLabel})
+                            {jt(job, "title")} ({jt(job, "dept")})
                           </option>
                         ))}
-                        <option value="General Open Application">Other / General Open Application</option>
+                        <option value="General Open Application">{t("career.form.general")}</option>
                       </select>
                     </div>
 
                     <div>
                       <label className="block text-xs font-bold text-ink uppercase tracking-wider mb-1.5">
-                        Resume *
+                        {t("career.form.resume")}
                       </label>
                       {resumeFile ? (
                         <div className="flex items-center justify-between rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-ink">
@@ -620,7 +629,7 @@ export function CareersContent() {
                           <button
                             type="button"
                             onClick={() => setResumeFile(null)}
-                            aria-label="Remove resume"
+                            aria-label={t("career.form.removeResume")}
                             className="ml-2 flex size-6 shrink-0 items-center justify-center rounded-md text-slate-400 hover:bg-slate-100 hover:text-ink cursor-pointer"
                           >
                             <X className="size-4" />
@@ -629,7 +638,7 @@ export function CareersContent() {
                       ) : (
                         <label className="flex w-full cursor-pointer items-center gap-2 rounded-xl border border-dashed border-slate-300 bg-white px-4 py-3 text-sm text-slate-500 transition-colors hover:border-brand-red hover:text-brand-red">
                           <Paperclip className="size-4 shrink-0" />
-                          <span>Choose file (PDF, DOC, DOCX — max 5MB)</span>
+                          <span>{t("career.form.choose")}</span>
                           <input
                             type="file"
                             accept=".pdf,.doc,.docx"
@@ -645,13 +654,13 @@ export function CareersContent() {
 
                     <div>
                       <label className="block text-xs font-bold text-ink uppercase tracking-wider mb-1.5">
-                        Additional Notes (optional)
+                        {t("career.form.notes")}
                       </label>
                       <textarea
                         rows={4}
                         value={formData.notes}
                         onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                        placeholder="Tell us about your background in spare parts, key skills, or anything else you'd like us to know..."
+                        placeholder={t("career.form.notesPh")}
                         className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-ink outline-none transition-colors focus:border-brand-red"
                       />
                     </div>
@@ -661,11 +670,11 @@ export function CareersContent() {
                       className="font-ui flex w-full items-center justify-center gap-2 rounded-xl bg-brand-red py-4 text-xs font-bold text-white uppercase tracking-wider transition-colors hover:bg-ink cursor-pointer"
                     >
                       <Send className="size-4" />
-                      <span>Submit Application</span>
+                      <span>{t("career.form.submit")}</span>
                     </button>
 
                     <p className="text-[11px] text-slate-500 text-center mt-2">
-                      By submitting, you agree to allow Shanghai Global Auto Parts to contact you regarding your application.
+                      {t("career.form.consent")}
                     </p>
                   </form>
                 )}
@@ -680,21 +689,21 @@ export function CareersContent() {
         <Container className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
           <div className="max-w-2xl">
             <span className="font-ui text-xs tracking-[0.25em] text-brand-red uppercase font-bold">
-              Got Questions?
+              {t("career.cta.eyebrow")}
             </span>
             <h2 className="font-display mt-3 text-3xl font-black uppercase tracking-[-0.005em] sm:tracking-[-0.02em] sm:text-4xl">
-              Connect directly with our recruitment desk.
+              {t("career.cta.title")}
             </h2>
             <p className="mt-3 text-sm leading-relaxed text-slate-400">
-              For urgent inquiries or supplier partnerships, reach out to our team in Sharjah.
+              {t("career.cta.desc")}
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
             <Button href="mailto:info@shanghaiglobalauto.com" className="bg-brand-red hover:bg-white hover:text-ink">
-              Email HR
+              {t("career.cta.email")}
             </Button>
             <Button href="/contact" variant="outline" className="border-white text-white hover:bg-white hover:text-ink">
-              Our Locations
+              {t("career.cta.locations")}
             </Button>
           </div>
         </Container>

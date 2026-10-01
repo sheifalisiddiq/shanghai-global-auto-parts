@@ -81,7 +81,9 @@ export const solutions = {
 export interface Certification {
   id: string;
   name: string;
+  nameAr?: string;
   description: string;
+  descriptionAr?: string;
 }
 
 // TODO: placeholder entries — replace with the company's real certificates.
@@ -90,28 +92,38 @@ export const certifications: Certification[] = [
     id: "iso",
     name: "ISO 9001",
     description: "Quality management standards across sourcing and supply.",
+    nameAr: "آيزو 9001",
+    descriptionAr: "معايير إدارة الجودة في جميع مراحل التوريد والإمداد.",
   },
   {
     id: "origin",
     name: "Certificate of Origin",
     description: "Export documentation provided with every shipment.",
+    nameAr: "شهادة المنشأ",
+    descriptionAr: "مستندات التصدير متوفرة مع كل شحنة.",
   },
   {
     id: "hs",
     name: "HS Code Compliance",
     description: "Accurate customs classification for smooth clearance.",
+    nameAr: "الالتزام برموز النظام المنسق (HS)",
+    descriptionAr: "تصنيف جمركي دقيق لتسهيل إجراءات التخليص.",
   },
   {
     id: "warranty",
     name: "Product Warranty",
     description: "Every part quality-checked before dispatch and backed by warranty.",
+    nameAr: "ضمان المنتجات",
+    descriptionAr: "يخضع كل منتج لفحص الجودة قبل الشحن ويشمله الضمان.",
   },
 ];
 
 export interface LocationInfo {
   id: string;
   label: string;
+  labelAr?: string;
   address: string;
+  addressAr?: string;
   phone: string;
 }
 
@@ -119,6 +131,8 @@ export const locations: LocationInfo[] = [
   {
     id: "sharjah",
     label: "Sharjah (HQ)",
+    labelAr: "الشارقة (المقر الرئيسي)",
+    addressAr: "مجمع النايلي - محل رقم B1 - المنطقة الصناعية 13 - الشارقة، الإمارات العربية المتحدة",
     address:
       "Al Nayeli Complex - Shop No-B1 - Industrial Area 13 - Industrial Area - Sharjah, United Arab Emirates",
     phone: "+971 6 533 5866",
@@ -126,12 +140,16 @@ export const locations: LocationInfo[] = [
   {
     id: "abudhabi",
     label: "Abu Dhabi",
+    labelAr: "أبوظبي",
+    addressAr: "محل رقم 4 - شارع البيس 8 - مصفح - M14 - أبوظبي، الإمارات العربية المتحدة",
     address: "Shop No.4 - Al Bees 8 St - Musaffah - M14 - Abu Dhabi, United Arab Emirates",
     phone: "+971 2 622 5133",
   },
   {
     id: "qatar",
     label: "Qatar",
+    labelAr: "قطر",
+    addressAr: "6CWJ+J6، شارع الفروسية، الريان، قطر",
     address: "6CWJ+J6, Furousiya St, Al-Rayyan, Qatar",
     phone: "+971 2 622 5133",
   },
@@ -143,8 +161,11 @@ export const contact = {
     primary: "info@shanghaiglobalauto.com",
     secondary: "shanghaiglobal.uae@gmail.com",
   },
-  hours: "Mon – Fri: 8AM – 9PM",
+  hoursAr: "السبت – الخميس: 8:00 ص – 8:30 م",
+  hours: "Sat – Thu: 8:00 AM – 8:30 PM",
   locationsLine: "Dubai | Sharjah | Qatar | Abu Dhabi",
+  copyrightAr:
+    "© 2026 شنغهاي جلوبال لقطع غيار السيارات. جميع الحقوق محفوظة. بدعم من شنغهاي جلوبال أوتو",
   copyright:
     "© 2026 Shanghai Global Auto Parts. All Rights Reserved. Powered By Shanghai Global Auto",
 };
@@ -157,6 +178,7 @@ export const googleRating = {
 export interface Review {
   id: string;
   author: string;
+  authorAr?: string;
   quote: string;
   quoteAr?: string;
   meta?: string;
@@ -167,6 +189,7 @@ export const reviews: Review[] = [
   {
     id: "aiteqa",
     author: "Marketing Aiteqa",
+    authorAr: "التسويق عتيقة",
     quote:
       "Their customer service is top-notch — they truly care about treating customers right and finding real solutions. The part I needed for my MG was unavailable everywhere else, but they tracked down the exact right one for me.",
     quoteAr:
@@ -177,6 +200,7 @@ export const reviews: Review[] = [
   {
     id: "roshan",
     author: "Roshan Mashood",
+    authorAr: "روشان مشهود",
     quote:
       "Reliable supplier with a great range of high quality and durable auto parts. Their team is professional and helpful, ensuring you get the right products at good prices. Shipping is fast and efficient.",
     quoteAr:
@@ -185,6 +209,7 @@ export const reviews: Review[] = [
   {
     id: "basaweshwar",
     author: "Basaweshwar Chitwadgi",
+    authorAr: "باساويشوار شيتوادجي",
     quote:
       "Amazing experience! Great collection and most parts are easily available. The staff is very helpful and their hospitality is excellent, good guidance, and overall a smooth experience.",
     quoteAr:
@@ -195,6 +220,7 @@ export const reviews: Review[] = [
   {
     id: "salwa",
     author: "Salwa Samreen",
+    authorAr: "سلوى سمرين",
     quote:
       "Always get high-quality, dependable Chinese car parts here. The service is consistently professional — his expert recommendations are spot on, saving me both time and money. The best auto parts shop in UAE for Chinese vehicle spare parts!",
     quoteAr:
@@ -205,6 +231,7 @@ export const reviews: Review[] = [
   {
     id: "basil",
     author: "Basil Varghese",
+    authorAr: "باسل فرغيز",
     quote:
       "Outstanding service! Finally, a dependable source for Chinese car parts. They've got it all, from common to rare parts, and they source them quickly. Knowledgeable and friendly staff, fair prices, and top-notch quality.",
     quoteAr:
@@ -215,6 +242,7 @@ export const reviews: Review[] = [
   {
     id: "chris",
     author: "Chris Philip",
+    authorAr: "كريس فيليب",
     quote:
       "Exceptional auto parts shop with a truly global reach! Their seamless delivery service to various parts of the world is unmatched. Top-notch products, reliable shipping, and a customer-friendly approach.",
     quoteAr:

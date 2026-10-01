@@ -39,7 +39,7 @@ export function ProductCard({ product, href }: { product: Product; href?: string
       <div className="relative aspect-square overflow-hidden bg-gradient-to-b from-slate-50 via-slate-100/40 to-slate-50/60 border-b border-slate-100">
         <Image
           src={product.image.src}
-          alt={product.image.alt}
+          alt={isRTL && product.nameAr ? product.nameAr : product.image.alt}
           fill
           sizes="(min-width: 1024px) 25vw, (min-width: 640px) 45vw, 90vw"
           className="object-cover transition-transform duration-500 ease-out group-hover:scale-106"
@@ -79,7 +79,7 @@ export function ProductCard({ product, href }: { product: Product; href?: string
         {/* Footer Meta & Micro-Action */}
         <div className="mt-3 flex items-center justify-between border-t border-slate-100 pt-3">
           <span className="text-[11px] font-medium text-slate-400">
-            {brands.length > 0 ? brands.slice(0, 2).join(", ") : "OEM Quality"}
+            {brands.length > 0 ? brands.slice(0, 2).join(", ") : t("misc.product.oemQuality")}
           </span>
           <span className="flex size-7 items-center justify-center rounded-full bg-slate-100 text-slate-600 transition-all duration-200 group-hover:bg-brand-red group-hover:text-white">
             <ArrowUpRight className="size-3.5 rtl:rotate-[-90deg]" />

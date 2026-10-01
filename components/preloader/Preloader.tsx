@@ -5,11 +5,13 @@ import { gsap } from "@/lib/gsap/registerGSAP";
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 import { useLockBodyScroll } from "@/lib/hooks/useLockBodyScroll";
 import { PreloaderMark } from "./PreloaderMark";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { preloaderState } from "@/lib/preloader/state";
 
 export const PRELOADER_DONE_EVENT = "preloader:done";
 
 export function Preloader() {
+  const { t } = useLanguage();
   const [active, setActive] = useState(true);
   const reducedMotion = useReducedMotion();
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -96,7 +98,7 @@ export function Preloader() {
       className="bg-ink fixed inset-0 z-[100] flex items-center justify-center"
       role="status"
       aria-live="polite"
-      aria-label="Loading Shanghai Global Auto Parts"
+      aria-label={t("viewer.preloaderLabel")}
     >
       <PreloaderMark pathRef={pathRef} wordRef={wordRef} gaugeRef={gaugeRef} ticksRef={ticksRef} />
     </div>

@@ -8,13 +8,14 @@ import { cn } from "@/lib/utils/cn";
 type Status = "idle" | "submitting" | "success" | "error" | "fallback";
 
 import { useLanguage } from "@/lib/i18n/LanguageContext";
+import type { TranslationKey } from "@/lib/i18n/translations";
 
 export function InquiryForm({
   interestOptions,
   tone = "light",
   className,
 }: {
-  interestOptions?: string[];
+  interestOptions?: (string | { value: string; label: string })[];
   tone?: "light" | "dark";
   className?: string;
 }) {
@@ -34,12 +35,12 @@ export function InquiryForm({
   );
 
   const [status, setStatus] = useState<Status>("idle");
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [errorCode, setErrorCode] = useState<string | null>(null);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setStatus("submitting");
-    setErrorMessage(null);
+    setErrorCode(null);
 
     const form = new FormData(e.currentTarget);
     const payload = {
@@ -66,13 +67,19 @@ export function InquiryForm({
         setStatus("fallback");
         return;
       }
-      setErrorMessage(data.error ?? "Something went wrong. Please try again.");
+      const fieldErrors = Object.values(data.issues?.fieldErrors ?? {}).flat() as string[];
+      setErrorCode(fieldErrors[0] ?? data.code ?? "generic");
       setStatus("error");
     } catch {
-      setErrorMessage("Something went wrong. Please try again.");
+      setErrorCode("generic");
       setStatus("error");
     }
   }
+
+  const errorText = t(
+    `misc.form.err.${errorCode ?? "generic"}` as TranslationKey,
+    t("misc.form.err.generic"),
+  );
 
   if (status === "success") {
     return (
@@ -90,9 +97,9 @@ export function InquiryForm({
             <CheckCircle2 className="size-6" />
           </div>
           <div>
-            <h4 className="text-base font-bold">Enquiry Received Successfully</h4>
+            <h4 className="text-base font-bold">{t("misc.form.successTitle")}</h4>
             <p className="mt-1 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-              Thank you for reaching out. Our parts specialist is reviewing your request and will contact you within 0–2 hours with pricing and availability.
+              {t("misc.form.successBody")}
             </p>
           </div>
         </div>
@@ -113,8 +120,8 @@ export function InquiryForm({
           <AlertTriangle className="text-brand-red mt-0.5 size-5 shrink-0" />
           <p className="text-ink text-sm">
             {status === "fallback"
-              ? "Online submission isn't available right now — reach our parts desk directly for an instant quote."
-              : errorMessage}
+              ? t("misc.form.fallback")
+              : errorText}
           </p>
         </div>
         <div className="flex flex-wrap gap-3">
@@ -128,7 +135,7 @@ export function InquiryForm({
             href={`mailto:${contact.emails.primary}`}
             className="inline-flex items-center gap-2 rounded-xl border border-slate-300 px-5 py-3 text-xs font-bold tracking-wider text-ink uppercase transition-colors hover:border-brand-red hover:text-brand-red"
           >
-            <Mail className="size-3.5" /> Email Us
+            <Mail className="size-3.5" /> {t("misc.form.emailUs")}
           </a>
         </div>
       </div>
@@ -198,11 +205,14 @@ export function InquiryForm({
                 <option value="" disabled>
                   {t("form.selectCategory", "Select category...")}
                 </option>
-                {interestOptions.map((opt) => (
-                  <option key={opt} value={opt}>
-                    {opt}
-                  </option>
-                ))}
+                {interestOptions.map((opt) => {
+                  const { value, label } = typeof opt === "string" ? { value: opt, label: opt } : opt;
+                  return (
+                    <option key={value} value={value}>
+                      {label}
+                    </option>
+                  );
+                })}
               </select>
             ) : (
               <input

@@ -21,22 +21,21 @@ import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
 import { Pagination } from "@/components/products/Pagination";
-import { blogPosts, type BlogPost } from "@/lib/data/blogs";
+import {
+  blogPosts,
+  blogCategories,
+  blogCategoryKey,
+  localizePost,
+} from "@/lib/data/blogs";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 
-const categories = [
-  "All",
-  "Fitment & VIN",
-  "Sourcing & Original",
-  "Maintenance",
-  "Operations & QC",
-  "Logistics & Trade",
-];
+const categories = ["All", ...blogCategories] as const;
 
 const PAGE_SIZE = 6;
 
 export function BlogsContent() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const posts = blogPosts.map((p) => localizePost(p, language));
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [page, setPage] = useState(1);
@@ -44,16 +43,22 @@ export function BlogsContent() {
   const [subscribed, setSubscribed] = useState(false);
   const [newsletterEmail, setNewsletterEmail] = useState("");
 
-  const featuredPost = blogPosts.find((post) => post.featured) || blogPosts[0];
+  const featuredPost = posts.find((post) => post.featured) || posts[0];
+  const catLabel = (cat: string) =>
+    cat === "All"
+      ? t("blog.cat.all")
+      : t(blogCategoryKey[cat as keyof typeof blogCategoryKey]);
+  const q = searchQuery.toLowerCase();
 
-  const filteredPosts = blogPosts.filter((post) => {
+  const filteredPosts = posts.filter((post) => {
     const matchesCategory =
       selectedCategory === "All" || post.category === selectedCategory;
     const matchesSearch =
       searchQuery === "" ||
-      post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      post.tags.some((tag) => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+      post.title.toLowerCase().includes(q) ||
+      post.excerpt.toLowerCase().includes(q) ||
+      catLabel(post.category).toLowerCase().includes(q) ||
+      post.tags.some((tag) => tag.toLowerCase().includes(q));
 
     return matchesCategory && matchesSearch;
   });
@@ -86,7 +91,7 @@ export function BlogsContent() {
           <div className="max-w-3xl">
             <span className="font-ui mb-4 inline-flex items-center gap-2 rounded-full border border-brand-red/30 bg-brand-red/10 px-3.5 py-1 text-xs tracking-widest text-brand-red uppercase">
               <BookOpen className="size-3.5 text-brand-red" />
-              <span>Technical Knowledge & Guides</span>
+              <span>{t("blog.heroBadge")}</span>
             </span>
             <h1 className="h1-hero">
               {t("blogs.title")}
@@ -97,7 +102,7 @@ export function BlogsContent() {
 
             {/* Search Bar */}
             <div className="mt-8 flex max-w-xl items-center rounded-2xl border border-white/20 bg-white/10 p-2 backdrop-blur-md focus-within:border-brand-red transition-colors">
-              <Search className="ml-3 size-5 text-slate-400 shrink-0" />
+              <Search className="ms-3 size-5 text-slate-400 shrink-0" aria-hidden />
               <input
                 type="text"
                 value={searchQuery}
@@ -106,6 +111,7 @@ export function BlogsContent() {
                   setPage(1);
                 }}
                 placeholder={t("blogs.searchPlaceholder")}
+                aria-label={t("blog.searchAria")}
                 className="w-full bg-transparent px-3 py-2 text-sm text-white placeholder-slate-400 outline-none"
               />
               {searchQuery && (
@@ -115,9 +121,10 @@ export function BlogsContent() {
                     setSearchQuery("");
                     setPage(1);
                   }}
-                  className="mr-2 text-xs font-bold text-slate-400 hover:text-white"
+                  aria-label={t("blog.clearAria")}
+                  className="me-2 text-xs font-bold text-slate-400 hover:text-white"
                 >
-                  Clear
+                  {t("blog.clear")}
                 </button>
               )}
             </div>
@@ -144,8 +151,8 @@ export function BlogsContent() {
                   sizes="(min-width: 1024px) 58vw, 100vw"
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
-                <div className="absolute top-4 left-4 rounded-lg bg-brand-red px-3 py-1 font-ui text-xs font-bold text-white uppercase tracking-wider">
-                  {featuredPost.category}
+                <div className="absolute top-4 start-4 rounded-lg bg-brand-red px-3 py-1 font-ui text-xs font-bold text-white uppercase tracking-wider">
+                  {catLabel(featuredPost.category)}
                 </div>
               </div>
 
@@ -197,8 +204,8 @@ export function BlogsContent() {
                     href={`/blogs/${featuredPost.slug}`}
                     className="font-ui inline-flex items-center gap-1.5 text-xs font-bold text-brand-red hover:text-ink transition-colors"
                   >
-                    <span>Read Guide</span>
-                    <ArrowRight className="size-4" />
+                    <span>{t("blog.readGuide")}</span>
+                    <ArrowRight className="size-4 rtl:rotate-180" />
                   </Link>
                 </div>
               </div>
@@ -212,17 +219,18 @@ export function BlogsContent() {
         <Container>
           <div className="mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <SectionHeading
-              eyebrow="All Articles"
-              title="Browse Auto Parts Guides"
-              description="Filtered insights covering fitment protocols, sourcing original stock, and GCC supply chain operations."
+              eyebrow={t("blog.allArticles")}
+              title={t("blog.browseTitle")}
+              description={t("blog.browseDesc")}
             />
 
             {/* Category Chips */}
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2" role="group" aria-label={t("blog.filterAria")}>
               {categories.map((cat) => (
                 <button
                   key={cat}
                   type="button"
+                  aria-pressed={selectedCategory === cat}
                   onClick={() => {
                     setSelectedCategory(cat);
                     setPage(1);
@@ -233,7 +241,7 @@ export function BlogsContent() {
                       : "border border-slate-200 bg-slate-50 text-slate-600 hover:border-slate-300 hover:text-ink"
                   }`}
                 >
-                  {cat}
+                  {catLabel(cat)}
                 </button>
               ))}
             </div>
@@ -242,9 +250,9 @@ export function BlogsContent() {
           {filteredPosts.length === 0 ? (
             <div className="py-16 text-center border border-dashed border-slate-200 rounded-3xl bg-slate-50/50">
               <Search className="mx-auto size-10 text-slate-400" />
-              <h3 className="font-display mt-4 text-xl font-bold text-ink uppercase">No matching guides found</h3>
+              <h3 className="font-display mt-4 text-xl font-bold text-ink uppercase">{t("blog.noResultsTitle")}</h3>
               <p className="mt-2 text-sm text-slate-500">
-                Try adjusting your search terms or selecting another category.
+                {t("blog.noResultsDesc")}
               </p>
               <button
                 type="button"
@@ -255,7 +263,7 @@ export function BlogsContent() {
                 }}
                 className="font-ui mt-4 inline-flex items-center gap-2 rounded-xl bg-brand-red px-5 py-2.5 text-xs font-bold text-white uppercase"
               >
-                Reset Filters
+                {t("blog.resetFilters")}
               </button>
             </div>
           ) : (
@@ -274,8 +282,8 @@ export function BlogsContent() {
                       sizes="(min-width: 1024px) 31vw, (min-width: 640px) 48vw, 100vw"
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
-                    <div className="absolute top-3 left-3 rounded-md bg-slate-950/80 px-2.5 py-1 text-[10px] font-bold text-white uppercase tracking-wider backdrop-blur-md">
-                      {post.category}
+                    <div className="absolute top-3 start-3 rounded-md bg-slate-950/80 px-2.5 py-1 text-[10px] font-bold text-white uppercase tracking-wider backdrop-blur-md">
+                      {catLabel(post.category)}
                     </div>
                   </div>
 
@@ -312,8 +320,8 @@ export function BlogsContent() {
                         href={`/blogs/${post.slug}`}
                         className="font-ui inline-flex items-center gap-1 text-xs font-bold text-brand-red group-hover:text-ink transition-colors"
                       >
-                        <span>Read</span>
-                        <ArrowRight className="size-3.5 transition-transform duration-200 group-hover:translate-x-1" />
+                        <span>{t("blog.read")}</span>
+                        <ArrowRight className="size-3.5 transition-transform duration-200 group-hover:translate-x-1 rtl:rotate-180 rtl:group-hover:-translate-x-1" />
                       </Link>
                     </div>
                   </div>
@@ -332,23 +340,23 @@ export function BlogsContent() {
           <div className="rounded-3xl border border-white/10 bg-gradient-to-r from-slate-900 to-slate-950 p-8 sm:p-12 lg:grid lg:grid-cols-12 lg:items-center lg:gap-12">
             <div className="lg:col-span-7">
               <span className="font-ui text-xs font-bold uppercase tracking-widest text-brand-red">
-                Stay Informed
+                {t("blog.nl.eyebrow")}
               </span>
               <h2 className="font-display mt-2 text-3xl font-black uppercase tracking-[-0.005em] sm:tracking-[-0.02em] sm:text-4xl">
-                Get Wholesale Parts Market Updates
+                {t("blog.nl.title")}
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-slate-300 max-w-xl">
-                Subscribe for monthly technical bulletins covering Chinese vehicle catalog supersessions, new model parts releases, and GCC logistics tips.
+                {t("blog.nl.copy")}
               </p>
 
               <div className="mt-6 flex flex-wrap gap-4 text-xs text-slate-400">
                 <span className="flex items-center gap-1.5">
                   <CheckCircle2 className="size-4 text-brand-red" />
-                  <span>No Spam, Only Trade Info</span>
+                  <span>{t("blog.nl.point1")}</span>
                 </span>
                 <span className="flex items-center gap-1.5">
                   <CheckCircle2 className="size-4 text-brand-red" />
-                  <span>Monthly Technical Dispatch</span>
+                  <span>{t("blog.nl.point2")}</span>
                 </span>
               </div>
             </div>
@@ -357,9 +365,9 @@ export function BlogsContent() {
               {subscribed ? (
                 <div className="rounded-2xl border border-emerald-500/30 bg-emerald-950/40 p-6 text-center animate-in zoom-in-95 duration-200">
                   <CheckCircle2 className="mx-auto size-10 text-emerald-400" />
-                  <h3 className="font-display mt-3 text-lg font-bold text-white uppercase">Subscription Confirmed!</h3>
+                  <h3 className="font-display mt-3 text-lg font-bold text-white uppercase">{t("blog.nl.confirmTitle")}</h3>
                   <p className="mt-1 text-xs text-slate-300">
-                    We'll send our next parts bulletin to <strong className="text-white">{newsletterEmail}</strong>.
+                    {t("blog.nl.confirmPre")}<strong className="text-white">{newsletterEmail}</strong>{t("blog.nl.confirmPost")}
                   </p>
                 </div>
               ) : (
@@ -369,15 +377,15 @@ export function BlogsContent() {
                     required
                     value={newsletterEmail}
                     onChange={(e) => setNewsletterEmail(e.target.value)}
-                    placeholder="Enter workshop / corporate email..."
+                    placeholder={t("blog.nl.placeholder")}
                     className="w-full rounded-xl border border-white/20 bg-white/10 px-4 py-3.5 text-sm text-white placeholder-slate-400 outline-none focus:border-brand-red transition-colors"
                   />
                   <button
                     type="submit"
                     className="font-ui inline-flex items-center justify-center gap-2 rounded-xl bg-brand-red py-3.5 text-xs font-bold text-white uppercase tracking-wider hover:bg-white hover:text-ink transition-colors cursor-pointer"
                   >
-                    <span>Subscribe to Bulletins</span>
-                    <ArrowRight className="size-4" />
+                    <span>{t("blog.nl.subscribe")}</span>
+                    <ArrowRight className="size-4 rtl:rotate-180" />
                   </button>
                 </form>
               )}
@@ -391,27 +399,27 @@ export function BlogsContent() {
         <Container className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
           <div className="max-w-2xl">
             <span className="font-ui text-xs tracking-[0.25em] text-brand-red uppercase font-bold">
-              Need Direct Assistance?
+              {t("blog.help.eyebrow")}
             </span>
             <h2 className="font-display mt-3 text-3xl font-black uppercase tracking-[-0.005em] sm:tracking-[-0.02em] sm:text-4xl">
-              Ask our parts specialists about your vehicle.
+              {t("blog.help.title")}
             </h2>
             <p className="mt-3 text-sm leading-relaxed text-slate-400">
-              Send your VIN number or part photo directly for instantaneous stock check & pricing.
+              {t("blog.help.copy")}
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
             <a
-              href="https://wa.me/97165335866?text=Hi%20Shanghai%20Global,%20I%20have%20a%20part%20inquiry%20from%20your%20blog."
+              href={`https://wa.me/97165335866?text=${encodeURIComponent(t("blog.wa.blogInquiry"))}`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-6 py-3.5 text-xs font-bold text-white uppercase transition-colors hover:bg-emerald-500"
             >
               <MessageCircle className="size-4 fill-white text-emerald-600" />
-              <span>WhatsApp Instant Quote</span>
+              <span>{t("blog.help.whatsapp")}</span>
             </a>
             <Button href="/products" variant="outline" className="border-white text-white hover:bg-white hover:text-ink">
-              Browse Products
+              {t("blog.help.products")}
             </Button>
           </div>
         </Container>

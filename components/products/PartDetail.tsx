@@ -50,7 +50,10 @@ export function PartDetail({
   const related = getRelatedParts(product, brandId, modelSlug);
 
   const whatsappText = encodeURIComponent(
-    `Hi Shanghai Global, I'd like a quote for ${product.name} (${sku}) for ${brand.name} ${model}.`,
+    t("misc.part.whatsappText")
+      .replace("{product}", name)
+      .replace("{sku}", sku)
+      .replace("{vehicle}", `${bName} ${model}`),
   );
 
   return (
@@ -71,7 +74,7 @@ export function PartDetail({
             <div className="bg-paper relative aspect-square overflow-hidden">
               <Image
                 src={product.image.src}
-                alt={product.image.alt}
+                alt={isRTL && product.nameAr ? product.nameAr : product.image.alt}
                 fill
                 priority
                 sizes="(min-width: 1024px) 50vw, 100vw"

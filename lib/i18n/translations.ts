@@ -1,3 +1,10 @@
+import { blogsEn, blogsAr } from "./extra/blogs";
+import { careersEn, careersAr } from "./extra/careers";
+import { pagesEn, pagesAr } from "./extra/pages";
+import { heroEn, heroAr } from "./extra/hero";
+import { layoutEn, layoutAr } from "./extra/layout";
+import { miscEn, miscAr } from "./extra/misc";
+
 export type Language = "en" | "ar";
 
 export const translations = {
@@ -352,6 +359,12 @@ export const translations = {
       "Body panels and exterior accessories with a matched fit and finish.",
     "catdesc.transmission": "Transmission and drivetrain parts for smooth power delivery.",
     "catdesc.cooling": "Cooling system parts that keep the engine at the right temperature.",
+    ...blogsEn,
+    ...careersEn,
+    ...pagesEn,
+    ...heroEn,
+    ...layoutEn,
+    ...miscEn,
   },
   ar: {
     // Navigation
@@ -701,6 +714,12 @@ export const translations = {
     "catdesc.body-accessories": "أجزاء الهيكل والإكسسوارات الخارجية بتركيب وتشطيب متطابقين.",
     "catdesc.transmission": "قطع ناقل الحركة والدفع لنقل سلس للقدرة.",
     "catdesc.cooling": "قطع نظام التبريد للحفاظ على حرارة المحرك المناسبة.",
+    ...blogsAr,
+    ...careersAr,
+    ...pagesAr,
+    ...heroAr,
+    ...layoutAr,
+    ...miscAr,
   },
 } as const;
 

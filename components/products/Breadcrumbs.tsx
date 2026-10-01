@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { cn } from "@/lib/utils/cn";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 export interface Crumb {
   label: string;
@@ -11,8 +12,9 @@ export interface Crumb {
 }
 
 export function Breadcrumbs({ items, tone = "light" }: { items: Crumb[]; tone?: "light" | "dark" }) {
+  const { t } = useLanguage();
   return (
-    <nav aria-label="Breadcrumb">
+    <nav aria-label={t("misc.nav.breadcrumb")}>
       <ol
         className={cn(
           "font-ui flex flex-wrap items-center gap-2 text-[11px] tracking-wide uppercase",

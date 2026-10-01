@@ -22,7 +22,7 @@ import { Logo } from "@/components/brand/Logo";
 import { Container } from "@/components/ui/Container";
 import { MobileNav } from "@/components/layout/MobileNav";
 import { categories } from "@/lib/data/categories";
-import { categoryKey } from "@/lib/data/catalog";
+import { categoryKey, categoryDescKey } from "@/lib/data/catalog";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher";
 import { cn } from "@/lib/utils/cn";
@@ -82,12 +82,12 @@ export function Header() {
       >
         <Container className="flex items-center justify-between">
           {/* Logo with White Tone */}
-          <Link href="/" aria-label="Shanghai Global Auto Parts — Home" className="shrink-0">
+          <Link href="/" aria-label={t("lay.homeAria", "Shanghai Global Auto Parts — Home")} className="shrink-0">
             <Logo tone="white" />
           </Link>
 
           {/* Desktop Primary Navigation */}
-          <nav className="hidden items-center gap-1 xl:gap-2 lg:flex" aria-label="Primary">
+          <nav className="hidden items-center gap-1 xl:gap-2 lg:flex" aria-label={t("lay.primaryNav", "Primary")}>
             <Link
               href="/"
               className={cn(
@@ -171,7 +171,7 @@ export function Header() {
                               {t(catLabelKey, cat.label)}
                             </div>
                             <div className="truncate text-[11px] text-zinc-400">
-                              {cat.description}
+                              {t(categoryDescKey(cat.id), cat.description)}
                             </div>
                           </div>
                         </Link>
@@ -236,7 +236,7 @@ export function Header() {
             <LanguageSwitcher />
 
             <a
-              href="https://wa.me/97165335866?text=Hi%20Shanghai%20Global,%20I%20need%20a%20part%20quote%20for%20my%20vehicle."
+              href={`https://wa.me/97165335866?text=${encodeURIComponent(t("lay.waQuoteMsg", "Hi Shanghai Global, I need a part quote for my vehicle."))}`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 rounded-full bg-emerald-600 px-3.5 py-2 text-xs font-bold tracking-wide text-white shadow-md shadow-emerald-950/40 transition-transform hover:bg-emerald-500 hover:scale-[1.02]"
@@ -259,7 +259,7 @@ export function Header() {
             <button
               type="button"
               className="flex size-10 items-center justify-center rounded-xl border border-white/20 bg-white/10 text-white transition-colors hover:bg-white/15 cursor-pointer"
-              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              aria-label={menuOpen ? t("lay.closeMenu", "Close menu") : t("lay.openMenu", "Open menu")}
               aria-expanded={menuOpen}
               onClick={() => setMenuOpen((v) => !v)}
             >

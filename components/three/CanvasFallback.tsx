@@ -1,4 +1,9 @@
+"use client";
+
+import { useLanguage } from "@/lib/i18n/LanguageContext";
+
 export function CanvasFallback() {
+  const { t } = useLanguage();
   return (
     <div className="relative flex h-full w-full items-center justify-center" aria-hidden>
       <div className="relative flex flex-col items-center justify-center p-8 text-center">
@@ -19,7 +24,7 @@ export function CanvasFallback() {
           <div className="h-8 w-36 rounded-b-xl border-2 border-slate-700 bg-slate-200" />
         </div>
         <span className="font-mono text-xs tracking-widest text-slate-500 uppercase">
-          Loading 3D Engine Schematic...
+          {t("viewer.loading")}
         </span>
       </div>
     </div>
